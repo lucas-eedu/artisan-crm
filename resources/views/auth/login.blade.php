@@ -12,17 +12,17 @@
       <!-- /.login-logo -->
       <div class="card card-outline card-primary">
          <div class="card-header text-center">
-            <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+            <a href="#" class="h1"><b>Artisan</b>CRM</a>
          </div>
          <div class="card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">Faça login para iniciar sua sessão</p>
             
             <form action="{{ route('login') }}" method="post">
                
                @csrf
 
                <div class="input-group mb-3">
-                  <input type="email" class="form-control" placeholder="Email" id="email" placeholder="E-mail" name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
+                  <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" id="email" placeholder="E-mail" name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
                   <div class="input-group-append">
                      <div class="input-group-text">
                         <span class="fas fa-envelope"></span>
@@ -31,7 +31,7 @@
                </div>
 
                <div class="input-group mb-3">
-                  <input type="password" class="form-control" name="password" autocomplete="current-password" id="user-password" placeholder="Informe a senha">
+                  <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="current-password" id="user-password" placeholder="Informe a senha">
                   <div class="input-group-append">
                      <div class="input-group-text">
                         <span class="fas fa-lock"></span>
@@ -53,10 +53,10 @@
 
             </form>
 
-            <div class="social-auth-links text-center mt-2 mb-3">
+            {{-- <div class="social-auth-links text-center mt-2 mb-3">
                <a href="#" class="btn btn-block btn-primary"><i class="fab fa-facebook mr-2"></i> Entre usando o Facebook</a>
-               <a href="#" class="btn btn-block btn-danger"><i class="fab fa-google-plus mr-2"></i> Entre usando o Google+</a>
-            </div>
+               <a href="#" class="btn btn-block btn-danger"><i class="fab fa-google-plus mr-2"></i> Entre usando o Google+&nbsp;&nbsp;&nbsp;</a>
+            </div> --}}
 
             <!-- /.social-auth-links -->
             @if (Route::has('password.request'))
