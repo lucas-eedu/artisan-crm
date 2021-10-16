@@ -53,10 +53,10 @@
 
             </form>
 
-            <div class="social-auth-links text-center mt-2 mb-3">
+            {{-- <div class="social-auth-links text-center mt-2 mb-3">
                <a href="#" class="btn btn-block btn-primary"><i class="fab fa-facebook mr-2"></i> Entre usando o Facebook</a>
                <a href="#" class="btn btn-block btn-danger"><i class="fab fa-google-plus mr-2"></i> Entre usando o Google+&nbsp;&nbsp;&nbsp;</a>
-            </div>
+            </div> --}}
 
             <!-- /.social-auth-links -->
             @if (Route::has('password.request'))
