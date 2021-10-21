@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use Illuminate\Http\Request;
+use App\Http\Requests\PermissionRequest;
 
 class PermissionController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +19,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
+        $permissions = Permission::all();
+
+        return view('permissions.index', compact('permissions'));
     }
 
     /**
@@ -23,7 +31,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        return view('permissions.create');
     }
 
     /**
@@ -32,9 +40,14 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermissionRequest $request)
     {
-        //
+        $data = $request->all();
+
+        Permission::create($data);
+
+        flash('Permissão criada com sucesso!')->success();
+        return redirect()->route('permission.index');
     }
 
     /**
@@ -56,7 +69,9 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+
+        return view('permissions.edit', compact('permission'));
     }
 
     /**
@@ -66,9 +81,15 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PermissionRequest $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $permission = Permission::findOrFail($id);
+        $permission->update($data);
+
+        flash('Permissão atualizada com sucesso!')->success();
+        return redirect()->route('permission.index');
     }
 
     /**
@@ -79,6 +100,10 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+        $permission->delete();
+
+        flash('Permissão excluída com sucesso!')->success();
+        return redirect()->route('permission.index');
     }
 }
