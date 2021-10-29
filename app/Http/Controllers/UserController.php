@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\PermissionRequest;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Hash;
 
-class PermissionController extends Controller
-{    
+class UserController extends Controller
+{
     /**
      * __construct
      *
@@ -17,7 +18,7 @@ class PermissionController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -25,9 +26,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::all();
+        $users = User::paginate(10);
 
-        return view('permissions.index', compact('permissions'));
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -37,7 +38,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('permissions.create');
+        return view('users.create');
     }
 
     /**
@@ -46,14 +47,15 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PermissionRequest $request)
+    public function store(UserRequest $request)
     {
         $data = $request->all();
+        $data['password'] = Hash::make($data['password']);
 
-        Permission::create($data);
+        User::create($data);
 
-        flash('Permissão criada com sucesso!')->success();
-        return redirect()->route('permission.index');
+        flash('Usuário criado com sucesso!')->success();
+        return redirect()->route('user.index');
     }
 
     /**
@@ -62,11 +64,9 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $permission = Permission::findOrFail($id);
-
-        return view('permissions.edit', compact('permission'));
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -76,15 +76,20 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PermissionRequest $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $data = $request->all();
+        if($data['password']) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
 
-        $permission = Permission::findOrFail($id);
-        $permission->update($data);
+        $user = User::find($id);
+        $user->update($data);
 
-        flash('Permissão atualizada com sucesso!')->success();
-        return redirect()->route('permission.index');
+        flash('Usuário editado com sucesso!')->success();
+        return redirect()->route('user.index');
     }
 
     /**
@@ -93,12 +98,11 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $permission = Permission::findOrFail($id);
-        $permission->delete();
+        $user->delete();
 
-        flash('Permissão excluída com sucesso!')->success();
-        return redirect()->route('permission.index');
+        flash('Usuário removido com sucesso!')->success();
+        return redirect()->route('user.index');
     }
 }
