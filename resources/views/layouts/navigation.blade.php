@@ -225,13 +225,11 @@
                <ul class="nav nav-treeview" style="display: none;">
                   <li class="nav-item">
                      <a href="{{route('permission.index')}}" class="nav-link">
-                        {{-- <i class="far fa-circle nav-icon"></i> --}}
                         <p>Permissões</p>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="../../index2.html" class="nav-link">
-                        {{-- <i class="far fa-circle nav-icon"></i> --}}
+                     <a href="{{route('profile.index')}}" class="nav-link">
                         <p>Perfis</p>
                      </a>
                   </li>
