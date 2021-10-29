@@ -55,26 +55,24 @@ class PermissionController extends Controller
         flash('Permissão criada com sucesso!')->success();
         return redirect()->route('permission.index');
     }
-
+      
     /**
-     * Show the form for editing the specified resource.
+     * edit
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  mixed $permission
+     * @return void
      */
-    public function edit($id)
+    public function edit(Permission $permission)
     {
-        $permission = Permission::findOrFail($id);
-
         return view('permissions.edit', compact('permission'));
     }
-
+   
     /**
-     * Update the specified resource in storage.
+     * update
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  mixed $request
+     * @param  mixed $id
+     * @return void
      */
     public function update(PermissionRequest $request, $id)
     {
@@ -93,9 +91,8 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Permission $permission)
     {
-        $permission = Permission::findOrFail($id);
         $permission->delete();
 
         flash('Permissão excluída com sucesso!')->success();
