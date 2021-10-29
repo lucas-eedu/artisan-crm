@@ -18,7 +18,7 @@ Route::redirect('/', '/login');
 Route::namespace('App\Http\Controllers')->group(function() {
     Route::get('/dashboard', 'PageController@dashboard')->name('dashboard');
 
-    // Route::resource('user', 'UserController');
+    Route::resource('user', 'UserController');
     Route::resource('permission', 'PermissionController');
     // Route::resource('profile', 'ProfileController');
 });
