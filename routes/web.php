@@ -20,7 +20,7 @@ Route::namespace('App\Http\Controllers')->group(function() {
 
     Route::resource('user', 'UserController');
     Route::resource('permission', 'PermissionController');
-    // Route::resource('profile', 'ProfileController');
+    Route::resource('profile', 'ProfileController');
 });
 
 require __DIR__.'/auth.php';
