@@ -41,12 +41,6 @@
             <div class="card-header">
                <h3 class="card-title">Lista de Permissões</h3>
                <div class="card-tools">
-                  {{-- <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                    <i class="fas fa-times"></i>
-                  </button> --}}
                   <a href="{{route('permission.create')}}" class="btn btn-tool" title="Adicionar Nova Permissão">
                      <i class="fas fa-plus"></i>
                      Adicionar
@@ -73,13 +67,18 @@
                               <small>{{ \Carbon\Carbon::parse($permission->created_at)->format('d/m/Y') }}</small>
                            </td>
                            <td>{{$permission->code}}</td>
-                           <td class="project-actions btn-group">
-                              <a class="btn btn-info btn-sm" href="{{ route('permission.edit', ['permission' => $permission->id]) }}"><i class="fas fa-pencil-alt"></i> Editar</a>
-                              <form method="POST" action="{{ route('permission.destroy', ['permission' => $permission->id]) }}" onsubmit="return confirm('Tem certeza que deseja excluir este item?');">
-                                 @csrf
-                                 @method('DELETE')
-                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Deletar</button>
-                              </form>
+                           <td style="border:0px;">
+                              <button type="button" class="btn btn-info btn-flat dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                                 <i class="fas fa-align-justify"></i>
+                              </button>
+                              <div class="dropdown-menu" role="menu" style="">
+                                 <a class="dropdown-item" href="{{ route('permission.edit', ['permission' => $permission->id]) }}">Editar</a>
+                                 <form method="POST" action="{{ route('permission.destroy', ['permission' => $permission->id]) }}" onsubmit="return confirm('Tem certeza que deseja excluir este item?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="Excluir" class="dropdown-item">
+                                 </form>
+                              </div>
                            </td>
                         </tr>
                      @endforeach
@@ -87,6 +86,15 @@
                </table>
             </div>
             <!-- /.card-body -->
+            <div class="card-footer clearfix">
+               <ul class="pagination pagination-sm m-0 float-left">
+                  <li>Total: {{ $permissions->total() }} Permissões</li>
+               </ul>
+               <ul class="pagination pagination-sm m-0 float-right">
+                  {{$permissions->links()}}
+               </ul>
+            </div>
+            <!-- /.card-footer -->
          </div>
          <!-- /.card -->
       </section>

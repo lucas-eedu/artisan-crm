@@ -41,12 +41,6 @@
             <div class="card-header">
                <h3 class="card-title">Lista de Usuários</h3>
                <div class="card-tools">
-                  {{-- <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                    <i class="fas fa-times"></i>
-                  </button> --}}
                   <a href="{{route('user.create')}}" class="btn btn-tool" title="Adicionar Novo Usuário">
                      <i class="fas fa-plus"></i>
                      Adicionar
@@ -93,10 +87,14 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
+               <ul class="pagination pagination-sm m-0 float-left">
+                  <li>Total: {{ $users->total() }} Usuários</li>
+               </ul>
                <ul class="pagination pagination-sm m-0 float-right">
                   {{$users->links()}}
                </ul>
-             </div>
+            </div>
+            <!-- /.card-footer -->
          </div>
          <!-- /.card -->
       </section>
