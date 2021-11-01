@@ -85,6 +85,9 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
+               <ul class="pagination pagination-sm m-0 float-left">
+                  <li>Total: {{ $profiles->total() }} Perfis</li>
+               </ul>
                <ul class="pagination pagination-sm m-0 float-right">
                   {{$profiles->links()}}
                </ul>
