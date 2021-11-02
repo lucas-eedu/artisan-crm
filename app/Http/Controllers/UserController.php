@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('created_at', 'ASC')->paginate(10);
+        $users = User::with('profile')->paginate(10);
 
         return view('users.index', compact('users'));
     }
@@ -38,7 +39,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $profiles = Profile::orderBy('name')->get();
+        
+        return view('users.create', compact('profiles'));
     }
 
     /**
@@ -66,7 +69,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $profiles = Profile::orderBy('name')->get();
+        
+        return view('users.edit', compact('user', 'profiles'));
     }
 
     /**

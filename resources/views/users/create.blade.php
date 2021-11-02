@@ -61,6 +61,20 @@
                      @enderror
                   </div>
                   <div class="form-group">
+                     <label for="profile_id">Perfil de Acesso</label>
+                     <select id="profile_id" class="form-control @error('profile_id') is-invalid @enderror" name="profile_id">
+                        <option value="">Selecione</option>
+                        @foreach($profiles as $profile)
+                           <option value="{{$profile->id}}" @if ($profile->id == old('profile_id')) selected="selected" @endif>{{$profile->name}}</option>
+                        @endforeach
+                     </select>
+                     @error('profile_id')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror
+                  </div>
+                  <div class="form-group">
                      <label for="password">Senha</label>
                      <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="********" id="password" name="password" value="">
                      @error('password')
