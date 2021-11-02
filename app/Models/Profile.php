@@ -50,4 +50,8 @@ class Profile extends Model
     public function permissions() {
         return $this->belongsToMany(Permission::class)->withTimestamps();;
     }
+
+    public function users() {
+        return $this->hasMany(User::class);
+    }
 }
