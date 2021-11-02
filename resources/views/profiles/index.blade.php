@@ -41,7 +41,7 @@
             <div class="card-header">
                <h3 class="card-title">Lista de Perfis</h3>
                <div class="card-tools">
-                  <a href="{{route('profile.create')}}" class="btn btn-tool" title="Adicionar Nova Permissão">
+                  <a href="{{route('profile.create')}}" class="btn btn-tool" title="Adicionar Novo Perfil">
                      <i class="fas fa-plus"></i>
                      Adicionar
                    </a>
