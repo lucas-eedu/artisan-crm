@@ -28,12 +28,14 @@ class UserRequest extends FormRequest
             return [
                 'name' => 'required|string|min:2|max:255',
                 'email' => 'required|string|email|max:255|unique:users,email,' . $this->user,
+                'profile_id' => 'required'
             ];
         } else {
             return [
                 'name' => 'required|string|min:2|max:255',
                 'email' => 'required|string|email|max:255|unique:users,email,' . $this->user,
                 'password' => 'required|string|min:8',
+                'profile_id' => 'required'
             ];
         }
     }
