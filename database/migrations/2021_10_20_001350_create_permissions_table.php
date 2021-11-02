@@ -15,6 +15,7 @@ class CreatePermissionsTable extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->uuid('id')->primary()->nullable(false);
+            $table->index('id');
             $table->string('name', 100)->unique();
             $table->string('code', 100)->unique();
             $table->timestamps();

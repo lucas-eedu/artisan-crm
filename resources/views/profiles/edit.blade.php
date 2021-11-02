@@ -52,6 +52,37 @@
                         </span>
                      @enderror
                   </div>
+                  <div class="form-group" id="campoUsuarios">
+                     <label class="label-control" for="permissions">
+                        Permissões deste Perfil
+                     </label>
+
+                     <fieldset class="checkbox ml-1" style="background:#F0F0F0; padding-top:0.5em; margin-bottom:0.5em;">
+                        <label>
+                           <input id="checkboxPermissionToggler" type="checkbox" name="" value=""> <i>Marcar/desmarcar todos</i><br>
+                        </label>
+                     </fieldset>
+
+                     @foreach($permissions as $permission)
+                        <fieldset class="checkbox ml-1">
+                           <label>
+                              <input class="checkboxPermission" type="checkbox" name="permissions[]" value="{{$permission->id}}" @if (old('permissions') && in_array($permission->id, old('permissions')))
+                              checked="checked"
+                              @elseif($profile->permissions->contains($permission->id))
+                                 checked="checked"
+                              @endif >
+                                 {{$permission->name}}
+                              <br>
+                           </label>
+                        </fieldset>
+                     @endforeach
+
+                     @error('permissions')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror
+                  </div>
                </div>
                <!-- /.card-body -->
                <div class="card-footer">

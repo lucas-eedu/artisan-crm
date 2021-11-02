@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 
@@ -36,7 +37,8 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        return view('profiles.create');
+        $permissions = Permission::orderBy('name')->get();
+        return view('profiles.create', compact('permissions'));
     }
 
     /**
@@ -49,7 +51,11 @@ class ProfileController extends Controller
     {
         $data = $request->all();
         
-        Profile::create($data);
+        $profile = Profile::create($data);
+
+        if (isset($data['permissions'])) {
+            $profile->permissions()->sync($data['permissions']);
+        }
 
         flash('Perfil criado com sucesso!')->success();
         return redirect()->route('profile.index');
@@ -63,7 +69,8 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
-        return view('profiles.edit', compact('profile'));
+        $permissions = Permission::orderBy('name')->get();
+        return view('profiles.edit', compact('profile', 'permissions'));
     }
 
     /**
@@ -79,6 +86,12 @@ class ProfileController extends Controller
 
         $profile = Profile::findOrFail($id);
         $profile->update($data);
+
+        if (isset($data['permissions'])) {
+            $profile->permissions()->sync($data['permissions']);
+        } else {
+            $profile->permissions()->sync(array());
+        }
 
         flash('Perfil atualizada com sucesso!')->success();
         return redirect()->route('profile.index');
