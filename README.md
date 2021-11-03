@@ -28,7 +28,7 @@ https://github.com/lucas-eedu/artisan-crm.git
 - Na linha 14 substitua o "usuario_do_mysql" pelo nome do seu usuário MySQL
 - Na linha 15 substitua o "senha_do_mysql" pela senha do seu usuário MySQL
 
-4. Rode os comandos:
+5. Rode os comandos:
 
     Para instalar o composer e suas dependências no projeto
     ```bash
@@ -36,7 +36,7 @@ https://github.com/lucas-eedu/artisan-crm.git
     ```
 
     É usado para definir uma nova chave no seu arquivo .env(Essa chave é usada pelo serviço de criptografia do Laravel - Illuminate). 
-    
+
     Referência: [Guilherme Nascimento](https://pt.stackoverflow.com/questions/434922/para-que-serve-o-comando-keygenerate-do-laravel)
     ```bash
     php artisan key:generate
