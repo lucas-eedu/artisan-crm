@@ -10,16 +10,47 @@ O Artisan CRM(Customer Relationship Management) é um software open source desen
 - [Link Example](https://laravel.com/).
 - [Link Example](https://laravel.com/).
 
-## Build CRM
-- Baixe o repositório para o seu local
-- Crie seu banco de dados MySQL
-- Copie e cole o arquivo .env-example para .env
-- Configure o arquivo .env com o nome do banco, usuário e senha do mysql
-- Rode os comandos:
-- - composer install
-- - php artisan key:generate
-- - php artisan storage:link
-- - php artisan migrate
+## Instalação
+Você pode instalar este projeto via github ou fazendo download do repositório zipado.
+
+1. Instalando via github:
+
+```bash
+https://github.com/lucas-eedu/artisan-crm.git
+```
+
+2. Crie um novo banco de dados no seu MySQL;
+
+3. Dentro do diretório do projeto crie um arquivo chamado .env e cole as informações do arquivo .env-example
+
+4. Configurando o arquivo .env com seus dados:
+- Na linha 13 substitua o "seu_banco_de_dados" pelo nome do banco de dados que você criou no passo 2
+- Na linha 14 substitua o "usuario_do_mysql" pelo nome do seu usuário MySQL
+- Na linha 15 substitua o "senha_do_mysql" pela senha do seu usuário MySQL
+
+4. Rode os comandos:
+
+    Para instalar o composer e suas dependências no projeto
+    ```bash
+    composer install
+    ```
+
+    É usado para definir uma nova chave no seu arquivo .env(Essa chave é usada pelo serviço de criptografia do Laravel - Illuminate). 
+    
+    Referência: [Guilherme Nascimento](https://pt.stackoverflow.com/questions/434922/para-que-serve-o-comando-keygenerate-do-laravel)
+    ```bash
+    php artisan key:generate
+    ```
+
+    Para instalar o composer e suas dependências no projeto
+    ```bash
+    php artisan storage:link
+    ```
+
+    Para instalar o composer e suas dependências no projeto
+    ```bash
+    php artisan migrate
+    ```
 
 ## Objetivo e Construção
 
