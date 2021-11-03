@@ -10,6 +10,17 @@ O Artisan CRM(Customer Relationship Management) é um software open source desen
 - [Link Example](https://laravel.com/).
 - [Link Example](https://laravel.com/).
 
+## Build CRM
+- Baixe o repositório para o seu local
+- Crie seu banco de dados MySQL
+- Copie e cole o arquivo .env-example para .env
+- Configure o arquivo .env com o nome do banco, usuário e senha do mysql
+- Rode os comandos:
+- - composer install
+- - php artisan key:generate
+- - php artisan storage:link
+- - php artisan migrate
+
 ## Objetivo e Construção
 
 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis pariatur sunt amet voluptate aliquid! Et, cupiditate. Sint modi debitis minima, harum magni, error, aliquam sed possimus repellat voluptatibus hic maxime.
