@@ -27,8 +27,6 @@ class PopulateUsersTable extends Migration
      */
     public function down()
     {
-        DB::statement("
-            delete from users;
-        ");
+        //
     }
 }
