@@ -16,7 +16,7 @@ Você pode instalar este projeto via github ou fazendo download do repositório 
 1. Instalando via github:
 
 ```bash
-https://github.com/lucas-eedu/artisan-crm.git
+git clone https://github.com/lucas-eedu/artisan-crm.git
 ```
 
 2. Crie um novo banco de dados no seu MySQL;
@@ -35,22 +35,29 @@ https://github.com/lucas-eedu/artisan-crm.git
     composer install
     ```
 
-    É usado para definir uma nova chave no seu arquivo .env(Essa chave é usada pelo serviço de criptografia do Laravel - Illuminate). 
-
-    Referência: [Guilherme Nascimento](https://pt.stackoverflow.com/questions/434922/para-que-serve-o-comando-keygenerate-do-laravel)
+    É usado para definir uma nova chave no seu arquivo .env que é usada pelo serviço de criptografia do Laravel - Illuminate. 
     ```bash
     php artisan key:generate
     ```
 
-    Para instalar o composer e suas dependências no projeto
+    Cria um link simbólico entre uma subpasta em seu diretório de armazenamento(public/storage) e o diretório público(storage/app/public).
     ```bash
     php artisan storage:link
     ```
 
-    Para instalar o composer e suas dependências no projeto
+    Executa todas as migrations do projeto.
     ```bash
     php artisan migrate
     ```
+
+    Iniciar um servidor de desenvolvimento para o projeto Laravel
+    ```bash
+    php artisan serve
+    ```
+
+6. Acessando o CRM:
+- No seu navegador acesse a URL http://localhost:8000
+- Acesse o CRM com o e-mail: lucas01.dev@gmail.com e com a senha: server@123
 
 ## Objetivo e Construção
 
