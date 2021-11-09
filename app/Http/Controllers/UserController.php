@@ -18,6 +18,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->authorizeResource(User::class, 'user');
     }
 
     /**
@@ -81,7 +82,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(UserRequest $request, User $user)
     {
         $data = $request->all();
         if($data['password']) {
@@ -90,10 +91,9 @@ class UserController extends Controller
             unset($data['password']);
         }
 
-        $user = User::find($id);
         $user->update($data);
 
-        flash('Usuário editado com sucesso!')->success();
+        flash('Usuário atualizado com sucesso!')->success();
         return redirect()->route('user.index');
     }
 
@@ -105,6 +105,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if ($user->id == 1) {
+            abort('403', 'Proibido excluir o usuário SuperAdministrador');
+        }
+
         $user->delete();
 
         flash('Usuário removido com sucesso!')->success();
