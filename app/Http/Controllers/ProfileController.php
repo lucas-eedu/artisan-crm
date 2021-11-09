@@ -106,7 +106,8 @@ class ProfileController extends Controller
     public function destroy(Profile $profile)
     {
         if ($profile->id == 1) {
-            abort('403', 'Proibido excluir o perfil SuperAdministrador');
+            flash('Não é possível excluir o perfil SuperAdministrador.')->error();
+            return redirect()->route('user.index');
         }
 
         $profile->delete();
