@@ -106,7 +106,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         if ($user->id == 1) {
-            abort('403', 'Proibido excluir o usuário SuperAdministrador');
+            flash('Não é possível excluir o usuário SuperAdministrador.')->error();
+            return redirect()->route('user.index');
         }
 
         $user->delete();
