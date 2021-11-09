@@ -51,7 +51,6 @@
                <table class="table table-striped projects">
                   <thead>
                      <tr>
-                        <th>ID</th>
                         <th>Nome</th>
                         <th>E-mail</th>
                         <th>Perfil</th>
@@ -61,7 +60,6 @@
                   <tbody>
                      @foreach ($users as $user)
                         <tr>
-                           <td>{{$user->id}}</td>
                            <td>
                               <a>{{$user->name}}</a>
                               <br/>
