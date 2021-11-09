@@ -51,7 +51,6 @@
                <table class="table table-striped projects">
                   <thead>
                      <tr>
-                        <th>ID</th>
                         <th>Nome</th>
                         <th>Código</th>
                         <th width="250">Ações</th>
@@ -60,7 +59,6 @@
                   <tbody>
                      @foreach ($permissions as $permission)
                         <tr>
-                           <td>{{$permission->id}}</td>
                            <td>
                               <a>{{$permission->name}}</a>
                               <br/>
