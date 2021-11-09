@@ -33,7 +33,7 @@ class AlterUsersTableAddProfile extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_profile_id_foreign');
+            $table->dropForeign('users_profile');
             $table->dropColumn('profile_id');
         });
     }
