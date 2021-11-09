@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProfileRequest extends FormRequest
@@ -24,7 +25,7 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:50|unique:profiles,name,' . $this->profile,
+            'name' => ['required', 'string', 'min:2', 'max:50', Rule::unique('profiles', 'name')->ignore($this->profile)],
         ];
     }
 }
