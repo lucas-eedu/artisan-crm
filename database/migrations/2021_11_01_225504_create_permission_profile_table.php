@@ -25,12 +25,14 @@ class CreatePermissionProfileTable extends Migration
             $table
                 ->foreign('permission_id', 'permission_profile')
                 ->references('id')
-                ->on('permissions');
+                ->on('permissions')
+                ->onDelete('cascade');
 
             $table
                 ->foreign('profile_id', 'profile_permission')
                 ->references('id')
-                ->on('profiles');
+                ->on('profiles')
+                ->onDelete('cascade');
 
             $table->timestamps();
         });
