@@ -211,11 +211,13 @@
                         <p>Permissões</p>
                      </a>
                   </li>
-                  <li class="nav-item">
-                     <a href="{{route('profile.index')}}" class="nav-link">
-                        <p>Perfis</p>
-                     </a>
-                  </li>
+                  @can('viewAny', \App\Models\Profile::class)
+                     <li class="nav-item">
+                        <a href="{{route('profile.index')}}" class="nav-link">
+                           <p>Perfis</p>
+                        </a>
+                     </li>
+                  @endcan
                </ul>
             </li>
             <li class="nav-item">
