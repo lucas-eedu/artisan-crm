@@ -75,4 +75,12 @@ class User extends Authenticatable
     public function profile() {
         return $this->belongsTo(Profile::class);
     }
+
+    public function containsPermission($permissionCode) {
+        if ($this->profile_id) {
+            return $this->profile->permissions->pluck('code')->contains($permissionCode);
+        } else {
+            return false;
+        }
+    }
 }

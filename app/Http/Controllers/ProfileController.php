@@ -16,6 +16,7 @@ class ProfileController extends Controller
      */
     public function __construct() {
         $this->middleware('auth');
+        $this->authorizeResource(Profile::class, 'profile');
     }
 
     /**
@@ -80,11 +81,10 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProfileRequest $request, $id)
+    public function update(ProfileRequest $request, Profile $profile)
     {
         $data = $request->all();
 
-        $profile = Profile::findOrFail($id);
         $profile->update($data);
 
         if (isset($data['permissions'])) {
@@ -105,6 +105,10 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
+        if ($profile->id == 1) {
+            abort('403', 'Proibido excluir o perfil SuperAdministrador');
+        }
+
         $profile->delete();
 
         flash('Perfil removido com sucesso!')->success();

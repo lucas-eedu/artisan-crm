@@ -16,6 +16,7 @@ class PermissionController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->authorizeResource(Permission::class, 'permission');
     }
     
     /**
@@ -74,11 +75,10 @@ class PermissionController extends Controller
      * @param  mixed $id
      * @return void
      */
-    public function update(PermissionRequest $request, $id)
+    public function update(PermissionRequest $request, Permission $permission)
     {
         $data = $request->all();
-
-        $permission = Permission::findOrFail($id);
+        
         $permission->update($data);
 
         flash('Permissão atualizada com sucesso!')->success();
