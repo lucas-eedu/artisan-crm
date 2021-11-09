@@ -206,11 +206,13 @@
                   </p>
                </a>
                <ul class="nav nav-treeview" style="display: none;">
-                  <li class="nav-item">
-                     <a href="{{route('permission.index')}}" class="nav-link">
-                        <p>Permissões</p>
-                     </a>
-                  </li>
+                  @can('viewAny', \App\Models\Permission::class)
+                     <li class="nav-item">
+                        <a href="{{route('permission.index')}}" class="nav-link">
+                           <p>Permissões</p>
+                        </a>
+                     </li>
+                  @endcan
                   @can('viewAny', \App\Models\Profile::class)
                      <li class="nav-item">
                         <a href="{{route('profile.index')}}" class="nav-link">
