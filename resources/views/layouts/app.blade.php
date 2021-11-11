@@ -40,10 +40,9 @@
 
             {{-- Footer --}}
             <footer class="main-footer">
-                <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-                All rights reserved.
+                <strong>Powered by: <a href="https://github.com/lucas-eedu" target="_blank">Lucas Eduardo</a>.</strong>
                 <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> v0.0.1
+                <b>Versão</b> v0.0.1
                 </div>
             </footer>
             
