@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -114,5 +115,36 @@ class UserController extends Controller
 
         flash('Usuário removido com sucesso!')->success();
         return redirect()->route('user.index');
+    }
+
+    public function myProfile() {
+        if(!Gate::allows('user_myprofile')) {
+            abort(403);
+        }
+
+        $user = User::findOrFail(auth()->user()->id);
+
+        return view('users.myprofile', compact('user'));
+    }
+
+    public function myProfileUpdate(UserRequest $request) {
+        if (! Gate::allows('user_myprofile')) {
+            abort(403);
+        }
+
+        $user = User::findOrFail(auth()->user()->id);
+
+        $data = $request->all();
+
+        if ($data['password']) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
+        $user->update($data);
+
+        flash('Dados atualizados com sucesso!')->success();
+        return redirect()->route('myProfile');
     }
 }
