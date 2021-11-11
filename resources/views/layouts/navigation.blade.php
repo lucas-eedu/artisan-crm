@@ -128,14 +128,16 @@
       <!-- Profile Dropdown Menu -->
       <li class="nav-item dropdown">
          <a class="nav-link" data-toggle="dropdown" href="#" style="padding-top:4px;">
-            <img src="{{ asset('template/dist/img/user1-128x128.jpg') }}" alt="{{auth()->user()->name}}" class="img-circle" style="width:30px;height:auto;">
+            <img src="{{asset('template/dist/img/user1-128x128.jpg')}}" alt="{{auth()->user()->name}}" class="img-circle" style="width:30px;height:auto;">
          </a>
          <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-            <a href="#" class="dropdown-item">
-               <i class="fas fa-user mr-2"></i> Meu Perfil
-            </a>
+            @can('user_myprofile')
+               <a href="{{route('myProfile')}}" class="dropdown-item">
+                  <i class="fas fa-user mr-2"></i> Meu Perfil
+               </a>
+            @endcan
             <div class="dropdown-divider"></div>
-            <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Sair do sistema">
+            <a href="{{route('logout')}}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Sair do sistema">
                <i class="fas fa-power-off mr-2"></i> Sair
             </a>
          </div>
@@ -174,7 +176,7 @@
             </li>
             @can('viewAny', \App\Models\User::class)
                <li class="nav-item">
-                  <a href="{{ route('user.index') }}" class="nav-link">
+                  <a href="{{route('user.index')}}" class="nav-link">
                      <i class="nav-icon fas fa-users"></i>
                      <p>Usuários</p>
                   </a>
@@ -214,13 +216,13 @@
                </a>
             </li>
             <li class="nav-item">
-               <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Sair do sistema">
+               <a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Sair do sistema">
                   <i class="nav-icon fas fa-power-off"></i>
                   <p>
                      Sair
                   </p>
                </a>
-               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+               <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
                   @csrf
                </form>
             </li>
