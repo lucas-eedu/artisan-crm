@@ -125,15 +125,22 @@
             <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
          </div>
       </li>
-      <li class="nav-item">
-         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-         <i class="fas fa-expand-arrows-alt"></i>
+      <!-- Profile Dropdown Menu -->
+      <li class="nav-item dropdown">
+         <a class="nav-link" data-toggle="dropdown" href="#" style="padding-top:4px;">
+            <img src="{{asset('template/dist/img/user1-128x128.jpg')}}" alt="{{auth()->user()->name}}" class="img-circle" style="width:30px;height:auto;">
          </a>
-      </li>
-      <li class="nav-item">
-         <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
-         <i class="fas fa-th-large"></i>
-         </a>
+         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+            @can('user_myprofile')
+               <a href="{{route('myProfile')}}" class="dropdown-item">
+                  <i class="fas fa-user mr-2"></i> Meu Perfil
+               </a>
+            @endcan
+            <div class="dropdown-divider"></div>
+            <a href="{{route('logout')}}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Sair do sistema">
+               <i class="fas fa-power-off mr-2"></i> Sair
+            </a>
+         </div>
       </li>
    </ul>
 </nav>
@@ -148,31 +155,9 @@
    </a>
    <!-- Sidebar -->
    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-         <div class="image">
-            <img src="{{ asset('template/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
-         </div>
-         <div class="info">
-            <a href="#" class="d-block">{{auth()->user()->name}}</a>
-         </div>
-      </div> --}}
-      <!-- SidebarSearch Form -->
-      {{-- <div class="form-inline">
-         <div class="input-group" data-widget="sidebar-search">
-            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-               <button class="btn btn-sidebar">
-               <i class="fas fa-search fa-fw"></i>
-               </button>
-            </div>
-         </div>
-      </div> --}}
       <!-- Sidebar Menu -->
       <nav class="mt-2">
          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
             <li class="nav-item">
                <a href="{{route('dashboard')}}" class="nav-link">
                   <i class="nav-icon fas fa-chart-pie"></i>
@@ -191,7 +176,7 @@
             </li>
             @can('viewAny', \App\Models\User::class)
                <li class="nav-item">
-                  <a href="{{ route('user.index') }}" class="nav-link">
+                  <a href="{{route('user.index')}}" class="nav-link">
                      <i class="nav-icon fas fa-users"></i>
                      <p>Usuários</p>
                   </a>
@@ -231,13 +216,13 @@
                </a>
             </li>
             <li class="nav-item">
-               <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Sair do sistema">
+               <a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Sair do sistema">
                   <i class="nav-icon fas fa-power-off"></i>
                   <p>
                      Sair
                   </p>
                </a>
-               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+               <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
                   @csrf
                </form>
             </li>
