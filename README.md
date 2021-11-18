@@ -57,7 +57,7 @@ git clone https://github.com/lucas-eedu/artisan-crm.git
 
 6. Acessando o CRM:
 - No seu navegador acesse a URL http://localhost:8000
-- Acesse o CRM com o e-mail: lucas01.dev@gmail.com e com a senha: server@123
+- Acesse o CRM com o e-mail: admin@admin.com e com a senha: admin@123
 
 ## Objetivo e Construção
 

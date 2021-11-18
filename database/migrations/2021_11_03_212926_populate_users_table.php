@@ -16,7 +16,7 @@ class PopulateUsersTable extends Migration
     {
         DB::statement("
             INSERT INTO `users` (`id`, `name`, `email`, `password`, `profile_id`) VALUES
-            (1, 'Lucas Eduardo', 'lucas01.dev@gmail.com', '" . bcrypt('server@123') . "', 1);
+            (1, 'Lucas Eduardo', 'admin@admin.com', '" . bcrypt('admin@123') . "', 1);
         ");
     }
 
