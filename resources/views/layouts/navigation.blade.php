@@ -167,12 +167,14 @@
                </a>
             </li>
             <li class="nav-item">
-               <a href="pages/widgets.html" class="nav-link">
-                  <i class="nav-icon fas fa-archway"></i>
-                  <p>
-                     Empresas
-                  </p>
-               </a>
+               @can('viewAny', \App\Models\Company::class)
+                  <a href="{{route('company.index')}}" class="nav-link">
+                     <i class="nav-icon fas fa-archway"></i>
+                     <p>
+                        Empresas
+                     </p>
+                  </a>
+               @endcan
             </li>
             @can('viewAny', \App\Models\User::class)
                <li class="nav-item">
