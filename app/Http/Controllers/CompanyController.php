@@ -16,6 +16,7 @@ class CompanyController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->authorizeResource(Company::class, 'company');
     }
     
     /**
@@ -46,7 +47,7 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
         $data = $request->all();
 
@@ -74,7 +75,7 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(CompanyRequest $request, Company $company)
     {
         $data = $request->all();
         
