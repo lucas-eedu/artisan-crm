@@ -11,6 +11,9 @@
       <link rel="stylesheet" href="{{ asset('template/plugins/fontawesome-free/css/all.min.css') }}">
       <!-- icheck bootstrap -->
       <link rel="stylesheet" href="{{ asset('template/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+      <!-- Select2 -->
+      <link rel="stylesheet" href="{{ asset('template/plugins/select2/css/select2.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
       <!-- Theme style -->
       <link rel="stylesheet" href="{{ asset('template/dist/css/adminlte.min.css') }}">
    </head>
@@ -23,8 +26,16 @@
       <script src="{{ asset('template/plugins/jquery/jquery.min.js') }}"></script>
       <!-- Bootstrap 4 -->
       <script src="{{ asset('template/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+      <!-- Select2 -->
+      <script src="{{ asset('template/plugins/select2/js/select2.full.min.js') }}"></script>
       <!-- AdminLTE App -->
       <script src="{{ asset('template/dist/js/adminlte.min.js') }}"></script>
-
+      <!-- Initialize select2.js -->
+      <script>
+         $(function () {
+           //Initialize Select2 Elements
+           $('.select2').select2()
+         })
+      </script>
    </body>
 </html>
