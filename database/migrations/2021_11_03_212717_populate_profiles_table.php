@@ -16,7 +16,7 @@ class PopulateProfilesTable extends Migration
     {
         DB::statement("
             INSERT INTO `profiles` (`id`, `name`) VALUES
-            (1, 'SuperAdministrador');
+            (1, 'SuperAdministrator');
         ");
 
         DB::statement("
