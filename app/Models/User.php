@@ -50,7 +50,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'profile_id'
+        'profile_id',
+        'company_id'
     ];
 
     /**
@@ -85,6 +86,6 @@ class User extends Authenticatable
     }
 
     public function company() {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Company::class);
     }
 }
