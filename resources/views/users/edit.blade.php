@@ -65,7 +65,7 @@
                   </div>
                   <div class="form-group">
                      <label for="profile_id">Perfil</label>
-                     <select id="profile_id" class="form-control @error('profile_id') is-invalid @enderror" name="profile_id">
+                     <select id="profile_id" class="select2 form-control @error('profile_id') is-invalid @enderror" name="profile_id">
                            <option value="">Selecione</option>
                            @foreach($profiles as $profile)
                               <option value="{{$profile->id}}" @if ($profile->id == old('profile_id', $user->profile_id)) selected="selected" @endif>{{$profile->name}}</option>
