@@ -43,6 +43,20 @@
                @csrf
                <div class="card-body">
                   <div class="form-group">
+                     <label for="company_id">Empresa</label>
+                     <select id="company_id" class="select2 form-control @error('company_id') is-invalid @enderror" name="company_id">
+                        <option value="">Selecione</option>
+                        @foreach($companies as $company)
+                           <option value="{{$company->id}}" @if ($company->id == old('company_id')) selected="selected" @endif>{{$company->name}}</option>
+                        @endforeach
+                     </select>
+                     @error('company_id')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror
+                  </div>
+                  <div class="form-group">
                      <label for="name">Nome</label>
                      <input type="text" class="form-control  @error('name') is-invalid @enderror" placeholder="Ex: Lucas Eduardo" id="name" name="name" value="{{old('name')}}">
                      @error('name')

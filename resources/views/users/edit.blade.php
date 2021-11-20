@@ -45,6 +45,12 @@
                @method("PUT")
 
                <div class="card-body">
+                  @if ($user->company)
+                     <div class="form-group">
+                        <label>Empresa</label>
+                        <input type="text" class="form-control  @error('company_name') is-invalid @enderror" value="{{$user->name}}" disabled>
+                     </div>
+                  @endif
                   <div class="form-group">
                      <label for="name">Nome</label>
                      <input type="text" class="form-control  @error('name') is-invalid @enderror" placeholder="Ex: Lucas Eduardo" id="name" name="name" value="{{old('name', $user->name)}}">
