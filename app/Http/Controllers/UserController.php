@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Company;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
@@ -30,7 +31,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('profile_id', 1)->paginate(10);
+        $users = User::with('profile')->paginate(10);
 
         return view('users.index', compact('users'));
     }
@@ -42,9 +43,10 @@ class UserController extends Controller
      */
     public function create()
     {
+        $companies = Company::orderBy('name')->get();
         $profiles = Profile::orderBy('name')->get();
         
-        return view('users.create', compact('profiles'));
+        return view('users.create', compact('companies', 'profiles'));
     }
 
     /**
