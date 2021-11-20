@@ -54,7 +54,8 @@
                         <th>Nome</th>
                         <th>E-mail</th>
                         <th>Perfil</th>
-                        <th width="250">Ações</th>
+                        <th>Empresa</th>
+                        <th>Ações</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -67,6 +68,11 @@
                            </td>
                            <td>{{$user->email}}</td>
                            <td>{{$user->profile->name}}</td>
+                           @if (isset($user->company))
+                              <td>{{$user->company->name}}</td>
+                           @else
+                              <td></td>
+                           @endif
                            <td style="border:0px;">
                               <button type="button" class="btn btn-info btn-flat dropdown-icon" data-toggle="dropdown" aria-expanded="false">
                                  <i class="fas fa-align-justify"></i>

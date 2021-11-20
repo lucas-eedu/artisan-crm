@@ -94,7 +94,7 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         if ($company->users()) {
-            flash('Não é possível excluir um empresa que tenha usuários!')->error();
+            flash('Não é possível excluir uma empresa que tenha usuários!')->error();
             return redirect()->route('company.index');
         }
 

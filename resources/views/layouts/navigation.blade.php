@@ -184,31 +184,33 @@
                   </a>
                </li>
             @endcan
-            <li class="nav-item">
-               <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-cogs"></i>
-                  <p>
-                     Configurações
-                     <i class="right fas fa-angle-left"></i>
-                  </p>
-               </a>
-               <ul class="nav nav-treeview" style="display: none;">
-                  @can('viewAny', \App\Models\Permission::class)
-                     <li class="nav-item">
-                        <a href="{{route('permission.index')}}" class="nav-link">
-                           <p>Permissões</p>
-                        </a>
-                     </li>
-                  @endcan
-                  @can('viewAny', \App\Models\Profile::class)
-                     <li class="nav-item">
-                        <a href="{{route('profile.index')}}" class="nav-link">
-                           <p>Perfis</p>
-                        </a>
-                     </li>
-                  @endcan
-               </ul>
-            </li>
+            @if (Auth::user()->can('viewAny', \App\Models\Permission::class) || Auth::user()->can('viewAny', \App\Models\Profile::class))
+               <li class="nav-item">
+                  <a href="#" class="nav-link">
+                     <i class="nav-icon fas fa-cogs"></i>
+                     <p>
+                        Configurações
+                        <i class="right fas fa-angle-left"></i>
+                     </p>
+                  </a>
+                  <ul class="nav nav-treeview" style="display: none;">
+                     @can('viewAny', \App\Models\Permission::class)
+                        <li class="nav-item">
+                           <a href="{{route('permission.index')}}" class="nav-link">
+                              <p>Permissões</p>
+                           </a>
+                        </li>
+                     @endcan
+                     @can('viewAny', \App\Models\Profile::class)
+                        <li class="nav-item">
+                           <a href="{{route('profile.index')}}" class="nav-link">
+                              <p>Perfis</p>
+                           </a>
+                        </li>
+                     @endcan
+                  </ul>
+               </li>
+            @endif
             <li class="nav-item">
                <a href="pages/widgets.html" class="nav-link">
                   <i class="nav-icon fas fa-bell"></i>
