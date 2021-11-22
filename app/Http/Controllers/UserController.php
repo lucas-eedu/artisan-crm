@@ -31,7 +31,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('profile')->paginate(10);
+        if(auth()->user()->profile_id == 1) {
+            $users = User::with('profile')->orderBy('company_id')->paginate(10);
+        } else {
+            $users = User::where('company_id', auth()->user()->company_id)->paginate(10);
+        }
 
         return view('users.index', compact('users'));
     }
@@ -43,8 +47,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        $companies = Company::orderBy('name')->get();
-        $profiles = Profile::orderBy('name')->get();
+        $companies = [];
+        if(auth()->user()->profile_id == 1) {
+            $companies = Company::orderBy('name')->get();
+            $profiles = Profile::orderBy('name')->get();
+        } else {
+            $profiles = Profile::where('id', '!=', 1)->orWhereNull('id')->orderBy('name')->get();
+        }
         
         return view('users.create', compact('companies', 'profiles'));
     }
@@ -60,6 +69,10 @@ class UserController extends Controller
         $data = $request->all();
         $data['password'] = Hash::make($data['password']);
 
+        if(auth()->user()->profile_id != 1 && $data['company_id'] != auth()->user()->company_id) {
+            abort(403, 'Você não tem permissão para criar usuários de outras empresas.');
+        }
+        
         User::create($data);
 
         flash('Usuário criado com sucesso!')->success();
@@ -74,8 +87,15 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $profiles = Profile::orderBy('name')->get();
-        
+        if(auth()->user()->profile_id == 1) {
+            $profiles = Profile::orderBy('name')->get();
+        } else {
+            if($user->company_id != auth()->user()->company_id) {
+                abort(403, 'Você não tem permissão para editar usuários de outras empresas.');
+            }
+            $profiles = Profile::where('id', '!=', 1)->orWhereNull('id')->orderBy('name')->get();
+        }
+
         return view('users.edit', compact('user', 'profiles'));
     }
 
@@ -88,11 +108,20 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
+        if(auth()->user()->profile_id != 1 && $user->company_id != auth()->user()->company_id) {
+            abort(403, 'Você não tem permissão para editar usuários de outras empresas.');
+        }
+
         $data = $request->all();
         if($data['password']) {
             $data['password'] = Hash::make($data['password']);
         } else {
             unset($data['password']);
+        }
+
+        if($user->id == auth()->user()->id && $user->status != $data['status']) {
+            flash('Você não pode mudar o status do próprio usuário!')->error();
+            return redirect()->route('user.index');
         }
 
         $user->update($data);
@@ -109,8 +138,17 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if($user->company_id != auth()->user()->company_id) {
+            abort(403, 'Você não tem permissão para excluir usuários de outras empresas.');
+        }
+
         if ($user->id == 1) {
             flash('Não é possível excluir o usuário SuperAdministrador.')->error();
+            return redirect()->route('user.index');
+        }
+
+        if ($user->id == auth()->user()->id) {
+            flash('Não é possível excluir o próprio usuário')->error();
             return redirect()->route('user.index');
         }
 
@@ -127,7 +165,7 @@ class UserController extends Controller
      */
     public function myProfile() {
         if(!Gate::allows('user_myprofile')) {
-            abort(403);
+            abort(403, 'Você não tem permissão para editar o perfil.');
         }
 
         $user = User::findOrFail(auth()->user()->id);
@@ -143,7 +181,7 @@ class UserController extends Controller
      */
     public function myProfileUpdate(UserMyProfileRequest $request) {
         if (! Gate::allows('user_myprofile')) {
-            abort(403);
+            abort(403, 'Você não tem permissão para editar o perfil.');
         }
 
         $user = User::findOrFail(auth()->user()->id);
