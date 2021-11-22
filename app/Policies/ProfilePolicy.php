@@ -18,7 +18,7 @@ class ProfilePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->containsPermission('user_viewAny');
+        return $user->containsPermission('profile_viewAny');
     }
 
     /**
@@ -30,7 +30,7 @@ class ProfilePolicy
      */
     public function view(User $user, Profile $profile)
     {
-        return $user->containsPermission('user_viewAny');
+        return $user->containsPermission('profile_viewAny');
     }
 
     /**
@@ -41,7 +41,7 @@ class ProfilePolicy
      */
     public function create(User $user)
     {
-        return $user->containsPermission('user_create');
+        return $user->containsPermission('profile_create');
     }
 
     /**
@@ -53,7 +53,7 @@ class ProfilePolicy
      */
     public function update(User $user, Profile $profile)
     {
-        return $user->containsPermission('user_update');
+        return $user->containsPermission('profile_update');
     }
 
     /**
@@ -65,6 +65,6 @@ class ProfilePolicy
      */
     public function delete(User $user, Profile $profile)
     {
-        return $user->containsPermission('user_delete');
+        return $user->containsPermission('profile_delete');
     }
 }
