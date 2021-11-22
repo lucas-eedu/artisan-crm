@@ -6,7 +6,7 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Company extends Model
+class Product extends Model
 {
     use HasFactory, Uuid;
 
@@ -22,7 +22,7 @@ class Company extends Model
      *
      * @var string
      */
-    protected $table = 'companies';
+    protected $table = 'products';
  
     /**
      * keyType
@@ -45,19 +45,11 @@ class Company extends Model
      */
     protected $fillable = [
         'name',
-        'segment',
-        'state',
-        'number_employees',
-        'status'
+        'status',
+        'company_id',
     ];
 
-    public function users() 
-    {
-        return $this->hasMany(User::class);
-    }
-
-    public function products()
-    {
-        return $this->hasMany(Product::class);
+    public function company() {
+        return $this->belongsTo(Company::class);
     }
 }
