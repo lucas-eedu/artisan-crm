@@ -55,6 +55,7 @@
                         <th>E-mail</th>
                         <th>Perfil</th>
                         <th>Empresa</th>
+                        <th>Status</th>
                         <th>Ações</th>
                      </tr>
                   </thead>
@@ -64,7 +65,7 @@
                            <td>
                               <a>{{$user->name}}</a>
                               <br/>
-                              <small>{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y') }}</small>
+                              <small>Criado em: {{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y') }}</small>
                            </td>
                            <td>{{$user->email}}</td>
                            <td>{{$user->profile->name}}</td>
@@ -73,6 +74,7 @@
                            @else
                               <td></td>
                            @endif
+                           <td>@if ($user->status == 'active') Ativo @else Inativo @endif</td>
                            <td style="border:0px;">
                               <button type="button" class="btn btn-info btn-flat dropdown-icon" data-toggle="dropdown" aria-expanded="false">
                                  <i class="fas fa-align-justify"></i>

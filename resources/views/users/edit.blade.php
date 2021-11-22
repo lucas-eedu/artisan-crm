@@ -48,7 +48,7 @@
                   @if ($user->company)
                      <div class="form-group">
                         <label>Empresa</label>
-                        <input type="text" class="form-control  @error('company_name') is-invalid @enderror" value="{{$user->name}}" disabled>
+                        <input type="text" class="form-control  @error('company_name') is-invalid @enderror" value="{{$user->company->name}}" disabled>
                      </div>
                   @endif
                   <div class="form-group">
@@ -78,6 +78,19 @@
                            @endforeach
                      </select>
                      @error('profile_id')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror
+                  </div>
+                  <div class="form-group">
+                     <label for="status">Status:</label>
+                     <select id="status" class="select2 form-control @error('status') is-invalid @enderror" name="status">
+                        <option value="">Selecione</option>
+                        <option value="active" @if ("active" == old('status', $user->status)) selected="selected" @endif>Ativo - Com acesso ao CRM</option>
+                        <option value="inactive" @if ("inactive" == old('status', $user->status)) selected="selected" @endif>Inativo - Sem acesso ao CRM</option>
+                     </select>
+                     @error('status')
                         <span class="invalid-feedback" role="alert">
                            <strong>{{ $message }}</strong>
                         </span>
