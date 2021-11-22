@@ -41,21 +41,26 @@
             <!-- /.card-header -->
             <form method="post" action="{{route('user.store')}}" enctype="multipart/form-data">
                @csrf
+               @if (auth()->user()->profile_id != 1)
+                  <input type="hidden"  name="company_id" value="{{auth()->user()->company_id}}">
+               @endif
                <div class="card-body">
-                  <div class="form-group">
-                     <label for="company_id">Empresa</label>
-                     <select id="company_id" class="select2 form-control @error('company_id') is-invalid @enderror" name="company_id">
-                        <option value="">Selecione</option>
-                        @foreach($companies as $company)
-                           <option value="{{$company->id}}" @if ($company->id == old('company_id')) selected="selected" @endif>{{$company->name}}</option>
-                        @endforeach
-                     </select>
-                     @error('company_id')
-                        <span class="invalid-feedback" role="alert">
-                           <strong>{{ $message }}</strong>
-                        </span>
-                     @enderror
-                  </div>
+                  @if (auth()->user()->profile_id == 1)
+                     <div class="form-group">
+                        <label for="company_id">Empresa</label>
+                        <select id="company_id" class="select2 form-control @error('company_id') is-invalid @enderror" name="company_id">
+                           <option value="">Selecione</option>
+                           @foreach($companies as $company)
+                              <option value="{{$company->id}}" @if ($company->id == old('company_id')) selected="selected" @endif>{{$company->name}}</option>
+                           @endforeach
+                        </select>
+                        @error('company_id')
+                           <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                           </span>
+                        @enderror
+                     </div>
+                  @endif
                   <div class="form-group">
                      <label for="name">Nome</label>
                      <input type="text" class="form-control  @error('name') is-invalid @enderror" placeholder="Ex: Lucas Eduardo" id="name" name="name" value="{{old('name')}}">
@@ -83,6 +88,18 @@
                         @endforeach
                      </select>
                      @error('profile_id')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror
+                  </div>
+                  <div class="form-group">
+                     <label for="status">Status:</label>
+                     <select id="status" class="select2 form-control @error('status') is-invalid @enderror" name="status">
+                        <option value="active" @if ("active" == old('status')) selected="selected" @endif>Ativo - Com acesso ao CRM</option>
+                        <option value="inactive" @if ("inactive" == old('status')) selected="selected" @endif>Inativo - Sem acesso ao CRM</option>
+                     </select>
+                     @error('status')
                         <span class="invalid-feedback" role="alert">
                            <strong>{{ $message }}</strong>
                         </span>
