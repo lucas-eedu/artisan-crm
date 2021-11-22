@@ -22,6 +22,7 @@ Route::namespace('App\Http\Controllers')->group(function() {
     Route::resource('permission', 'PermissionController');
     Route::resource('profile', 'ProfileController');
     Route::resource('company', 'CompanyController');
+    Route::resource('product', 'ProductController');
 
     Route::get('/myprofile', 'UserController@myProfile')->name('myProfile');
     Route::put('/myprofile', 'UserController@myProfileUpdate')->name('myProfileUpdate');
