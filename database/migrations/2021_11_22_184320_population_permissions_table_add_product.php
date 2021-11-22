@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PopulatePermissionsTableAddCompany extends Migration
+class PopulationPermissionsTableAddProduct extends Migration
 {
     /**
      * Run the migrations.
@@ -16,18 +16,18 @@ class PopulatePermissionsTableAddCompany extends Migration
     {
         DB::statement("
             INSERT INTO `permissions` (`id`, `name`, `code`) VALUES
-            (14, 'Empresa - Listar', 'company_viewAny'),
-            (15, 'Empresa - Editar', 'company_update'),
-            (16, 'Empresa - Cadastrar', 'company_create'),
-            (17, 'Empresa - Excluir', 'company_delete');
+            (18, 'Produto - Listar', 'product_viewAny'),
+            (19, 'Produto - Editar', 'product_update'),
+            (20, 'Produto - Cadastrar', 'product_create'),
+            (21, 'Produto - Excluir', 'product_delete');
         ");
 
         DB::statement("
             INSERT INTO `permission_profile` (`profile_id`, `permission_id`) VALUES
-            (1, 14),
-            (1, 15),
-            (1, 16),
-            (1, 17);
+            (2, 18),
+            (2, 19),
+            (2, 20),
+            (2, 21);
         ");
     }
 
