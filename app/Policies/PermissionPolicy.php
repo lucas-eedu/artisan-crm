@@ -18,7 +18,7 @@ class PermissionPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->containsPermission('user_viewAny');
+        return $user->containsPermission('permission_viewAny');
     }
 
     /**
@@ -30,7 +30,7 @@ class PermissionPolicy
      */
     public function view(User $user, Permission $permission)
     {
-        return $user->containsPermission('user_viewAny');
+        return $user->containsPermission('permission_viewAny');
     }
 
     /**
@@ -41,7 +41,7 @@ class PermissionPolicy
      */
     public function create(User $user)
     {
-        return $user->containsPermission('user_create');
+        return $user->containsPermission('permission_create');
     }
 
     /**
@@ -53,7 +53,7 @@ class PermissionPolicy
      */
     public function update(User $user, Permission $permission)
     {
-        return $user->containsPermission('user_update');
+        return $user->containsPermission('permission_update');
     }
 
     /**
@@ -65,6 +65,6 @@ class PermissionPolicy
      */
     public function delete(User $user, Permission $permission)
     {
-        return $user->containsPermission('user_delete');
+        return $user->containsPermission('permission_delete');
     }
 }
