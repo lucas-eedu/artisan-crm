@@ -16,10 +16,10 @@ class PopulatePermissionsTableAddCompany extends Migration
     {
         DB::statement("
             INSERT INTO `permissions` (`id`, `name`, `code`) VALUES
-            (14, 'Company - Listar', 'company_viewAny'),
-            (15, 'Company - Editar', 'company_update'),
-            (16, 'Company - Cadastrar', 'company_create'),
-            (17, 'Company - Excluir', 'company_delete');
+            (14, 'Empresa - Listar', 'company_viewAny'),
+            (15, 'Empresa - Editar', 'company_update'),
+            (16, 'Empresa - Cadastrar', 'company_create'),
+            (17, 'Empresa - Excluir', 'company_delete');
         ");
 
         DB::statement("
