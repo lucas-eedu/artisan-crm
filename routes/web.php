@@ -23,6 +23,7 @@ Route::namespace('App\Http\Controllers')->group(function() {
     Route::resource('profile', 'ProfileController');
     Route::resource('company', 'CompanyController');
     Route::resource('product', 'ProductController');
+    Route::resource('origin', 'OriginController');
 
     Route::get('/myprofile', 'UserController@myProfile')->name('myProfile');
     Route::put('/myprofile', 'UserController@myProfileUpdate')->name('myProfileUpdate');

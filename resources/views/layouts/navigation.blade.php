@@ -184,7 +184,7 @@
                   </a>
                </li>
             @endcan
-            @if (Auth::user()->can('viewAny', \App\Models\Permission::class) || Auth::user()->can('viewAny', \App\Models\Profile::class))
+            @if (Auth::user()->can('viewAny', \App\Models\Permission::class) || Auth::user()->can('viewAny', \App\Models\Profile::class) || Auth::user()->can('viewAny', \App\Models\Product::class) || Auth::user()->can('viewAny', \App\Models\Origin::class))
                <li class="nav-item">
                   <a href="#" class="nav-link">
                      <i class="nav-icon fas fa-cogs"></i>
@@ -205,6 +205,20 @@
                         <li class="nav-item">
                            <a href="{{route('profile.index')}}" class="nav-link">
                               <p>Perfis</p>
+                           </a>
+                        </li>
+                     @endcan
+                     @can('viewAny', \App\Models\Product::class)
+                        <li class="nav-item">
+                           <a href="{{route('product.index')}}" class="nav-link">
+                              <p>Produtos</p>
+                           </a>
+                        </li>
+                     @endcan
+                     @can('viewAny', \App\Models\Origin::class)
+                        <li class="nav-item">
+                           <a href="{{route('origin.index')}}" class="nav-link">
+                              <p>Origens</p>
                            </a>
                         </li>
                      @endcan
