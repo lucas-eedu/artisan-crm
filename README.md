@@ -1,70 +1,107 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-## Sobre o Artisan CRM
+## About Artisan CRM
+Artisan CRM (Customer Relationship Management) is an open source software developed using the [Laravel](https://laravel.com/) framework and the [AdminLTE](https://adminlte.io/) template in the MVC standard.
 
-O Artisan CRM(Customer Relationship Management) é um software open source desenvolvido utilizando o framework [Laravel](https://laravel.com/) e o template [AdminLTE](https://adminlte.io/) no padrão MVC.
+## Requirements Docker Installation
+- [Kool.dev](https://koo.dev/);
+- [Docker and Docker Compose](https://docker.com/);
 
-- [Link Example](https://laravel.com/).
-- [Link Example](https://laravel.com/).
-- [Link Example](https://laravel.com/).
-- [Link Example](https://laravel.com/).
-- [Link Example](https://laravel.com/).
+## Requirements Local Installation
+- [PHP](https://www.php.net/manual/en/install.php);
+- [MySQL](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/);
+- [Node](https://nodejs.org/en/download/);
+- [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm);
+- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/);
+- [Composer](https://getcomposer.org/);
+- Apache or Nginx.
 
-## Instalação
-Você pode instalar este projeto via github ou fazendo download do repositório zipado.
+## Docker Installation (Recommended)
 
-1. Instalando via github:
+1. Installing via github:
 
 ```bash
 git clone https://github.com/lucas-eedu/artisan-crm.git
 ```
 
-2. Crie um novo banco de dados no seu MySQL;
+2. Run the commands:
 
-3. Dentro do diretório do projeto crie um arquivo chamado .env e cole as informações do arquivo .env-example
-
-4. Configurando o arquivo .env com seus dados:
-- Na linha 13 substitua o "seu_banco_de_dados" pelo nome do banco de dados que você criou no passo 2
-- Na linha 14 substitua o "usuario_do_mysql" pelo nome do seu usuário MySQL
-- Na linha 15 substitua o "senha_do_mysql" pela senha do seu usuário MySQL
-
-5. Rode os comandos:
-
-    Para instalar o composer e suas dependências no projeto
+    For Kool to configure the project setup
     ```bash
-    composer install
+    kool run setup
     ```
 
-    É usado para definir uma nova chave no seu arquivo .env que é usada pelo serviço de criptografia do Laravel - Illuminate. 
+    Run all project migrations.
+    ```bash
+    kool exec app php artisan migrate
+    ```
+
+    Runs all project seeds.
+    ```bash
+    kool exec app php artisan db:seed
+    ```
+
+6. Accessing the CRM locally:
+- In your browser, access the URL http://localhost
+- Access CRM with email: admin@admin.com and password: admin@123
+
+## Local Installation
+You can install this project via github or by downloading the zipped repository.
+
+1. Installing via github:
+
+```bash
+git clone https://github.com/lucas-eedu/artisan-crm.git
+```
+
+2. Create a new database in your MySQL;
+
+3. Access the project directory:
+
+```bash
+cp .env.local.example .env
+```
+
+4. Configuring the .env file with your data:
+- On line 13 replace "your_database" with the name of the database you created in step 2
+- On line 14 replace "mysql_username" with your MySQL username
+- On line 15 replace the "mysql_password" with the password of your MySQL user
+
+5. Run the commands:
+
+    To install project dependencies
+    ```bash
+    composer install && yarn install && yarn dev
+    ```
+
+    It is used to define a new key in your .env file which is used by Laravel's encryption service - Illuminate.
     ```bash
     php artisan key:generate
     ```
 
-    Cria um link simbólico entre uma subpasta em seu diretório de armazenamento(public/storage) e o diretório público(storage/app/public).
+    Create a symbolic link between a subfolder in your storage directory (public/storage) and the public directory (storage/app/public).
     ```bash
     php artisan storage:link
     ```
 
-    Executa todas as migrations do projeto.
+    Run all project migrations.
     ```bash
     php artisan migrate
     ```
 
-    Iniciar um servidor de desenvolvimento para o projeto Laravel
+    Runs all project seeds.
+    ```bash
+    php artisan db:seed
+    ```
+
+    Start a development server for the Laravel project
     ```bash
     php artisan serve
     ```
 
-6. Acessando o CRM:
-- No seu navegador acesse a URL http://localhost:8000
-- Acesse o CRM com o e-mail: admin@admin.com e com a senha: admin@123
-
-## Objetivo e Construção
-
-Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis pariatur sunt amet voluptate aliquid! Et, cupiditate. Sint modi debitis minima, harum magni, error, aliquam sed possimus repellat voluptatibus hic maxime.
-
-Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis pariatur sunt amet voluptate aliquid! Et, cupiditate. Sint modi debitis minima, harum magni, error, aliquam sed possimus repellat voluptatibus hic maxime.
+6. Accessing the CRM locally:
+- In your browser, access the URL http://localhost
+- Access CRM with email: admin@admin.com and password: admin@123
 
 ## Contribuidores
-
-Obrigado por considerar contribuir com o Artisan CRM. Todo tipo de contribuição é bem-vindo, envie um PR!
+Thank you for considering contributing to Artisan CRM. Any kind of contribution is welcome, send a PR!
