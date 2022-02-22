@@ -1,0 +1,30 @@
+# Here you can define shortcuts and aliases to common tasks (commands)
+# you will run in your local environment or CI or deploy.
+#  Use the scripts defined below with:
+#    $ kool run <script>
+# Learn more at: https://kool.dev/docs/getting-started/how-it-works#koolyml
+scripts:
+  # Common commands
+  composer: kool exec app composer
+  artisan: kool exec app php artisan
+  phpunit: kool exec app php ./bin/phpunit
+  # Use this to setup your projects the first in a new environment.
+  setup:
+    - cp .env.example .env
+    - kool start
+    - kool run composer install
+    - kool run artisan key:generate
+    - kool run node-setup
+  # Use this to reset the state of your database and run common hoursekeeping
+  # when changing branches.
+  reset:
+    - kool run composer install
+    - kool run artisan migrate:fresh --seed
+    - kool run node-setup
+  # CLI access to MySQL
+  mysql: kool exec -e MYSQL_PWD=$DB_PASSWORD database mysql -u $DB_USERNAME $DB_DATABASE
+  # yarn - helpers for JS handling
+  yarn: kool docker kooldev/node:16 yarn
+  node-setup:
+    - kool run yarn install
+    - kool run yarn dev
