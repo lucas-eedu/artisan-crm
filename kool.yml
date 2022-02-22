@@ -10,10 +10,11 @@ scripts:
   phpunit: kool exec app php ./bin/phpunit
   # Use this to setup your projects the first in a new environment.
   setup:
-    - cp .env.example .env
+    - cp .env.docker.example .env
     - kool start
     - kool run composer install
     - kool run artisan key:generate
+    - kool run artisan storage:link
     - kool run node-setup
   # Use this to reset the state of your database and run common hoursekeeping
   # when changing branches.
