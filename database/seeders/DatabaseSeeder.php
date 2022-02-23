@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProfileSeeder::class);
         $this->call(PermissionProfilerSeeder::class);
         $this->call(UserAdminSeeder::class);
-        $this->call(CompanyAndUserSeeder::class);
+        $this->call(CompanyAllDataSeeder::class);
     }
 }
