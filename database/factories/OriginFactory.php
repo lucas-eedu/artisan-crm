@@ -15,7 +15,7 @@ class OriginFactory extends Factory
     {
         return [
             'name'       => $this->faker->company(),
-            'status'     => 'active'
+            'status'     => $this->faker->randomElement(['active', 'inactive'])
         ];
     }
 }
