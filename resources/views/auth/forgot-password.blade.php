@@ -3,11 +3,15 @@
 @section('content')
    <div class="login-box">
 
-      @include('flash::message')
+      <!-- @include('flash::message') -->
 
       @foreach($errors->all() as $error)
             <p class="alert alert-danger">{{$error}}</p>
       @endforeach
+
+      @if (session('status'))
+         <p class="alert alert-success">{{ session('status') }}</p>
+      @endif
       
       <!-- /.login-logo -->
       <div class="card card-outline card-primary">
