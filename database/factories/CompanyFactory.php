@@ -26,7 +26,7 @@ class CompanyFactory extends Factory
             'segment' => 'Tech ou Software',
             'state' => 'CE',
             'number_employees' => '2-10',
-            'status' => 'active',
+            'status'     => $this->faker->randomElement(['active', 'inactive'])
         ];
     }
 }
