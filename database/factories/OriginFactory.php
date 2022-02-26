@@ -22,8 +22,8 @@ class OriginFactory extends Factory
     public function definition()
     {
         return [
-            'name'       => $this->faker->company(),
-            'status'     => $this->faker->randomElement(['active', 'inactive'])
+            'name' => $this->faker->randomElement(['Google', 'Instagram', 'Facebook', 'Linkedin', 'TikTok', 'Email', 'Website', 'Landing Page']),
+            'status' => $this->faker->randomElement(['active', 'inactive'])
         ];
     }
 }
