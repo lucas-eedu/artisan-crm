@@ -20,7 +20,8 @@ class AlterUsersTableAddCompanyId extends Migration
             $table
                 ->foreign('company_id', 'users_company')
                 ->references('id')
-                ->on('companies');
+                ->on('companies')
+                ->onDelete('cascade');
         });
     }
 
