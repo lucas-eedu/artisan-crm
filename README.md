@@ -24,9 +24,12 @@ Artisan CRM (Customer Relationship Management) is an open source software develo
 git clone https://github.com/lucas-eedu/artisan-crm.git
 ```
 
-2. For Kool to configure the project setup
-    ```bash
-    kool run setup
+2. Access the project directory.
+
+2. Run the command for kool to build the project
+```bash
+kool run setup
+```
 
 3. Accessing the CRM locally:
 - In your browser, access the URL http://localhost
