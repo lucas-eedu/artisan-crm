@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => Hash::make('admin@123'),
             'profile_id' => 2,
-            'status'     => $this->faker->randomElement(['active', 'inactive'])
+            'status' => $this->faker->randomElement(['active', 'inactive'])
         ];
     }
 }

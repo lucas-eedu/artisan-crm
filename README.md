@@ -24,24 +24,11 @@ Artisan CRM (Customer Relationship Management) is an open source software develo
 git clone https://github.com/lucas-eedu/artisan-crm.git
 ```
 
-2. Run the commands:
-
-    For Kool to configure the project setup
+2. For Kool to configure the project setup
     ```bash
     kool run setup
-    ```
 
-    Run all project migrations.
-    ```bash
-    kool exec app php artisan migrate
-    ```
-
-    Runs all project seeds.
-    ```bash
-    kool exec app php artisan db:seed
-    ```
-
-6. Accessing the CRM locally:
+3. Accessing the CRM locally:
 - In your browser, access the URL http://localhost
 - Access CRM with email: admin@admin.com and password: admin@123
 

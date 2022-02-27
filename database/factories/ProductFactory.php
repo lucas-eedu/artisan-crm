@@ -22,8 +22,8 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'name'       => $this->faker->company(),
-            'status'     => $this->faker->randomElement(['active', 'inactive'])
+            'name' => $this->faker->randomElement(['Car', 'iPhone', 'Book', 'Course', 'Notebook', 'Software']),
+            'status' => $this->faker->randomElement(['active', 'inactive'])
         ];
     }
 }
