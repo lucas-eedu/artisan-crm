@@ -79,7 +79,7 @@
                               <button type="button" class="btn btn-info btn-flat dropdown-icon" data-toggle="dropdown" aria-expanded="false">
                                  <i class="fas fa-align-justify"></i>
                               </button>
-                              <div class="dropdown-menu" role="menu" style="">
+                              <div class="dropdown-menu" role="menu">
                                  <a class="dropdown-item" href="{{ route('user.edit', ['user' => $user->id]) }}">Editar</a>
                                  <form method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}" onsubmit="return confirm('Tem certeza que deseja excluir este item?');">
                                     @csrf

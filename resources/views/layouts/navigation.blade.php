@@ -128,7 +128,11 @@
       <!-- Profile Dropdown Menu -->
       <li class="nav-item dropdown">
          <a class="nav-link" data-toggle="dropdown" href="#" style="padding-top:4px;">
-            <img src="{{asset('template/dist/img/user1-128x128.jpg')}}" alt="{{auth()->user()->name}}" class="img-circle" style="width:30px;height:auto;">
+            @if (auth()->user()->profile_picture)
+               <img src="{{asset('storage/' . auth()->user()->profile_picture)}}" alt="{{auth()->user()->name}}" class="img-circle" style="width:30px;height:auto;">
+            @else
+               <img src="{{asset('template/dist/img/user1-128x128.jpg')}}" alt="{{auth()->user()->name}}" class="img-circle" style="width:30px;height:auto;">
+            @endif
          </a>
          <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
             @can('user_myprofile')
