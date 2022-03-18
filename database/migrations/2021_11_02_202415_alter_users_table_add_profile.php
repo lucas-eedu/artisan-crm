@@ -14,7 +14,7 @@ class AlterUsersTableAddProfile extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->uuid('profile_id')->nullable();
+            $table->uuid('profile_id')->nullable()->after('remember_token');
             $table->index('profile_id');
 
             $table

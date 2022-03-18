@@ -35,7 +35,7 @@
          <!-- Default box -->
          <div class="card">
             <div class="card-header">
-               <h3 class="card-title">Editar Usuário</h3>
+               <h3 class="card-title">Editando Perfil</h3>
             </div>
             <!-- /.card-header -->
             <form method="post" action="{{route('myProfileUpdate')}}" enctype="multipart/form-data">
@@ -45,8 +45,23 @@
 
                <div class="card-body">
                   <div class="form-group">
+                     <label for="profile_picture">Foto de Perfil</label><br>
+                     @if($user->profile_picture)
+                        <img src="{{asset('storage/' . $user->profile_picture)}}" class="profile-user-img img-fluid img-circle" alt="Foto de Perfil" height="88" width="88">
+                     @endif
+                     <p class="text-muted">
+                        <small>Permitido apenas extensões JPG ou PNG.</small>
+                     </p>
+                     <input type="file" class="@error('profile_picture') is-invalid @enderror" id="profile_picture" name="profile_picture">
+                     @error('profile_picture')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror
+                  </div>
+                  <div class="form-group">
                      <label for="name">Nome</label>
-                     <input type="text" class="form-control  @error('name') is-invalid @enderror" placeholder="Ex: Lucas Eduardo" id="name" name="name" value="{{old('name', $user->name)}}">
+                     <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Ex: Lucas Eduardo" id="name" name="name" value="{{old('name', $user->name)}}">
                      @error('name')
                         <span class="invalid-feedback" role="alert">
                            <strong>{{$message}}</strong>
