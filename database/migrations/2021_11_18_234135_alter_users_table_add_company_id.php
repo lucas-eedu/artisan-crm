@@ -14,7 +14,7 @@ class AlterUsersTableAddCompanyId extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->uuid('company_id')->nullable();
+            $table->uuid('company_id')->nullable()->after('profile_id');;
             $table->index('company_id');
 
             $table

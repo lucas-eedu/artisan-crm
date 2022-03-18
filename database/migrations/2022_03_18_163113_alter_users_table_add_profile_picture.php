@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterUsersTableAddStatus extends Migration
+class AlterUsersTableAddProfilePicture extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AlterUsersTableAddStatus extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('status', ['active', 'inactive'])->after('company_id');
+            $table->string('profile_picture', 255)->nullable()->after('company_id');
         });
     }
 
@@ -26,7 +26,7 @@ class AlterUsersTableAddStatus extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('status');
+            $table->dropColumn('photo');
         });
     }
 }
