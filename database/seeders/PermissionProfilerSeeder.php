@@ -51,7 +51,8 @@ class PermissionProfilerSeeder extends Seeder
             (2, 22),
             (2, 23),
             (2, 24),
-            (2, 25);
+            (2, 25),
+            (2, 26);
         ");
     }
 }
