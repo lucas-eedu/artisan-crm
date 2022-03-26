@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\MyCompanyRequest;
 
 class CompanyController extends Controller
 {
@@ -102,5 +104,52 @@ class CompanyController extends Controller
 
         flash('Empresa excluída com sucesso!')->success();
         return redirect()->route('company.index');
+    }
+    
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @return void
+     */
+    public function myCompany()
+    {
+        if (!Gate::allows('my_company')) {
+            abort(403, 'Você não tem permissão para editar a empresa.');
+        }
+        
+        $company = Company::findOrFail(auth()->user()->company_id);
+
+        if ($company->id != auth()->user()->company_id) {
+            flash('Não é possível editar outra empresa')->error();
+            return redirect()->route('dashboard');
+        }
+
+        return view('companies.mycompany', compact('company'));
+    }
+    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  MyCompanyRequest $request
+     * @return void
+     */
+    public function myCompanyUpdate(MyCompanyRequest $request)
+    {
+        if (!Gate::allows('my_company')) {
+            abort(403, 'Você não tem permissão para editar a empresa.');
+        }
+
+        $company = Company::findOrFail(auth()->user()->company_id);
+
+        if ($company->id != auth()->user()->company_id) {
+            flash('Não é possível editar outra empresa')->error();
+            return redirect()->route('dashboard');
+        }
+
+        $data = $request->all();
+        $company->update($data);
+
+        flash('Dados atualizados com sucesso!')->success();
+        return redirect()->route('myCompany');
     }
 }
