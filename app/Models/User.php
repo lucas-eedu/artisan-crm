@@ -52,6 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'profile_id',
         'company_id',
+        'profile_picture',
         'status'
     ];
 

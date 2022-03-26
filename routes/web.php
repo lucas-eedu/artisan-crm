@@ -48,6 +48,9 @@ Route::namespace('App\Http\Controllers')->middleware('verified')->group(function
 
     Route::get('/myprofile', 'UserController@myProfile')->name('myProfile');
     Route::put('/myprofile', 'UserController@myProfileUpdate')->name('myProfileUpdate');
+
+    Route::get('/mycompany', 'CompanyController@myCompany')->name('myCompany');
+    Route::put('/mycompany', 'CompanyController@myCompanyUpdate')->name('myCompanyUpdate');
 });
 
 require __DIR__.'/auth.php';

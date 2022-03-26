@@ -29,5 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('user_myprofile', function (User $user) {
             return $user->containsPermission('user_myprofile');
         });
+
+        Gate::define('my_company', function (User $user) {
+            return $user->containsPermission('my_company');
+        });
     }
 }
