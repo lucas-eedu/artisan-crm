@@ -19,10 +19,10 @@ class CreateLeadsTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone', 11);
-            $table->longText('message');
-            $table->enum('status', ['new', 'negotiation', 'gain', 'closed']);
+            $table->text('message')->nullable();
+            $table->enum('status', ['new', 'negotiation', 'gain', 'lost'])->default('new');
 
-            $table->uuid('user_id');
+            $table->uuid('user_id')->nullable(true);
             $table->index('user_id');
             $table
                 ->foreign('user_id', 'leads_user')
