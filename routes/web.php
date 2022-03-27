@@ -45,6 +45,7 @@ Route::namespace('App\Http\Controllers')->middleware('verified')->group(function
     Route::resource('company', 'CompanyController');
     Route::resource('product', 'ProductController');
     Route::resource('origin', 'OriginController');
+    Route::resource('lead', 'LeadController');
 
     Route::get('/myprofile', 'UserController@myProfile')->name('myProfile');
     Route::put('/myprofile', 'UserController@myProfileUpdate')->name('myProfileUpdate');
