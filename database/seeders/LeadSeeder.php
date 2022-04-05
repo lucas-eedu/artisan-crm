@@ -20,6 +20,7 @@ class LeadSeeder extends Seeder
         Lead::factory()
             ->state([
                 'company_id' => 'company-id-here',
+                'user_id'    => 'user-id-here',
                 'product_id' => 'product-id-here',
                 'origin_id'  => 'origin-id-here',
             ])
