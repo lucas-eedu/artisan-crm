@@ -7,12 +7,12 @@
       <div class="container-fluid">
          <div class="row mb-2">
             <div class="col-sm-6">
-               <h1>Leads</h1>
+               <h1>Leads / Novos</h1>
             </div>
             <div class="col-sm-6">
                <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active">Leads</li>
+                  <li class="breadcrumb-item active">Leads / Novos</li>
                </ol>
             </div>
          </div>
@@ -34,8 +34,8 @@
       <div class="card">
          <div class="card-header">
             <ul class="nav nav-pills">
-               <li class="nav-item"><a class="nav-link active" href="{{route('lead.index')}}">Todos</a></li>
-               <li class="nav-item"><a class="nav-link" href="{{route('showListNewLeads')}}">Novos</a></li>
+               <li class="nav-item"><a class="nav-link" href="{{route('lead.index')}}">Todos</a></li>
+               <li class="nav-item"><a class="nav-link active" href="{{route('showListNewLeads')}}">Novos</a></li>
                <li class="nav-item"><a class="nav-link" href="{{route('showListNegotiationLeads')}}">Negociação</a></li>
                <li class="nav-item"><a class="nav-link" href="{{route('showListGainLeads')}}">Ganho</a></li>
                <li class="nav-item"><a class="nav-link" href="{{route('showListLostLeads')}}">Perdido</a></li>

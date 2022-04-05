@@ -27,12 +27,9 @@ class LeadController extends Controller
      */
     public function index()
     {
-        $newLeads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'new')->paginate(10);
-        $negotiationLeads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'negotiation')->paginate(10);
-        $gainLeads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'gain')->paginate(10);
-        $lostLeads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'lost')->paginate(10);
+        $leads = Lead::where('company_id', auth()->user()->company_id)->paginate(10);
 
-        return view('leads.index', compact('newLeads', 'negotiationLeads', 'gainLeads', 'lostLeads'));
+        return view('leads.index', compact('leads'));
     }
 
     /**
@@ -109,5 +106,49 @@ class LeadController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    /**
+     * Display a listing new leads
+     *
+     * @return void
+     */
+    public function showListNewLeads() {
+        $leads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'new')->paginate(10);
+
+        return view('leads.new', compact('leads'));
+    }
+
+    /**
+     * Display a listing negotiation leads
+     *
+     * @return void
+     */
+    public function showListNegotiationLeads() {
+        $leads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'negotiation')->paginate(10);
+
+        return view('leads.negotiation', compact('leads'));
+    }
+
+    /**
+     * Display a listing gain leads
+     *
+     * @return void
+     */
+    public function showListGainLeads() {
+        $leads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'gain')->paginate(10);
+
+        return view('leads.gain', compact('leads'));
+    }
+
+    /**
+     * Display a listing lost leads
+     *
+     * @return void
+     */
+    public function showListLostLeads() {
+        $leads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'lost')->paginate(10);
+
+        return view('leads.lost', compact('leads'));
     }
 }
