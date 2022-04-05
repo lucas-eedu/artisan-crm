@@ -58,6 +58,8 @@
                            <th>Nome</th>
                            <th>E-mail</th>
                            <th>Telefone</th>
+                           <th>Produto</th>
+                           <th>Origem</th>
                            <th>Status</th>
                            <th>Vendedor Responsável</th>
                            <th>Ações</th>
@@ -69,10 +71,12 @@
                            <td>
                               <a>{{$lead->name}}</a>
                               <br/>
-                              <small>Cadastro: {{ \Carbon\Carbon::parse($lead->created_at)->format('d/m/Y') }}</small>
+                              <small>Cadastro: {{ \Carbon\Carbon::parse($lead->created_at)->format('d/m/Y') }} às {{ \Carbon\Carbon::parse($lead->created_at)->format('H:i') }}</small>
                            </td>
                            <td>{{$lead->email}}</td>
                            <td>{{$lead->phone}}</td>
+                           <td>{{$lead->product->name}}</td>
+                           <td>{{$lead->origin->name}}</td>
                            <td>
                               @if ($lead->status === 'new')
                                  <span class="badge badge-pill badge-info">Novo</span>
