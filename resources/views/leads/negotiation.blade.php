@@ -33,19 +33,21 @@
       @endif
       <div class="card">
          <div class="card-header">
-            <ul class="nav nav-pills">
+            <ul class="nav nav-pills float-left">
                <li class="nav-item"><a class="nav-link" href="{{route('lead.index')}}">Todos</a></li>
                <li class="nav-item"><a class="nav-link" href="{{route('showListNewLeads')}}">Novos</a></li>
                <li class="nav-item"><a class="nav-link active" href="{{route('showListNegotiationLeads')}}">Negociação</a></li>
                <li class="nav-item"><a class="nav-link" href="{{route('showListGainLeads')}}">Ganho</a></li>
                <li class="nav-item"><a class="nav-link" href="{{route('showListLostLeads')}}">Perdido</a></li>
             </ul>
-            <!-- <div class="card-tools">
-               <a href="{{route('lead.create')}}" class="btn btn-tool" title="Adicionar Novo Lead">
-               <i class="fas fa-plus"></i>
-               Adicionar
-               </a>
-            </div> -->
+            @can('create', \App\Models\Company::class)
+               <div class="card-tools">
+                  <a href="{{route('lead.create')}}" class="btn btn-tool" title="Adicionar Novo Lead">
+                  <i class="fas fa-plus"></i>
+                     Adicionar
+                  </a>
+               </div>
+            @endcan
          </div>
          <div class="card-body p-0">
             <div class="tab-content">
