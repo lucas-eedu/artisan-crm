@@ -174,7 +174,8 @@ class LeadController extends Controller
             $leads = Lead::where('company_id', auth()->user()->company_id)
                 ->where('status', 'new')->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
-                    $query->where('user_id', NULL);
+                    $query->where('user_id', NULL)
+                        ->where('status', 'new');
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);
@@ -199,7 +200,8 @@ class LeadController extends Controller
             $leads = Lead::where('company_id', auth()->user()->company_id)
                 ->where('status', 'negotiation')->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
-                    $query->where('user_id', NULL);
+                    $query->where('user_id', NULL)
+                        ->where('status', 'negotiation');
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);
@@ -225,7 +227,8 @@ class LeadController extends Controller
                 ->where('status', 'gain')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
-                    $query->where('user_id', NULL);
+                    $query->where('user_id', NULL)
+                        ->where('status', 'gain');
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);
@@ -251,7 +254,8 @@ class LeadController extends Controller
                 ->where('status', 'lost')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
-                    $query->where('user_id', NULL);
+                    $query->where('user_id', NULL)
+                        ->where('status', 'lost');
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);
