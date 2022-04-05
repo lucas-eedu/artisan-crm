@@ -45,7 +45,12 @@ Route::namespace('App\Http\Controllers')->middleware('verified')->group(function
     Route::resource('company', 'CompanyController');
     Route::resource('product', 'ProductController');
     Route::resource('origin', 'OriginController');
+
     Route::resource('lead', 'LeadController');
+    Route::get('/leads/new', 'LeadController@showListNewLeads')->name('showListNewLeads');
+    Route::get('/leads/negotiation', 'LeadController@showListNegotiationLeads')->name('showListNegotiationLeads');
+    Route::get('/leads/gain', 'LeadController@showListGainLeads')->name('showListGainLeads');
+    Route::get('/leads/lost', 'LeadController@showListLostLeads')->name('showListLostLeads');
 
     Route::get('/myprofile', 'UserController@myProfile')->name('myProfile');
     Route::put('/myprofile', 'UserController@myProfileUpdate')->name('myProfileUpdate');
