@@ -18,10 +18,10 @@ class CompanyAllDataSeeder extends Seeder
     public function run()
     {
         Company::factory()
-            ->has(User::factory()->count(7), 'users')
-            ->has(Product::factory()->count(7), 'products')
-            ->has(Origin::factory()->count(7), 'origins')
-            ->count(7)
+            ->has(User::factory()->count(4), 'users')
+            ->has(Product::factory()->count(2), 'products')
+            ->has(Origin::factory()->count(2), 'origins')
+            ->count(3)
             ->create();
     }
 }
