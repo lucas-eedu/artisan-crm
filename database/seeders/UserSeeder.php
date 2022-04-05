@@ -16,10 +16,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::factory()
-            // Create users for a specific company
-            ->for(Company::factory()->state([
-                'id' => 'company-id-here',
-            ]))
+            ->state([
+                'company_id' => 'company-id-here',
+            ])
             ->count(10)
             ->create();
     }

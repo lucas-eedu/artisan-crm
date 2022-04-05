@@ -16,10 +16,9 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Product::factory()
-            // Create products for a specific company
-            ->for(Company::factory()->state([
-                'id' => 'company-id-here',
-            ]))
+            ->state([
+                'company_id' => 'company-id-here',
+            ])
             ->count(10)
             ->create();
     }

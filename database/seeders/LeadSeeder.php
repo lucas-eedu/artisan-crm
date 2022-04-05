@@ -18,19 +18,12 @@ class LeadSeeder extends Seeder
     public function run()
     {
         Lead::factory()
-            // Create leads for a specific company
-            ->for(Company::factory()->state([
-                'id' => 'company-id-here',
-            ]))
-            // Create leads for a specific product
-            ->for(Product::factory()->state([
-                'id' => 'product-id-here',
-            ]))
-            // Create leads for a specific origin
-            ->for(Origin::factory()->state([
-                'id' => 'origin-id-here',
-            ]))
-            ->count(50)
+            ->state([
+                'company_id' => 'company-id-here',
+                'product_id' => 'product-id-here',
+                'origin_id'  => 'origin-id-here',
+            ])
+            ->count(10)
             ->create();
     }
 }
