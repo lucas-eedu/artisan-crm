@@ -20,7 +20,7 @@ class LeadFactory extends Factory
             'origin_id'  => '4b1afce6-3928-401b-8477-a0b4d9e19887',
             'name'       => $this->faker->name(),
             'email'      => $this->faker->freeEmail(),
-            'phone'      => Str::random(11),
+            'phone'      => rand(00000000000, 99999999999),
             'message'    => $this->faker->text($maxNbChars = 200),
             'status'     => $this->faker->randomElement(['new', 'negotiation', 'gain', 'lost'])
         ];
