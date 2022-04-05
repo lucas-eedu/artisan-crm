@@ -52,7 +52,24 @@ class PermissionProfilerSeeder extends Seeder
             (2, 23),
             (2, 24),
             (2, 25),
-            (2, 26);
+            (2, 26),
+            (2, 27),
+            (2, 28),
+            (2, 29),
+            (2, 30);
+        ");
+
+        // Adding the permissions for the Seller profile
+        DB::statement("
+            INSERT INTO `permission_profile` (`profile_id`, `permission_id`) VALUES
+            (3, 1),
+            (3, 13),
+            (3, 18),
+            (3, 22),
+            (3, 27),
+            (3, 28),
+            (3, 29),
+            (3, 30);
         ");
     }
 }
