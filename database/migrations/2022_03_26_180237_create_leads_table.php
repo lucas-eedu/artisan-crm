@@ -16,10 +16,10 @@ class CreateLeadsTable extends Migration
         Schema::create('leads', function (Blueprint $table) {
             $table->uuid('id')->primary()->nullable(false);
             $table->index('id');
-            $table->string('name');
+            $table->string('name', 255)->nullable(true);
             $table->string('email');
-            $table->string('phone', 11);
-            $table->text('message')->nullable();
+            $table->string('phone', 11)->nullable(true);
+            $table->text('message')->nullable(true);
             $table->enum('status', ['new', 'negotiation', 'gain', 'lost'])->default('new');
 
             $table->uuid('user_id')->nullable(true);
