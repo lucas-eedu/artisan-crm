@@ -19,6 +19,7 @@ class LeadController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->authorizeResource(Lead::class, 'lead');
     }
 
     /**
