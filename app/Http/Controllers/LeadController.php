@@ -109,6 +109,10 @@ class LeadController extends Controller
         if ($lead->company_id != auth()->user()->company_id) {
             abort(403, 'Você não tem permissão para editar leads de outras empresas.');
         }
+        
+        if ($lead->user_id != auth()->user()->id && auth()->user()->profile_id == 3 && $lead->user_id != NULL) {
+            abort(403, 'Você não tem permissão para editar leads quem não pertence a você.');
+        }
 
         $users = User::where('company_id', auth()->user()->company_id)
             ->where('status', 'active')
@@ -174,7 +178,8 @@ class LeadController extends Controller
     {
         if (auth()->user()->profile_id == 3) {
             $leads = Lead::where('company_id', auth()->user()->company_id)
-                ->where('status', 'new')->where('user_id', auth()->user()->id)
+                ->where('status', 'new')
+                ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
                     $query->where('user_id', NULL)
                         ->where('status', 'new');
@@ -200,7 +205,8 @@ class LeadController extends Controller
     {
         if (auth()->user()->profile_id == 3) {
             $leads = Lead::where('company_id', auth()->user()->company_id)
-                ->where('status', 'negotiation')->where('user_id', auth()->user()->id)
+                ->where('status', 'negotiation')
+                ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
                     $query->where('user_id', NULL)
                         ->where('status', 'negotiation');
