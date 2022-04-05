@@ -55,6 +55,7 @@ class LeadController extends Controller
     {
         $users = User::where('company_id', auth()->user()->company_id)
             ->where('status', 'active')
+            ->where('profile_id', '!=', 1)
             ->get();
 
         $products = Product::where('company_id', auth()->user()->company_id)
@@ -111,6 +112,7 @@ class LeadController extends Controller
 
         $users = User::where('company_id', auth()->user()->company_id)
             ->where('status', 'active')
+            ->where('profile_id', '!=', 1)
             ->get();
 
         $products = Product::where('company_id', auth()->user()->company_id)

@@ -49,7 +49,7 @@
                      <select id="user_id" class="select2 form-control @error('user_id') is-invalid @enderror" name="user_id">
                         <option value="">Sem Responsável</option>
                         @foreach($users as $user)
-                           <option value="{{$user->id}}" @if ($user->id == old('user_id', $user->id)) selected="selected" @endif>{{$user->name}}</option>
+                           <option value="{{$user->id}}" @if ($user->id == old('user_id', $lead->user_id)) selected="selected" @endif>{{$user->name}}</option>
                         @endforeach
                      </select>
                      @error('user_id')
@@ -99,7 +99,7 @@
                      <select id="product_id" class="select2 form-control @error('product_id') is-invalid @enderror" name="product_id">
                         <option value="">Selecione</option>
                         @foreach($products as $product)
-                           <option value="{{$product->id}}" @if ($product->id == old('product_id', $product->id)) selected="selected" @endif>{{$product->name}}</option>
+                           <option value="{{$product->id}}" @if ($product->id == old('product_id', $lead->product_id)) selected="selected" @endif>{{$product->name}}</option>
                         @endforeach
                      </select>
                      @error('product_id')
@@ -113,7 +113,7 @@
                      <select id="origin_id" class="select2 form-control @error('origin_id') is-invalid @enderror" name="origin_id">
                         <option value="">Selecione</option>
                         @foreach($origins as $origin)
-                           <option value="{{$origin->id}}" @if ($origin->id == old('origin_id', $origin->id)) selected="selected" @endif>{{$origin->name}}</option>
+                           <option value="{{$origin->id}}" @if ($origin->id == old('origin_id', $lead->origin_id)) selected="selected" @endif>{{$origin->name}}</option>
                         @endforeach
                      </select>
                      @error('origin_id')
