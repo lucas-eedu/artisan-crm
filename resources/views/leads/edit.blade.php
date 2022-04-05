@@ -9,13 +9,13 @@
          <div class="container-fluid">
             <div class="row mb-2">
                <div class="col-sm-6">
-                  <h1>Criar Lead</h1>
+                  <h1>Editar Lead</h1>
                </div>
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                      <li class="breadcrumb-item"><a href="#">Home</a></li>
                      <li class="breadcrumb-item"><a href="{{route('lead.index')}}">Leads</a></li>
-                     <li class="breadcrumb-item active">Criar Lead</li>
+                     <li class="breadcrumb-item active">Editar Lead</li>
                   </ol>
                </div>
             </div>
@@ -36,11 +36,12 @@
          <!-- Default box -->
          <div class="card">
             <div class="card-header">
-               <h3 class="card-title">Novo Lead</h3>
+               <h3 class="card-title">Editar Lead</h3>
             </div>
             <!-- /.card-header -->
-            <form method="post" action="{{route('lead.store')}}" enctype="multipart/form-data">
+            <form method="post" action="{{route('lead.update', ['lead' => $lead->id])}}" enctype="multipart/form-data">
                @csrf
+               @method("PUT")
                <input type="hidden" value="{{auth()->user()->company_id}}" name="company_id">
                <div class="card-body">
                   <div class="form-group">
@@ -48,7 +49,7 @@
                      <select id="user_id" class="select2 form-control @error('user_id') is-invalid @enderror" name="user_id">
                         <option value="">Sem Responsável</option>
                         @foreach($users as $user)
-                           <option value="{{$user->id}}" @if ($user->id == old('user_id')) selected="selected" @endif>{{$user->name}}</option>
+                           <option value="{{$user->id}}" @if ($user->id == old('user_id', $user->id)) selected="selected" @endif>{{$user->name}}</option>
                         @endforeach
                      </select>
                      @error('user_id')
@@ -59,7 +60,7 @@
                   </div>
                   <div class="form-group">
                      <label for="name">Nome</label>
-                     <input type="text" class="form-control  @error('name') is-invalid @enderror" placeholder="Ex: Lucas Eduardo" id="name" name="name" value="{{old('name')}}">
+                     <input type="text" class="form-control  @error('name') is-invalid @enderror" placeholder="Ex: Lucas Eduardo" id="name" name="name" value="{{old('name', $lead->name)}}">
                      @error('name')
                         <span class="invalid-feedback" role="alert">
                            <strong>{{ $message }}</strong>
@@ -68,7 +69,7 @@
                   </div>
                   <div class="form-group">
                      <label for="email">E-mail</label>
-                     <input type="text" class="form-control @error('email') is-invalid @enderror" placeholder="Ex: email@email.com" id="email" name="email" value="{{old('email')}}">
+                     <input type="text" class="form-control @error('email') is-invalid @enderror" placeholder="Ex: email@email.com" id="email" name="email" value="{{old('email', $lead->email)}}">
                      @error('email')
                         <span class="invalid-feedback" role="alert">
                            <strong>{{ $message }}</strong>
@@ -77,7 +78,7 @@
                   </div>
                   <div class="form-group">
                      <label for="phone">Telefone</label>
-                     <input type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="(85) 9.9999-9999" id="phone" name="phone" value="{{old('phone')}}">
+                     <input type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="(85) 9.9999-9999" id="phone" name="phone" value="{{old('phone', $lead->phone)}}">
                      @error('phone')
                         <span class="invalid-feedback" role="alert">
                            <strong>{{ $message }}</strong>
@@ -86,7 +87,7 @@
                   </div>
                   <div class="form-group">
                      <label for="message">Mensagem</label>
-                     <textarea class="form-control @error('message') is-invalid @enderror" name="message" id="message" cols="30" rows="10">{{old('message')}}</textarea>
+                     <textarea class="form-control @error('message') is-invalid @enderror" name="message" id="message" cols="30" rows="10">{{old('message', $lead->message)}}</textarea>
                      @error('message')
                         <span class="invalid-feedback" role="alert">
                            <strong>{{ $message }}</strong>
@@ -98,7 +99,7 @@
                      <select id="product_id" class="select2 form-control @error('product_id') is-invalid @enderror" name="product_id">
                         <option value="">Selecione</option>
                         @foreach($products as $product)
-                           <option value="{{$product->id}}" @if ($product->id == old('product_id')) selected="selected" @endif>{{$product->name}}</option>
+                           <option value="{{$product->id}}" @if ($product->id == old('product_id', $product->id)) selected="selected" @endif>{{$product->name}}</option>
                         @endforeach
                      </select>
                      @error('product_id')
@@ -112,7 +113,7 @@
                      <select id="origin_id" class="select2 form-control @error('origin_id') is-invalid @enderror" name="origin_id">
                         <option value="">Selecione</option>
                         @foreach($origins as $origin)
-                           <option value="{{$origin->id}}" @if ($origin->id == old('origin_id')) selected="selected" @endif>{{$origin->name}}</option>
+                           <option value="{{$origin->id}}" @if ($origin->id == old('origin_id', $origin->id)) selected="selected" @endif>{{$origin->name}}</option>
                         @endforeach
                      </select>
                      @error('origin_id')

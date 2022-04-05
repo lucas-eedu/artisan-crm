@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Origin;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\LeadRequest;
 
 class LeadController extends Controller
 {    
@@ -27,7 +28,7 @@ class LeadController extends Controller
      */
     public function index()
     {
-        $leads = Lead::where('company_id', auth()->user()->company_id)->paginate(10);
+        $leads = Lead::where('company_id', auth()->user()->company_id)->orderBy('created_at', 'DESC')->paginate(10);
 
         return view('leads.index', compact('leads'));
     }
@@ -40,8 +41,8 @@ class LeadController extends Controller
     public function create()
     {
         $users = User::where('company_id', auth()->user()->company_id)->where('status', 'active')->get();
-        $products = Product::where('company_id', auth()->user()->company_id)->get();
-        $origins = Origin::where('company_id', auth()->user()->company_id)->get();
+        $products = Product::where('company_id', auth()->user()->company_id)->where('status', 'active')->get();
+        $origins = Origin::where('company_id', auth()->user()->company_id)->where('status', 'active')->get();
 
         return view('leads.create', compact('products', 'origins', 'users'));
     }
@@ -52,14 +53,15 @@ class LeadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LeadRequest $request)
     {
         $data = $request->all();
         $data['company_id'] = auth()->user()->company_id;
+        $data['status'] = 'new';
 
         Lead::create($data);
 
-        flash('Lead criada com sucesso!')->success();
+        flash('Lead criado com sucesso!')->success();
         return redirect()->route('lead.index');
     }
 
@@ -80,9 +82,17 @@ class LeadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Lead $lead)
     {
-        //
+        if($lead->company_id != auth()->user()->company_id) {
+            abort(403, 'Você não tem permissão para editar leads de outras empresas.');
+        }
+
+        $users = User::where('company_id', auth()->user()->company_id)->where('status', 'active')->get();
+        $products = Product::where('company_id', auth()->user()->company_id)->where('status', 'active')->get();
+        $origins = Origin::where('company_id', auth()->user()->company_id)->where('status', 'active')->get();
+
+        return view('leads.edit', compact('lead', 'users', 'products', 'origins'));
     }
 
     /**
@@ -92,9 +102,18 @@ class LeadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Lead $lead)
     {
-        //
+        if($lead->company_id != auth()->user()->company_id) {
+            abort(403, 'Você não tem permissão para editar leads de outras empresas.');
+        }
+
+        $data = $request->all();
+
+        $lead->update($data);
+
+        flash('Lead atualizado com sucesso!')->success();
+        return redirect()->route('lead.index');
     }
 
     /**
@@ -103,9 +122,16 @@ class LeadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Lead $lead)
     {
-        //
+        if($lead->company_id != auth()->user()->company_id) {
+            abort(403, 'Você não tem permissão para excluir leads de outras empresas.');
+        }
+
+        $lead->delete();
+
+        flash('Lead removido com sucesso!')->success();
+        return redirect()->route('lead.index');
     }
     
     /**
@@ -114,7 +140,7 @@ class LeadController extends Controller
      * @return void
      */
     public function showListNewLeads() {
-        $leads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'new')->paginate(10);
+        $leads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'new')->orderBy('created_at', 'DESC')->paginate(10);
 
         return view('leads.new', compact('leads'));
     }
@@ -125,7 +151,7 @@ class LeadController extends Controller
      * @return void
      */
     public function showListNegotiationLeads() {
-        $leads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'negotiation')->paginate(10);
+        $leads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'negotiation')->orderBy('created_at', 'DESC')->paginate(10);
 
         return view('leads.negotiation', compact('leads'));
     }
@@ -136,7 +162,7 @@ class LeadController extends Controller
      * @return void
      */
     public function showListGainLeads() {
-        $leads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'gain')->paginate(10);
+        $leads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'gain')->orderBy('created_at', 'DESC')->paginate(10);
 
         return view('leads.gain', compact('leads'));
     }
@@ -147,7 +173,7 @@ class LeadController extends Controller
      * @return void
      */
     public function showListLostLeads() {
-        $leads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'lost')->paginate(10);
+        $leads = Lead::where('company_id', auth()->user()->company_id)->where('status', 'lost')->orderBy('created_at', 'DESC')->paginate(10);
 
         return view('leads.lost', compact('leads'));
     }
