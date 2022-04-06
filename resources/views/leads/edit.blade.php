@@ -78,7 +78,7 @@
                   </div>
                   <div class="form-group">
                      <label for="phone">Telefone</label>
-                     <input type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="(85) 9.9999-9999" id="phone" name="phone" value="{{old('phone', $lead->phone)}}">
+                     <input type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="(85) 9.9999-9999" id="phone" name="phone" value="{{old('phone', $lead->phone)}}" onkeypress="mask(this, mphone);" onblur="mask(this, mphone);">
                      @error('phone')
                         <span class="invalid-feedback" role="alert">
                            <strong>{{ $message }}</strong>

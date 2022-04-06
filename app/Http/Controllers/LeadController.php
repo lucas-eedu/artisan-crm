@@ -53,10 +53,14 @@ class LeadController extends Controller
      */
     public function create()
     {
-        $users = User::where('company_id', auth()->user()->company_id)
-            ->where('status', 'active')
-            ->where('profile_id', '!=', 1)
-            ->get();
+        if (auth()->user()->profile_id == 3) {
+            $users = User::where('id', auth()->user()->id)->get();
+        } else {
+            $users = User::where('company_id', auth()->user()->company_id)
+                ->where('status', 'active')
+                ->where('profile_id', '!=', 1)
+                ->get();
+        }
 
         $products = Product::where('company_id', auth()->user()->company_id)
             ->where('status', 'active')
@@ -80,6 +84,7 @@ class LeadController extends Controller
         $data = $request->all();
         $data['company_id'] = auth()->user()->company_id;
         $data['status'] = 'new';
+        $data['phone'] = str_replace(array(".", "/", "-", "(", ")"), '', $request->input('phone'));
 
         Lead::create($data);
 
@@ -109,15 +114,19 @@ class LeadController extends Controller
         if ($lead->company_id != auth()->user()->company_id) {
             abort(403, 'Você não tem permissão para editar leads de outras empresas.');
         }
-        
+
         if ($lead->user_id != auth()->user()->id && auth()->user()->profile_id == 3 && $lead->user_id != NULL) {
             abort(403, 'Você não tem permissão para editar leads quem não pertence a você.');
         }
 
-        $users = User::where('company_id', auth()->user()->company_id)
-            ->where('status', 'active')
-            ->where('profile_id', '!=', 1)
-            ->get();
+        if (auth()->user()->profile_id == 3) {
+            $users = User::where('id', auth()->user()->id)->get();
+        } else {
+            $users = User::where('company_id', auth()->user()->company_id)
+                ->where('status', 'active')
+                ->where('profile_id', '!=', 1)
+                ->get();
+        }
 
         $products = Product::where('company_id', auth()->user()->company_id)
             ->where('status', 'active')
@@ -144,6 +153,7 @@ class LeadController extends Controller
         }
 
         $data = $request->all();
+        $data['phone'] = str_replace(array(".", "/", "-", "(", ")", " "), '', $request->input('phone'));
 
         $lead->update($data);
 
