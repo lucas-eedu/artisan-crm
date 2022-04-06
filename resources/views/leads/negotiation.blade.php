@@ -40,7 +40,7 @@
                <li class="nav-item"><a class="nav-link" href="{{route('showListGainLeads')}}">Ganho</a></li>
                <li class="nav-item"><a class="nav-link" href="{{route('showListLostLeads')}}">Perdido</a></li>
             </ul>
-            @can('create', \App\Models\Company::class)
+            @can('create', \App\Models\Lead::class)
                <div class="card-tools">
                   <a href="{{route('lead.create')}}" class="btn btn-tool" title="Adicionar Novo Lead">
                   <i class="fas fa-plus"></i>
