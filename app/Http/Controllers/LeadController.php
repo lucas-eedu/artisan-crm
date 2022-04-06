@@ -6,8 +6,10 @@ use App\Models\Lead;
 use App\Models\User;
 use App\Models\Origin;
 use App\Models\Product;
+use App\Mail\NewLeadMail;
 use Illuminate\Http\Request;
 use App\Http\Requests\LeadRequest;
+use Illuminate\Support\Facades\Mail;
 
 class LeadController extends Controller
 {
@@ -33,6 +35,7 @@ class LeadController extends Controller
             $leads = Lead::where('company_id', auth()->user()->company_id)
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
+                    $query->where('company_id', auth()->user()->company_id);
                     $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
@@ -84,9 +87,19 @@ class LeadController extends Controller
         $data = $request->all();
         $data['company_id'] = auth()->user()->company_id;
         $data['status'] = 'new';
-        $data['phone'] = str_replace(array(".", "/", "-", "(", ")"), '', $request->input('phone'));
+        $data['phone'] = str_replace(array(".", "/", "-", "(", ")", " "), '', $request->input('phone'));
 
-        Lead::create($data);
+        $lead = Lead::create($data);
+
+        $users = User::where('company_id', $lead->company_id)
+            ->where('status', 'active')
+            ->where('id', $lead->user_id)
+            ->get();
+
+        foreach ($users as $user) {
+            logger('minha pomba');
+            Mail::to($user->email)->send(new NewLeadMail($lead));
+        }
 
         flash('Lead criado com sucesso!')->success();
         return redirect()->route('lead.index');
@@ -211,6 +224,8 @@ class LeadController extends Controller
                 ->where('status', 'new')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
+                    $query->where('company_id', auth()->user()->company_id);
+                    $query->where('status', 'new');
                     $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
@@ -237,6 +252,8 @@ class LeadController extends Controller
                 ->where('status', 'negotiation')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
+                    $query->where('company_id', auth()->user()->company_id);
+                    $query->where('status', 'negotiation');
                     $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
@@ -263,6 +280,8 @@ class LeadController extends Controller
                 ->where('status', 'gain')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
+                    $query->where('company_id', auth()->user()->company_id);
+                    $query->where('status', 'gain');
                     $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
@@ -289,6 +308,8 @@ class LeadController extends Controller
                 ->where('status', 'lost')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
+                    $query->where('company_id', auth()->user()->company_id);
+                    $query->where('status', 'lost');
                     $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
