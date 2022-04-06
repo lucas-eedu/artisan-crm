@@ -45,20 +45,6 @@
                <input type="hidden" value="{{auth()->user()->company_id}}" name="company_id">
                <div class="card-body">
                   <div class="form-group">
-                     <label for="user_id">Responsável</label>
-                     <select id="user_id" class="select2 form-control @error('user_id') is-invalid @enderror" name="user_id">
-                        <option value="">Sem Responsável</option>
-                        @foreach($users as $user)
-                           <option value="{{$user->id}}" @if ($user->id == old('user_id', $lead->user_id)) selected="selected" @endif>{{$user->name}}</option>
-                        @endforeach
-                     </select>
-                     @error('user_id')
-                        <span class="invalid-feedback" role="alert">
-                           <strong>{{ $message }}</strong>
-                        </span>
-                     @enderror
-                  </div>
-                  <div class="form-group">
                      <label for="name">Nome</label>
                      <input type="text" class="form-control  @error('name') is-invalid @enderror" placeholder="Ex: Lucas Eduardo" id="name" name="name" value="{{old('name', $lead->name)}}">
                      @error('name')
