@@ -18,7 +18,8 @@ class ProfileSeeder extends Seeder
         DB::statement("
             INSERT INTO `profiles` (`id`, `name`) VALUES
             (1, 'SuperAdministrator'),
-            (2, 'Administrator');
+            (2, 'Administrator'),
+            (3, 'Seller');
         ");
     }
 }

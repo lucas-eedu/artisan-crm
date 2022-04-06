@@ -42,7 +42,11 @@ class PermissionSeeder extends Seeder
             (23, 'Origin - Edit', 'origin_update'),
             (24, 'Origin - Create', 'origin_create'),
             (25, 'Origin - Delete', 'origin_delete'),
-            (26, 'Company - My Company', 'my_company');
+            (26, 'Company - My Company', 'my_company'),
+            (27, 'Lead - List', 'lead_viewAny'),
+            (28, 'Lead - Edit', 'lead_update'),
+            (29, 'Lead - Create', 'lead_create'),
+            (30, 'Lead - Delete', 'lead_delete');
         ");
     }
 }

@@ -140,6 +140,11 @@
                   <i class="fas fa-user mr-2"></i> Meu Perfil
                </a>
             @endcan
+            @can('my_company')
+               <a href="{{route('myCompany')}}" class="dropdown-item">
+                  <i class="fas fa-university mr-2"></i> Minha Empresa
+               </a>
+            @endcan
             <div class="dropdown-divider"></div>
             <a href="{{route('logout')}}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Sair do sistema">
                <i class="fas fa-power-off mr-2"></i> Sair
@@ -185,6 +190,14 @@
                   <a href="{{route('user.index')}}" class="nav-link">
                      <i class="nav-icon fas fa-users"></i>
                      <p>Usuários</p>
+                  </a>
+               </li>
+            @endcan
+            @can('viewAny', \App\Models\Lead::class)
+               <li class="nav-item">
+                  <a href="{{route('lead.index')}}" class="nav-link">
+                     <i class="nav-icon fas fa-funnel-dollar"></i>
+                     <p>Leads</p>
                   </a>
                </li>
             @endcan
