@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => Hash::make('admin@123'),
-            'profile_id' => 2,
+            'profile_id' => $this->faker->randomElement([2, 3]),
             'status' => $this->faker->randomElement(['active', 'inactive'])
         ];
     }

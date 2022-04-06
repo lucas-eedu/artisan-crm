@@ -133,7 +133,7 @@
                <!-- /.card-body -->
                <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Salvar</button>
-                  <a href="{{route('company.index')}}" class="btn btn-danger">Cancelar</a>
+                  <a href="{{route('dashboard')}}" class="btn btn-danger">Cancelar</a>
                </div>
             </form>
             <!-- /.form -->

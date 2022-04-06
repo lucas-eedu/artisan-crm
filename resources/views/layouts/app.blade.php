@@ -92,11 +92,27 @@
         {{-- <script src="{{ asset('template/dist/js/demo.js') }}"></script> --}}
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="{{ asset('template/dist/js/pages/dashboard.js') }}"></script>
+        <!-- Jquery Mask -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
         <!-- Initialize select2.js -->
         <script>
             $(function () {
             //Initialize Select2 Elements
             $('.select2').select2()
+            })
+        </script>
+        <!-- Phone Mask -->
+        <script>
+            var phoneMaskBehavior = function (val) {
+                return val.replace(/\D/g, '').length <= 10 ? '(00) 0000-00009' : '(00) 0.0000.0000';
+            },
+            phoneMaskOptions = {
+                    onKeyPress: function(val, e, field, options) {
+                    field.mask(phoneMaskBehavior.apply({}, arguments), options);
+                }
+            };
+            $(function() {
+                $(':input[name=phone]').mask(phoneMaskBehavior, phoneMaskOptions);
             })
         </script>
     </body>

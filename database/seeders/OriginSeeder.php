@@ -16,11 +16,9 @@ class OriginSeeder extends Seeder
     public function run()
     {
         Origin::factory()
-            ->for(Company::factory()->create())
-            // Use state to create origins for a specific company
-            // ->for(Company::factory()->state([
-            //     'id' => '189b3a2a-c1e6-4b83-9601-e2ac8c2059f8',
-            // ]))
+            ->state([
+                'company_id' => 'company-id-here',
+            ])
             ->count(10)
             ->create();
     }

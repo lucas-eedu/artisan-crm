@@ -17,8 +17,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             ProfileSeeder::class,
             PermissionProfilerSeeder::class,
-            UserAdminSeeder::class,
-            CompanyAllDataSeeder::class,
+            AllDataSuperAdministratorSeeder::class,
         ]);
     }
 }

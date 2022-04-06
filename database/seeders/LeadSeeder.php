@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Lead;
+use App\Models\Origin;
 use App\Models\Company;
-use App\Models\User;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
+class LeadSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +17,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()
+        Lead::factory()
             ->state([
                 'company_id' => 'company-id-here',
+                'user_id'    => 'user-id-here',
+                'product_id' => 'product-id-here',
+                'origin_id'  => 'origin-id-here',
             ])
             ->count(10)
             ->create();

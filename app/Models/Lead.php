@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model
+class Lead extends Model
 {
     use HasFactory, Uuid;
 
@@ -22,7 +22,7 @@ class Company extends Model
      *
      * @var string
      */
-    protected $table = 'companies';
+    protected $table = 'leads';
  
     /**
      * keyType
@@ -44,30 +44,34 @@ class Company extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
+        'company_id',
+        'product_id',
+        'origin_id',
         'name',
-        'segment',
-        'state',
-        'number_employees',
+        'email',
+        'phone',
+        'message',
         'status'
     ];
 
-    public function users() 
+    public function user() 
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function products()
+    public function company()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Company::class);
     }
 
-    public function origins()
+    public function product()
     {
-        return $this->hasMany(Origin::class);
+        return $this->belongsTo(Product::class);
     }
 
-    public function leads()
+    public function origin()
     {
-        return $this->hasMany(Lead::class);
+        return $this->belongsTo(Origin::class);
     }
 }
