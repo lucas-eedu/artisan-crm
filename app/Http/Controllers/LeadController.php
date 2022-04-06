@@ -95,18 +95,35 @@ class LeadController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Lead $lead)
     {
-        //
+        if ($lead->company_id != auth()->user()->company_id) {
+            abort(403, 'Você não tem permissão para visualizar leads de outras empresas.');
+        }
+
+        if ($lead->user_id != auth()->user()->id && auth()->user()->profile_id == 3 && $lead->user_id != NULL) {
+            abort(403, 'Você não tem permissão para visualizar leads que não pertence a você.');
+        }
+
+        if (auth()->user()->profile_id == 3) {
+            $users = User::where('id', auth()->user()->id)->get();
+        } else {
+            $users = User::where('company_id', auth()->user()->company_id)
+                ->where('status', 'active')
+                ->where('profile_id', '!=', 1)
+                ->get();
+        }
+
+        return view('leads.show', compact('lead', 'users'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Lead  $lead
      * @return \Illuminate\Http\Response
      */
     public function edit(Lead $lead)
@@ -143,7 +160,7 @@ class LeadController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Lead  $lead
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Lead $lead)
@@ -153,7 +170,10 @@ class LeadController extends Controller
         }
 
         $data = $request->all();
-        $data['phone'] = str_replace(array(".", "/", "-", "(", ")", " "), '', $request->input('phone'));
+
+        if ($request->input('phone')) {
+            $data['phone'] = str_replace(array(".", "/", "-", "(", ")", " "), '', $request->input('phone'));
+        }
 
         $lead->update($data);
 
@@ -164,7 +184,7 @@ class LeadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Lead  $lead
      * @return \Illuminate\Http\Response
      */
     public function destroy(Lead $lead)
@@ -191,8 +211,7 @@ class LeadController extends Controller
                 ->where('status', 'new')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
-                    $query->where('user_id', NULL)
-                        ->where('status', 'new');
+                    $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);
@@ -218,8 +237,7 @@ class LeadController extends Controller
                 ->where('status', 'negotiation')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
-                    $query->where('user_id', NULL)
-                        ->where('status', 'negotiation');
+                    $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);
@@ -245,8 +263,7 @@ class LeadController extends Controller
                 ->where('status', 'gain')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
-                    $query->where('user_id', NULL)
-                        ->where('status', 'gain');
+                    $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);
@@ -272,8 +289,7 @@ class LeadController extends Controller
                 ->where('status', 'lost')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
-                    $query->where('user_id', NULL)
-                        ->where('status', 'lost');
+                    $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);

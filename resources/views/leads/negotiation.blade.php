@@ -98,12 +98,19 @@
                               <i class="fas fa-align-justify"></i>
                               </button>
                               <div class="dropdown-menu" role="menu">
-                                 <a class="dropdown-item" href="{{ route('lead.edit', ['lead' => $lead->id]) }}">Editar</a>
-                                 <form method="POST" action="{{ route('lead.destroy', ['lead' => $lead->id]) }}" onsubmit="return confirm('Tem certeza que deseja excluir este item?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" value="Excluir" class="dropdown-item">
-                                 </form>
+                                 @can('viewAny', \App\Models\Lead::class)
+                                    <a class="dropdown-item" href="{{ route('lead.show', ['lead' => $lead->id]) }}">Ver</a>
+                                 @endcan
+                                 @can('update', \App\Models\Lead::class)
+                                    <a class="dropdown-item" href="{{ route('lead.edit', ['lead' => $lead->id]) }}">Editar</a>
+                                 @endcan
+                                 @can('update', \App\Models\Lead::class)
+                                    <form method="POST" action="{{ route('lead.destroy', ['lead' => $lead->id]) }}" onsubmit="return confirm('Tem certeza que deseja excluir este item?');">
+                                       @csrf
+                                       @method('DELETE')
+                                       <input type="submit" value="Excluir" class="dropdown-item">
+                                    </form>
+                                 @endcan
                               </div>
                            </td>
                         </tr>

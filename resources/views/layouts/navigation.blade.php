@@ -178,7 +178,7 @@
             <li class="nav-item">
                @can('viewAny', \App\Models\Company::class)
                   <a href="{{route('company.index')}}" class="nav-link">
-                     <i class="nav-icon fas fa-archway"></i>
+                     <i class="nav-icon fas fa-university"></i>
                      <p>
                         Empresas
                      </p>
