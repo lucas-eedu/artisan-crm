@@ -34,6 +34,6 @@ class NewLeadMail extends Mailable
         $subject = 'Novo Lead | Produto: ' . $this->lead->product->name . ' | Origem: ' . $this->lead->origin->name;
         $fromName = 'ArtisanCRM';
 
-        return $this->subject($subject)->from('leads@leadsformulario.com.br', $fromName)->view('mails.leads.new-lead');
+        return $this->subject($subject)->from('leads@leadsformulario.com.br', $fromName)->markdown('mails.leads.new-lead');
     }
 }
