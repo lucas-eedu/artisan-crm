@@ -93,6 +93,11 @@ class LeadController extends Controller
         $users = User::where('company_id', $lead->company_id)
             ->where('status', 'active')
             ->where('id', $lead->user_id)
+            ->orWhere(function ($query) {
+                $query->where('company_id', auth()->user()->company_id);
+                $query->where('status', 'active');
+                $query->where('profile_id', '2');
+            })
             ->get();
 
         NewLeadMail::dispatch($users, $lead);
