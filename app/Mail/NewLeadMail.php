@@ -31,7 +31,7 @@ class NewLeadMail extends Mailable
      */
     public function build()
     {
-        $subject = 'Novo Lead | Produto: ' . $this->lead->product->name . ' | Origem: ' . $this->lead->origin->name;
+        $subject = 'Chegou um lead pegando 🔥 Bora vender! 🚀';
         $fromName = 'ArtisanCRM';
 
         return $this->subject($subject)->from('leads@leadsformulario.com.br', $fromName)->markdown('mails.leads.new-lead');

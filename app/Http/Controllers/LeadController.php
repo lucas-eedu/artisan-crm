@@ -97,7 +97,6 @@ class LeadController extends Controller
             ->get();
 
         foreach ($users as $user) {
-            logger('minha pomba');
             Mail::to($user->email)->send(new NewLeadMail($lead));
         }
 
