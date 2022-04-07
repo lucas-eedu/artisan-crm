@@ -6,10 +6,9 @@ use App\Models\Lead;
 use App\Models\User;
 use App\Models\Origin;
 use App\Models\Product;
-use App\Mail\NewLeadMail;
 use Illuminate\Http\Request;
 use App\Http\Requests\LeadRequest;
-use Illuminate\Support\Facades\Mail;
+use App\Jobs\NewLeadMail;
 
 class LeadController extends Controller
 {
@@ -96,9 +95,7 @@ class LeadController extends Controller
             ->where('id', $lead->user_id)
             ->get();
 
-        foreach ($users as $user) {
-            Mail::to($user->email)->send(new NewLeadMail($lead));
-        }
+        NewLeadMail::dispatch($users, $lead);
 
         flash('Lead criado com sucesso!')->success();
         return redirect()->route('lead.index');
