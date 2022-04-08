@@ -88,19 +88,28 @@ class LeadController extends Controller
         $data['status'] = 'new';
         $data['phone'] = str_replace(array(".", "/", "-", "(", ")", " "), '', $request->input('phone'));
 
-        $lead = Lead::create($data);
+        if ($data['user_id'] == 'AUTOMATIC') {
 
-        $users = User::where('company_id', $lead->company_id)
-            ->where('status', 'active')
-            ->where('id', $lead->user_id)
-            ->orWhere(function ($query) {
-                $query->where('company_id', auth()->user()->company_id);
-                $query->where('status', 'active');
-                $query->where('profile_id', '2');
-            })
-            ->get();
+            if ($this->userWhoHasNotYetReceivedLeads($data['company_id']) == NULL) {
+                $this->updatesLeadQueueColumnUsersWhoHaveAlreadyReceived($data['company_id']);
+                
+                $userWhoHasNotYetReceivedLeads = $this->userWhoHasNotYetReceivedLeads($data['company_id']);
+                $data['user_id'] = $userWhoHasNotYetReceivedLeads->id;
+                $leadCreated = Lead::create($data);
 
-        NewLeadMail::dispatch($users, $lead);
+                $this->updatesUserWhoReceivedLead($leadCreated);
+            } else {
+                $data['user_id'] = $this->userWhoHasNotYetReceivedLeads($data['company_id'])->id;
+                $leadCreated = Lead::create($data);
+
+                $this->updatesUserWhoReceivedLead($leadCreated);
+            }
+
+        } else {
+            $leadCreated = Lead::create($data);
+        }
+
+        $this->sendLeadEmail($leadCreated);
 
         flash('Lead criado com sucesso!')->success();
         return redirect()->route('lead.index');
@@ -323,5 +332,71 @@ class LeadController extends Controller
         }
 
         return view('leads.lost', compact('leads'));
+    }
+
+    /**
+     * Returns the id of the user who has not yet received leads
+     *
+     * @param  int $company_id
+     * @return mixed
+     */
+    public function userWhoHasNotYetReceivedLeads(string $company_id): mixed
+    {
+        return User::where('company_id', $company_id)
+            ->where('status', 'active')
+            ->where('lead_queue', 0)
+            ->where('profile_id', '!=', '1')
+            ->first();
+    }
+
+    /**
+     * Updates the lead_queue of users who already receive Leads
+     *
+     * @param  mixed $company_id
+     * @return void
+     */
+    public function updatesLeadQueueColumnUsersWhoHaveAlreadyReceived(string $company_id)
+    {
+        $usersWhoReceivedLeads = User::where('company_id', $company_id)
+            ->where('status', 'active')
+            ->where('lead_queue', 1)
+            ->where('profile_id', '!=', '1');
+
+        $leadQueue['lead_queue'] = 0;
+        $usersWhoReceivedLeads->update($leadQueue);
+    }
+        
+    /**
+     * Update User Who Received the Lead
+     *
+     * @param  mixed $leadCreated
+     * @return void
+     */
+    public function updatesUserWhoReceivedLead($leadCreated)
+    {
+        $leadQueue['lead_queue'] = 1;
+        $leadOwner = User::where('id', $leadCreated->user_id);
+        $leadOwner->update($leadQueue);
+    }
+    
+    /**
+     * Send the lead email to the users who should receive it
+     *
+     * @param  mixed $leadCreated
+     * @return void
+     */
+    public function sendLeadEmail($leadCreated)
+    {
+        $users = User::where('company_id', $leadCreated->company_id)
+            ->where('status', 'active')
+            ->where('id', $leadCreated->user_id)
+            ->orWhere(function ($query) {
+                $query->where('company_id', auth()->user()->company_id);
+                $query->where('status', 'active');
+                $query->where('profile_id', '2');
+            })
+            ->get();
+
+        NewLeadMail::dispatch($users, $leadCreated);
     }
 }

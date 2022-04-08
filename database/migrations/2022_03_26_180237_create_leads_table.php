@@ -30,7 +30,7 @@ class CreateLeadsTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->uuid('company_id');
+            $table->uuid('company_id')->nullable(false);
             $table->index('company_id');
             $table
                 ->foreign('company_id', 'leads_company')
@@ -38,7 +38,7 @@ class CreateLeadsTable extends Migration
                 ->on('companies')
                 ->onDelete('cascade');
 
-            $table->uuid('product_id');
+            $table->uuid('product_id')->nullable(false);
             $table->index('product_id');
             $table
                 ->foreign('product_id', 'leads_product')
@@ -46,7 +46,7 @@ class CreateLeadsTable extends Migration
                 ->on('products')
                 ->onDelete('cascade');
 
-            $table->uuid('origin_id');
+            $table->uuid('origin_id')->nullable(false);
             $table->index('origin_id');
             $table
                 ->foreign('origin_id', 'leads_origin')
