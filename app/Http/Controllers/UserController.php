@@ -117,15 +117,20 @@ class UserController extends Controller
         }
 
         $data = $request->all();
-        if ($data['password']) {
-            $data['password'] = Hash::make($data['password']);
-        } else {
-            unset($data['password']);
-        }
 
         if ($user->id == auth()->user()->id && $user->status != $data['status']) {
             flash('Você não pode mudar o status do próprio usuário!')->error();
             return redirect()->route('user.index');
+        }
+
+        if ($request->input('email') != $user->email) {
+            $data['email_verified_at'] = NULL;
+        }
+
+        if ($data['password']) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
         }
 
         $user->update($data);
@@ -193,6 +198,11 @@ class UserController extends Controller
         $user = User::findOrFail(auth()->user()->id);
 
         $data = $request->all();
+
+        if ($request->input('email') != $user->email) {
+            $data['email_verified_at'] = NULL;
+        }
+
         isset($data['lead_email']) ? $data['lead_email'] = 1 : $data['lead_email'] = 0;
 
         if ($data['password']) {
