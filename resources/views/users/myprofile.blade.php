@@ -86,6 +86,17 @@
                         </span>
                      @enderror
                   </div>
+                  <div class="form-group">
+                     <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input @error('lead_email') is-invalid @enderror" id="lead_email" name="lead_email" @if ($user->lead_email === 1) checked @endif>
+                        <label class="custom-control-label" for="lead_email">Receba e-mails de novos leads</label>
+                     </div>
+                     @error('lead_email')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{$message}}</strong>
+                        </span>
+                     @enderror
+                  </div>
                </div>
                <!-- /.card-body -->
                <div class="card-footer">
