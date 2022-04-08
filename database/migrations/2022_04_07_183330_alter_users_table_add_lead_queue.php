@@ -14,7 +14,7 @@ class AlterUsersTableAddLeadQueue extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('lead_queue')->default(false)->before('status');
+            $table->boolean('lead_queue')->default(false)->after('status');
         });
     }
 
