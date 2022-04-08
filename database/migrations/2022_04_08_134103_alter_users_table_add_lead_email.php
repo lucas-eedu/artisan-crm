@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterUsersTableAddLeadQueue extends Migration
+class AlterUsersTableAddLeadEmail extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AlterUsersTableAddLeadQueue extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('lead_queue')->default(false)->after('status');
+            $table->boolean('lead_email')->default(true)->after('lead_queue');
         });
     }
 
@@ -26,7 +26,7 @@ class AlterUsersTableAddLeadQueue extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('lead_queue');
+            $table->dropColumn('lead_email');
         });
     }
 }

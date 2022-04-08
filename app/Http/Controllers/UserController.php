@@ -193,6 +193,7 @@ class UserController extends Controller
         $user = User::findOrFail(auth()->user()->id);
 
         $data = $request->all();
+        isset($data['lead_email']) ? $data['lead_email'] = 1 : $data['lead_email'] = 0;
 
         if ($data['password']) {
             $data['password'] = Hash::make($data['password']);

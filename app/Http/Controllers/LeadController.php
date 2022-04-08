@@ -389,10 +389,12 @@ class LeadController extends Controller
     {
         $users = User::where('company_id', $leadCreated->company_id)
             ->where('status', 'active')
+            ->where('lead_email', 1)
             ->where('id', $leadCreated->user_id)
             ->orWhere(function ($query) {
                 $query->where('company_id', auth()->user()->company_id);
                 $query->where('status', 'active');
+                $query->where('lead_email', 1);
                 $query->where('profile_id', '2');
             })
             ->get();
