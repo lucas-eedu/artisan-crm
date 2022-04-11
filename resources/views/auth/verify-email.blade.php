@@ -49,7 +49,7 @@
             <a href="#" class="h1"><b>Artisan</b>CRM</a>
          </div>
          <div class="card-body">
-            <p class="login-box-msg">Sua conta foi criada! <br>Mas antes de começar, precisamos que você verifique seu endereço de e-mail clicando no link que acabamos de enviar para você.</p>
+            <p class="login-box-msg">Precisamos que você verifique seu endereço de e-mail clicando no link que acabamos de enviar para você.</p>
             <p class="login-box-msg">Se você não recebeu o e-mail, teremos o prazer de lhe enviar outro.</p>
 
             @if (session('status') == 'verification-link-sent')

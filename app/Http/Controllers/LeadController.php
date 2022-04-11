@@ -8,6 +8,7 @@ use App\Models\Origin;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\LeadRequest;
+use App\Jobs\NewLeadMail;
 
 class LeadController extends Controller
 {
@@ -33,6 +34,7 @@ class LeadController extends Controller
             $leads = Lead::where('company_id', auth()->user()->company_id)
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
+                    $query->where('company_id', auth()->user()->company_id);
                     $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
@@ -84,9 +86,30 @@ class LeadController extends Controller
         $data = $request->all();
         $data['company_id'] = auth()->user()->company_id;
         $data['status'] = 'new';
-        $data['phone'] = str_replace(array(".", "/", "-", "(", ")"), '', $request->input('phone'));
+        $data['phone'] = str_replace(array(".", "/", "-", "(", ")", " "), '', $request->input('phone'));
 
-        Lead::create($data);
+        if ($data['user_id'] == 'AUTOMATIC') {
+
+            if ($this->userWhoHasNotYetReceivedLeads($data['company_id']) == NULL) {
+                $this->updatesLeadQueueColumnUsersWhoHaveAlreadyReceived($data['company_id']);
+                
+                $userWhoHasNotYetReceivedLeads = $this->userWhoHasNotYetReceivedLeads($data['company_id']);
+                $data['user_id'] = $userWhoHasNotYetReceivedLeads->id;
+                $leadCreated = Lead::create($data);
+
+                $this->updatesUserWhoReceivedLead($leadCreated);
+            } else {
+                $data['user_id'] = $this->userWhoHasNotYetReceivedLeads($data['company_id'])->id;
+                $leadCreated = Lead::create($data);
+
+                $this->updatesUserWhoReceivedLead($leadCreated);
+            }
+
+        } else {
+            $leadCreated = Lead::create($data);
+        }
+
+        $this->sendLeadEmail($leadCreated);
 
         flash('Lead criado com sucesso!')->success();
         return redirect()->route('lead.index');
@@ -95,18 +118,35 @@ class LeadController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Lead $lead)
     {
-        //
+        if ($lead->company_id != auth()->user()->company_id) {
+            abort(403, 'Você não tem permissão para visualizar leads de outras empresas.');
+        }
+
+        if ($lead->user_id != auth()->user()->id && auth()->user()->profile_id == 3 && $lead->user_id != NULL) {
+            abort(403, 'Você não tem permissão para visualizar leads que não pertence a você.');
+        }
+
+        if (auth()->user()->profile_id == 3) {
+            $users = User::where('id', auth()->user()->id)->get();
+        } else {
+            $users = User::where('company_id', auth()->user()->company_id)
+                ->where('status', 'active')
+                ->where('profile_id', '!=', 1)
+                ->get();
+        }
+
+        return view('leads.show', compact('lead', 'users'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Lead  $lead
      * @return \Illuminate\Http\Response
      */
     public function edit(Lead $lead)
@@ -143,7 +183,7 @@ class LeadController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Lead  $lead
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Lead $lead)
@@ -153,7 +193,10 @@ class LeadController extends Controller
         }
 
         $data = $request->all();
-        $data['phone'] = str_replace(array(".", "/", "-", "(", ")", " "), '', $request->input('phone'));
+
+        if ($request->input('phone')) {
+            $data['phone'] = str_replace(array(".", "/", "-", "(", ")", " "), '', $request->input('phone'));
+        }
 
         $lead->update($data);
 
@@ -164,7 +207,7 @@ class LeadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Lead  $lead
      * @return \Illuminate\Http\Response
      */
     public function destroy(Lead $lead)
@@ -191,8 +234,9 @@ class LeadController extends Controller
                 ->where('status', 'new')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
-                    $query->where('user_id', NULL)
-                        ->where('status', 'new');
+                    $query->where('company_id', auth()->user()->company_id);
+                    $query->where('status', 'new');
+                    $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);
@@ -218,8 +262,9 @@ class LeadController extends Controller
                 ->where('status', 'negotiation')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
-                    $query->where('user_id', NULL)
-                        ->where('status', 'negotiation');
+                    $query->where('company_id', auth()->user()->company_id);
+                    $query->where('status', 'negotiation');
+                    $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);
@@ -245,8 +290,9 @@ class LeadController extends Controller
                 ->where('status', 'gain')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
-                    $query->where('user_id', NULL)
-                        ->where('status', 'gain');
+                    $query->where('company_id', auth()->user()->company_id);
+                    $query->where('status', 'gain');
+                    $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);
@@ -272,8 +318,9 @@ class LeadController extends Controller
                 ->where('status', 'lost')
                 ->where('user_id', auth()->user()->id)
                 ->orWhere(function ($query) {
-                    $query->where('user_id', NULL)
-                        ->where('status', 'lost');
+                    $query->where('company_id', auth()->user()->company_id);
+                    $query->where('status', 'lost');
+                    $query->where('user_id', NULL);
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);
@@ -285,5 +332,73 @@ class LeadController extends Controller
         }
 
         return view('leads.lost', compact('leads'));
+    }
+
+    /**
+     * Returns the id of the user who has not yet received leads
+     *
+     * @param  int $company_id
+     * @return mixed
+     */
+    public function userWhoHasNotYetReceivedLeads(string $company_id): mixed
+    {
+        return User::where('company_id', $company_id)
+            ->where('status', 'active')
+            ->where('lead_queue', 0)
+            ->where('profile_id', '!=', '1')
+            ->first();
+    }
+
+    /**
+     * Updates the lead_queue of users who already receive Leads
+     *
+     * @param  mixed $company_id
+     * @return void
+     */
+    public function updatesLeadQueueColumnUsersWhoHaveAlreadyReceived(string $company_id)
+    {
+        $usersWhoReceivedLeads = User::where('company_id', $company_id)
+            ->where('status', 'active')
+            ->where('lead_queue', 1)
+            ->where('profile_id', '!=', '1');
+
+        $leadQueue['lead_queue'] = 0;
+        $usersWhoReceivedLeads->update($leadQueue);
+    }
+        
+    /**
+     * Update User Who Received the Lead
+     *
+     * @param  mixed $leadCreated
+     * @return void
+     */
+    public function updatesUserWhoReceivedLead($leadCreated)
+    {
+        $leadQueue['lead_queue'] = 1;
+        $leadOwner = User::where('id', $leadCreated->user_id);
+        $leadOwner->update($leadQueue);
+    }
+    
+    /**
+     * Send the lead email to the users who should receive it
+     *
+     * @param  mixed $leadCreated
+     * @return void
+     */
+    public function sendLeadEmail($leadCreated)
+    {
+        $users = User::where('company_id', $leadCreated->company_id)
+            ->where('status', 'active')
+            ->where('lead_email', 1)
+            ->where('id', $leadCreated->user_id)
+            ->orWhere(function ($query) {
+                $query->where('company_id', auth()->user()->company_id);
+                $query->where('status', 'active');
+                $query->where('lead_email', 1);
+                $query->where('profile_id', '2');
+            })
+            ->get();
+
+        NewLeadMail::dispatch($users, $leadCreated);
     }
 }

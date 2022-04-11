@@ -80,9 +80,7 @@ class PermissionProfilerSeeder extends Seeder
             (3, 18),
             (3, 22),
             (3, 27),
-            (3, 28),
-            (3, 29),
-            (3, 30);
+            (3, 29);
         ");
     }
 }

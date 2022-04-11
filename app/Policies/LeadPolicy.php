@@ -28,7 +28,7 @@ class LeadPolicy
      * @param  \App\Models\Lead  $lead
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Lead $lead)
+    public function view(User $user)
     {
         return $user->containsPermission('lead_viewAny');
     }
@@ -51,7 +51,7 @@ class LeadPolicy
      * @param  \App\Models\Lead  $lead
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Lead $lead)
+    public function update(User $user)
     {
         return $user->containsPermission('lead_update');
     }
@@ -63,7 +63,7 @@ class LeadPolicy
      * @param  \App\Models\Lead  $lead
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Lead $lead)
+    public function delete(User $user)
     {
         return $user->containsPermission('lead_delete');
     }
