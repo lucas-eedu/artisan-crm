@@ -8,7 +8,8 @@ use App\Models\Origin;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\LeadRequest;
-use App\Jobs\NewLeadMail;
+use App\Mail\NewLeadEmail;
+use Illuminate\Support\Facades\Mail;
 
 class LeadController extends Controller
 {
@@ -398,7 +399,9 @@ class LeadController extends Controller
                 $query->where('profile_id', '2');
             })
             ->get();
-
-        NewLeadMail::dispatch($users, $leadCreated);
+            
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new NewLeadEmail($leadCreated));
+        }
     }
 }
