@@ -33,7 +33,9 @@ kool run setup
 
 3. Accessing the CRM locally:
 - In your browser, access the URL http://localhost
-- Access CRM with email: admin@admin.com and password: admin@123
+- Access CRM with email: super@artisan.com.br and password: admin@123
+- Access CRM with email: admin@artisan.com.br password: admin@123
+- Access CRM with email: seller@artisan.com.br password: admin@123
 
 ## Local Installation
 You can install this project via github or by downloading the zipped repository.
@@ -91,7 +93,9 @@ cp .env.local.example .env
 
 6. Accessing the CRM locally:
 - In your browser, access the URL http://localhost
-- Access CRM with email: admin@admin.com and password: admin@123
+- Access CRM with email: super@artisan.com.br and password: admin@123
+- Access CRM with email: admin@artisan.com.br password: admin@123
+- Access CRM with email: seller@artisan.com.br password: admin@123
 
 ## Contribuidores
 Thank you for considering contributing to Artisan CRM. Any kind of contribution is welcome, send a PR!
