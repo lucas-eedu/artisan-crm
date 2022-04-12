@@ -189,8 +189,12 @@ class LeadController extends Controller
      */
     public function update(Request $request, Lead $lead)
     {
-        if ($lead->company_id != auth()->user()->company_id) {
+        if (auth()->user()->company_id != $lead->company_id) {
             abort(403, 'Você não tem permissão para editar leads de outras empresas.');
+        }
+
+        if (auth()->user()->profile_id == 3 && auth()->user()->id != $lead->user_id) {
+            abort(403, 'Você não tem permissão para editar leads que não pertence a você.');
         }
 
         $data = $request->all();
