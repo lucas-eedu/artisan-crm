@@ -101,10 +101,10 @@
                                  @can('viewAny', \App\Models\Lead::class)
                                     <a class="dropdown-item" href="{{ route('lead.show', ['lead' => $lead->id]) }}">Ver</a>
                                  @endcan
-                                 @can('update', \App\Models\Lead::class)
+                                 @if (auth()->user()->profile_id != 3)
                                     <a class="dropdown-item" href="{{ route('lead.edit', ['lead' => $lead->id]) }}">Editar</a>
-                                 @endcan
-                                 @can('update', \App\Models\Lead::class)
+                                 @endif
+                                 @can('delete', \App\Models\Lead::class)
                                     <form method="POST" action="{{ route('lead.destroy', ['lead' => $lead->id]) }}" onsubmit="return confirm('Tem certeza que deseja excluir este item?');">
                                        @csrf
                                        @method('DELETE')
