@@ -24,11 +24,20 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $profiles = Profile::orderBy('name', 'ASC')->paginate(10);
+        $profiles = Profile::select('profiles.*');
 
-        return view('profiles.index', compact('profiles'));
+        $search = $request->input('search');
+        if ($search) {
+            $profiles = $profiles->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            });
+        }
+
+        $profiles = $profiles->orderBy('name', 'ASC')->paginate(10);
+
+        return view('profiles.index', compact('profiles', 'search'));
     }
 
     /**

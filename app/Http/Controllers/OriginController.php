@@ -24,11 +24,25 @@ class OriginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $origins = Origin::where('company_id', auth()->user()->company_id)->paginate(10);
+        $origins = Origin::where('company_id', auth()->user()->company_id);
 
-        return view('origins.index', compact('origins'));
+        $search = $request->input('search');
+        if ($search) {
+            $origins = $origins->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            });
+        }
+
+        $search_status = $request->input('search_status');
+        if ($search_status) {
+            $origins = $origins->where('status', $search_status);
+        }
+
+        $origins = $origins->orderBy('name')->paginate(10);
+
+        return view('origins.index', compact('origins', 'search', 'search_status'));
     }
 
     /**

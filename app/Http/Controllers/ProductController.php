@@ -25,11 +25,25 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::where('company_id', auth()->user()->company_id)->paginate(10);
+        $products = Product::where('company_id', auth()->user()->company_id);
 
-        return view('products.index', compact('products'));
+        $search = $request->input('search');
+        if ($search) {
+            $products = $products->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            });
+        }
+
+        $search_status = $request->input('search_status');
+        if ($search_status) {
+            $products = $products->where('status', $search_status);
+        }
+
+        $products = $products->orderBy('name')->paginate(10);
+
+        return view('products.index', compact('products', 'search', 'search_status'));
     }
 
     /**

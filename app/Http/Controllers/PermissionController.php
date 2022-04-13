@@ -24,11 +24,21 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $permissions = Permission::orderBy('name', 'ASC')->paginate(10);
+        $permissions = Permission::select('permissions.*');
 
-        return view('permissions.index', compact('permissions'));
+        $search = $request->input('search');
+        if ($search) {
+            $permissions = $permissions->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+                $query->orWhere('code', 'like', '%' . $search . '%');
+            });
+        }
+
+        $permissions = $permissions->orderBy('name')->paginate(10);
+
+        return view('permissions.index', compact('permissions', 'search'));
     }
 
     /**
