@@ -135,7 +135,9 @@
                            <th>Produto</th>
                            <th>Origem</th>
                            <th>Status</th>
+                           @if(auth()->user()->profile_id != 3)
                            <th>Vendedor Responsável</th>
+                           @endif
                            <th>Ações</th>
                         </tr>
                      </thead>
@@ -162,10 +164,12 @@
                               <span class="badge badge-pill badge-danger">Perdido</span>
                               @endif
                            </td>
-                           @if (isset($lead->user))
-                           <td>{{$lead->user->name}}</td>
-                           @else
-                           <td>Sem Responsável</td>
+                           @if(auth()->user()->profile_id != 3)
+                              @if (isset($lead->user))
+                              <td>{{$lead->user->name}}</td>
+                              @else
+                              <td>Sem Responsável</td>
+                              @endif
                            @endif
                            <td style="border:0px;">
                               <button type="button" class="btn btn-info btn-flat dropdown-icon" data-toggle="dropdown" aria-expanded="false">

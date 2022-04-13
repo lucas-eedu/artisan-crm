@@ -63,6 +63,7 @@
                         <div class="form-group">
                            <select id="search_user_id" class="select2 form-control" name="search_user_id">
                               <option value="">Vendedor Responsável</option>
+                              <option value="null">Sem Responsável</option>
                               @foreach($users as $user)
                               <option value="{{$user->id}}" @if ($user->id == $search_user_id) selected="selected" @endif>{{$user->name}}</option>
                               @endforeach
@@ -124,7 +125,9 @@
                            <th>Produto</th>
                            <th>Origem</th>
                            <th>Status</th>
+                           @if(auth()->user()->profile_id != 3)
                            <th>Vendedor Responsável</th>
+                           @endif
                            <th>Ações</th>
                         </tr>
                      </thead>
@@ -151,10 +154,12 @@
                               <span class="badge badge-pill badge-danger">Perdido</span>
                               @endif
                            </td>
-                           @if (isset($lead->user))
-                           <td>{{$lead->user->name}}</td>
-                           @else
-                           <td>Sem Responsável</td>
+                           @if(auth()->user()->profile_id != 3)
+                              @if (isset($lead->user))
+                              <td>{{$lead->user->name}}</td>
+                              @else
+                              <td>Sem Responsável</td>
+                              @endif
                            @endif
                            <td style="border:0px;">
                               <button type="button" class="btn btn-info btn-flat dropdown-icon" data-toggle="dropdown" aria-expanded="false">
