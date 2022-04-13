@@ -26,11 +26,40 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $companies = Company::orderBy('name', 'ASC')->paginate(10);
+        $companies = Company::select('companies.*');
 
-        return view('companies.index', compact('companies'));
+        $search = $request->input('search');
+        if ($search) {
+            $companies = $companies->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            });
+        }
+
+        $search_segment = $request->input('search_segment');
+        if ($search_segment) {
+            $companies = $companies->where('segment', $search_segment);
+        }
+
+        $search_state = $request->input('search_state');
+        if ($search_state) {
+            $companies = $companies->where('state', $search_state);
+        }
+
+        $search_number_employees = $request->input('search_number_employees');
+        if ($search_number_employees) {
+            $companies = $companies->where('number_employees', $search_number_employees);
+        }
+
+        $search_status = $request->input('search_status');
+        if ($search_status) {
+            $companies = $companies->where('status', $search_status);
+        }
+
+        $companies = $companies->orderBy('name')->paginate(10);
+
+        return view('companies.index', compact('companies', 'search', 'search_status', 'search_segment', 'search_state', 'search_number_employees'));
     }
 
     /**
