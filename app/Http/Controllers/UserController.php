@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Profile;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
+use App\Helpers\ProfileHelper;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -33,15 +34,37 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (auth()->user()->profile_id == 1) {
-            $users = User::with('profile')->orderBy('company_id')->paginate(10);
+        if (ProfileHelper::isSuperAdministrator()) {
+            $users = User::with('profile');
         } else {
-            $users = User::where('company_id', auth()->user()->company_id)->paginate(10);
+            $users = User::where('company_id', auth()->user()->company_id);
         }
 
-        return view('users.index', compact('users'));
+        $search = $request->input('search');
+        if ($search) {
+            $users = $users->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+                $query->orWhere('email', 'like', '%' . $search . '%');
+                $query->orWhere('status', $search);
+                $query->orWhereHas('profile', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                });
+                $query->orWhereHas('company', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                });
+            });
+        }
+
+        $search_status = $request->input('search_status');
+        if ($search_status) {
+            $users = $users->where('status', $search_status);
+        }
+
+        $users = $users->orderBy('company_id')->paginate(10);
+
+        return view('users.index', compact('users', 'search', 'search_status'));
     }
 
     /**
@@ -52,7 +75,7 @@ class UserController extends Controller
     public function create()
     {
         $companies = [];
-        if (auth()->user()->profile_id == 1) {
+        if (ProfileHelper::isSuperAdministrator()) {
             $companies = Company::orderBy('name')->get();
             $profiles = Profile::orderBy('name')->get();
         } else {
@@ -91,7 +114,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        if (auth()->user()->profile_id == 1) {
+        if (ProfileHelper::isSuperAdministrator()) {
             $profiles = Profile::orderBy('name')->get();
         } else {
             if ($user->company_id != auth()->user()->company_id) {
@@ -168,7 +191,7 @@ class UserController extends Controller
     }
 
     /**
-     * myProfile
+     * Returns the MyProfile view passing the data of the logged in user
      *
      * @return void
      */
@@ -184,7 +207,7 @@ class UserController extends Controller
     }
 
     /**
-     * myProfileUpdate
+     * Update logged user data
      *
      * @param  UserMyProfileRequest $request
      * @return void
@@ -224,7 +247,7 @@ class UserController extends Controller
             if (Storage::disk('public')->exists($user->profile_picture)) {
                 Storage::disk('public')->delete($user->profile_picture);
             }
-            
+
             $data['profile_picture'] = $this->imageUpload($request->file('profile_picture'));
         }
 
