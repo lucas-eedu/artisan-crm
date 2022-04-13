@@ -40,12 +40,24 @@
                            <input type="text" name="search" class="form-control" placeholder="Digite sua busca" value="{{ $search }}">
                         </div>
                      </div>
-                     <div class="col-4">
+                     @if (auth()->user()->profile_id == 1)
+                        <div class="col-2">
+                           <div class="form-group">
+                              <select id="search_company_id" class="select2 form-control" name="search_company_id">
+                                 <option value="">Empresa</option>
+                                 @foreach($companies as $company)
+                                    <option value="{{$company->id}}" @if ($company->id == $search_company_id) selected="selected" @endif>{{$company->name}}</option>
+                                 @endforeach
+                              </select>
+                           </div>
+                        </div>
+                     @endif
+                     <div class="@if (auth()->user()->profile_id == 1) col-2 @else col-4 @endif">
                         <div class="form-group">
                            <select id="search_status" class="select2 form-control" name="search_status">
-                              <option value="">Status do usuário</option>
-                              <option value="active" @if ("active" == $search_status) selected="selected" @endif>Ativo</option>
-                              <option value="inactive" @if ("inactive" == $search_status) selected="selected" @endif>Inativo</option>
+                              <option value="">Status</option>
+                              <option value="active" @if ("active"==$search_status) selected="selected" @endif>Ativo</option>
+                              <option value="inactive" @if ("inactive"==$search_status) selected="selected" @endif>Inativo</option>
                            </select>
                         </div>
                      </div>

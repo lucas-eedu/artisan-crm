@@ -38,6 +38,7 @@ class UserController extends Controller
     {
         if (ProfileHelper::isSuperAdministrator()) {
             $users = User::with('profile');
+            $companies = Company::with('users');
         } else {
             $users = User::where('company_id', auth()->user()->company_id);
         }
@@ -57,14 +58,21 @@ class UserController extends Controller
             });
         }
 
+        $search_company_id = $request->input('search_company_id');
+        if ($search_company_id) {
+            $users = $users->where('company_id', $search_company_id);
+        }
+
         $search_status = $request->input('search_status');
         if ($search_status) {
             $users = $users->where('status', $search_status);
         }
 
-        $users = $users->orderBy('company_id')->paginate(10);
+        $users = $users->paginate(10);
 
-        return view('users.index', compact('users', 'search', 'search_status'));
+        ProfileHelper::isSuperAdministrator() == true ? $companies = $companies->get() : $companies = [];
+
+        return view('users.index', compact('users', 'companies', 'search', 'search_status', 'search_company_id'));
     }
 
     /**
