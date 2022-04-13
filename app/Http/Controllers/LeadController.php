@@ -454,27 +454,60 @@ class LeadController extends Controller
      *
      * @return void
      */
-    public function showListLostLeads()
+    public function showListLostLeads(Request $request)
     {
+        $products = Product::where('company_id', auth()->user()->company_id);
+        $origins = Origin::where('company_id', auth()->user()->company_id);
+
         if (ProfileHelper::isSeller()) {
             $leads = Lead::where('company_id', auth()->user()->company_id)
                 ->where('status', 'lost')
-                ->where('user_id', auth()->user()->id)
-                ->orWhere(function ($query) {
-                    $query->where('company_id', auth()->user()->company_id);
-                    $query->where('status', 'lost');
-                    $query->where('user_id', NULL);
-                })
-                ->orderBy('created_at', 'DESC')
-                ->paginate(10);
+                ->where('user_id', auth()->user()->id);
         } else {
             $leads = Lead::where('company_id', auth()->user()->company_id)
-                ->where('status', 'lost')
-                ->orderBy('created_at', 'DESC')
-                ->paginate(10);
+                ->where('status', 'lost');
+            $users = User::where('company_id', auth()->user()->company_id);
         }
 
-        return view('leads.lost', compact('leads'));
+        $search = $request->input('search');
+        if ($search) {
+            $leads = $leads->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+                $query->orWhere('email', 'like', '%' . $search . '%');
+                $query->orWhere('phone', 'like', '%' . $search . '%');
+            });
+        }
+
+        $search_product_id = $request->input('search_product_id');
+        if ($search_product_id) {
+            $leads = $leads->where('product_id', $search_product_id);
+        }
+
+        $search_origin_id = $request->input('search_origin_id');
+        if ($search_origin_id) {
+            $leads = $leads->where('origin_id', $search_origin_id);
+        }
+
+        $search_user_id = $request->input('search_user_id');
+        if ($search_user_id) {
+            $leads = $leads->where('user_id', $search_user_id);
+        }
+
+        $products = $products->get();
+        $origins = $origins->get();
+        ProfileHelper::isSeller() != true ? $users = $users->get() : $users = [];
+        $leads = $leads->orderBy('created_at', 'DESC')->paginate(10);
+
+        return view('leads.lost', compact(
+            'products',
+            'origins',
+            'users',
+            'leads',
+            'search',
+            'search_product_id',
+            'search_origin_id',
+            'search_user_id'
+        ));
     }
 
     /**
