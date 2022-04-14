@@ -80,7 +80,7 @@ class AllDataSuperAdministratorSeeder extends Seeder
             'status'     => 'active'
         ]);
 
-        for ($i=0; $i < 50; $i++) {
+        for ($i=0; $i < 500; $i++) {
             Lead::create([
                 'company_id' => $company->id,
                 'product_id' => $product->id,
@@ -90,20 +90,8 @@ class AllDataSuperAdministratorSeeder extends Seeder
                 'email'      => $this->faker->freeEmail(),
                 'phone'      => rand(00000000000, 99999999999),
                 'message'    => $this->faker->text($maxNbChars = 1000),
-                'status'     => $this->faker->randomElement(['new', 'negotiation', 'gain', 'lost'])
-            ]);
-        }
-
-        for ($i=0; $i < 10; $i++) {
-            Lead::create([
-                'company_id' => $company->id,
-                'product_id' => $product->id,
-                'origin_id'  => $origin->id,
-                'name'       => $this->faker->name(),
-                'email'      => $this->faker->freeEmail(),
-                'phone'      => rand(00000000000, 99999999999),
-                'message'    => $this->faker->text($maxNbChars = 1000),
-                'status'     => $this->faker->randomElement(['new', 'negotiation', 'gain', 'lost'])
+                'status'     => $this->faker->randomElement(['new', 'negotiation', 'gain', 'lost']),
+                'created_at' => date('Y-') . rand(1, 12) . date('-d H:i:s')
             ]);
         }
     }
