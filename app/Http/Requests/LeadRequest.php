@@ -26,6 +26,7 @@ class LeadRequest extends FormRequest
         return [
             'email'      => 'required|string',
             'company_id' => 'required',
+            'user_id'    => 'required',
             'product_id' => 'required',
             'origin_id'  => 'required',
         ];

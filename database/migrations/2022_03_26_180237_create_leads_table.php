@@ -22,7 +22,7 @@ class CreateLeadsTable extends Migration
             $table->text('message')->nullable(true);
             $table->enum('status', ['new', 'negotiation', 'gain', 'lost'])->default('new');
 
-            $table->uuid('user_id')->nullable(true);
+            $table->uuid('user_id')->nullable(false);
             $table->index('user_id');
             $table
                 ->foreign('user_id', 'leads_user')
