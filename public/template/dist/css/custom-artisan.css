@@ -1,0 +1,21 @@
+/* Dashboard */
+
+.bg-box-new, .bg-box-negotiation, .bg-box-gain, .bg-box-lost {
+   color: #FFFFFF;
+}
+
+.bg-box-new {
+   background-color: #33B8FF;
+}
+
+.bg-box-negotiation {
+   background-color: #FFE933;
+}
+
+.bg-box-gain {
+   background-color: #4CD11D;
+}
+
+.bg-box-lost {
+   background-color: #FF5733;
+}
