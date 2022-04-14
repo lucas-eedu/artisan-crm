@@ -37,7 +37,7 @@ Route::redirect('/', '/login');
 
 // App Routes
 Route::namespace('App\Http\Controllers')->middleware('verified')->group(function() {
-    Route::get('/dashboard', 'PageController@dashboard')->name('dashboard');
+    Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
 
     Route::resource('user', 'UserController');
     Route::resource('permission', 'PermissionController');
