@@ -117,9 +117,10 @@
             </div>
          </div>
          <!-- Charts -->
-         <div class="row">
+         <!-- DONUT CHART -->
+         <!-- PIE CHART -->
+         <!-- <div class="row">
             <div class="col-md-6">
-               <!-- DONUT CHART -->
                <div class="card">
                   <div class="card-header">
                      <h3 class="card-title">Melhor vendedor do mês</h3>
@@ -135,11 +136,9 @@
                   <div class="card-body">
                      <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                   </div>
-                  <!-- /.card-body -->
                </div>
             </div>
             <div class="col-md-6">
-               <!-- PIE CHART -->
                <div class="card">
                   <div class="card-header">
                      <h3 class="card-title">Melhor vendedor do ano</h3>
@@ -157,7 +156,7 @@
                   </div>
                </div>
             </div>
-         </div>
+         </div> -->
       </div>
       <!-- /.container-fluid -->
    </section>
@@ -278,50 +277,50 @@
       //- DONUT CHART -
       //-------------
       // Get context with jQuery - using jQuery's .get() method.
-      var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-      var donutData = {
-         labels: [
-            'Ana',
-            'Lucas',
-            'Antony',
-            'Jhon',
-            'Larissa',
-            'Pedro',
-         ],
-         datasets: [{
-            data: [700, 500, 400, 600, 300, 100],
-            backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-         }]
-      }
-      var donutOptions = {
-         maintainAspectRatio: false,
-         responsive: true,
-      }
+      // var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+      // var donutData = {
+      //    labels: [
+      //       'Ana',
+      //       'Lucas',
+      //       'Antony',
+      //       'Jhon',
+      //       'Larissa',
+      //       'Pedro',
+      //    ],
+      //    datasets: [{
+      //       data: [700, 500, 400, 600, 300, 100],
+      //       backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+      //    }]
+      // }
+      // var donutOptions = {
+      //    maintainAspectRatio: false,
+      //    responsive: true,
+      // }
       //Create pie or douhnut chart
       // You can switch between pie and douhnut using the method below.
-      new Chart(donutChartCanvas, {
-         type: 'doughnut',
-         data: donutData,
-         options: donutOptions
-      })
+      // new Chart(donutChartCanvas, {
+      //    type: 'doughnut',
+      //    data: donutData,
+      //    options: donutOptions
+      // })
 
       //-------------
       //- PIE CHART -
       //-------------
       // Get context with jQuery - using jQuery's .get() method.
-      var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-      var pieData = donutData;
-      var pieOptions = {
-         maintainAspectRatio: false,
-         responsive: true,
-      }
+      // var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+      // var pieData = donutData;
+      // var pieOptions = {
+      //    maintainAspectRatio: false,
+      //    responsive: true,
+      // }
       //Create pie or douhnut chart
       // You can switch between pie and douhnut using the method below.
-      new Chart(pieChartCanvas, {
-         type: 'pie',
-         data: pieData,
-         options: pieOptions
-      })
+      // new Chart(pieChartCanvas, {
+      //    type: 'pie',
+      //    data: pieData,
+      //    options: pieOptions
+      // })
 
       //-------------
       //- BAR CHART -
