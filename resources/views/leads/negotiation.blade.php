@@ -154,11 +154,7 @@
                               @endif
                            </td>
                            @if(auth()->user()->profile_id != 3)
-                              @if (isset($lead->user))
-                              <td>{{$lead->user->name}}</td>
-                              @else
-                              <td>Sem Responsável</td>
-                              @endif
+                           <td>{{$lead->user->name}}</td>
                            @endif
                            <td style="border:0px;">
                               <button type="button" class="btn btn-info btn-flat dropdown-icon" data-toggle="dropdown" aria-expanded="false">

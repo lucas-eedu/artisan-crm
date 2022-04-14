@@ -46,7 +46,6 @@
                   <div class="form-group">
                      <label for="user_id">Responsável</label>
                      <select id="user_id" class="select2 form-control @error('user_id') is-invalid @enderror" name="user_id">
-                        <option value="">Sem Responsável</option>
                         <option value="AUTOMATIC">Distribuição automática</option>
                         @foreach($users as $user)
                            <option value="{{$user->id}}" @if ($user->id == old('user_id')) selected="selected" @endif>{{$user->name}}</option>

@@ -20,7 +20,7 @@
    <!-- Right navbar links -->
    <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
          <i class="fas fa-search"></i>
          </a>
@@ -39,16 +39,15 @@
                </div>
             </form>
          </div>
-      </li>
+      </li> -->
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <!-- <li class="nav-item dropdown">
          <a class="nav-link" data-toggle="dropdown" href="#">
          <i class="far fa-comments"></i>
          <span class="badge badge-danger navbar-badge">3</span>
          </a>
          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <a href="#" class="dropdown-item">
-               <!-- Message Start -->
                <div class="media">
                   <img src="{{ asset('template/dist/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                   <div class="media-body">
@@ -60,11 +59,9 @@
                      <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
                   </div>
                </div>
-               <!-- Message End -->
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-               <!-- Message Start -->
                <div class="media">
                   <img src="{{ asset('template/dist/img/user8-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
                   <div class="media-body">
@@ -76,11 +73,9 @@
                      <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
                   </div>
                </div>
-               <!-- Message End -->
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-               <!-- Message Start -->
                <div class="media">
                   <img src="{{ asset('template/dist/img/user3-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
                   <div class="media-body">
@@ -92,14 +87,13 @@
                      <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
                   </div>
                </div>
-               <!-- Message End -->
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
          </div>
-      </li>
+      </li> -->
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <!-- <li class="nav-item dropdown">
          <a class="nav-link" data-toggle="dropdown" href="#">
          <i class="far fa-bell"></i>
          <span class="badge badge-warning navbar-badge">15</span>
@@ -124,14 +118,14 @@
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
          </div>
-      </li>
+      </li> -->
       <!-- Profile Dropdown Menu -->
       <li class="nav-item dropdown">
          <a class="nav-link" data-toggle="dropdown" href="#" style="padding-top:4px;">
             @if (auth()->user()->profile_picture)
                <img src="{{asset('storage/' . auth()->user()->profile_picture)}}" alt="{{auth()->user()->name}}" class="img-circle" style="width:30px;height:auto;">
             @else
-               <img src="{{asset('template/dist/img/user1-128x128.jpg')}}" alt="{{auth()->user()->name}}" class="img-circle" style="width:30px;height:auto;">
+               <img src="{{asset('template/dist/img/user.png')}}" alt="{{auth()->user()->name}}" class="img-circle" style="width:30px;height:auto;">
             @endif
          </a>
          <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
@@ -242,14 +236,14 @@
                   </ul>
                </li>
             @endif
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                <a href="pages/widgets.html" class="nav-link">
                   <i class="nav-icon fas fa-bell"></i>
                   <p>
                      Novidades
                   </p>
                </a>
-            </li>
+            </li> -->
             <li class="nav-item">
                <a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Sair do sistema">
                   <i class="nav-icon fas fa-power-off"></i>
