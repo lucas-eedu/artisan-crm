@@ -1,61 +1,64 @@
-@extends('layouts.guest')
+@extends('layouts.auth')
 
 @section('content')
-   <div class="login-box">
+    <div class="min-h-screen bg-gray-100 md:flex flex-row justify-center py-10">
+        <div class="px-5 sm:my-auto sm:mx-auto sm:w-2/3 lg:w-2/4 md:px-3">
+          <div class="sm:mx-auto sm:w-full sm:max-w-md mb-5">
+              <h2 class="pt-10 md:pt-0 text-center text-3xl font-extrabold text-gray-900">Artisan<span class="font-normal">CRM</span></h2>
+              <p class="mt-2 text-center text-md text-gray-600 max-w">Registre-se para iniciar sua sessão</p>
+          </div>
 
-      @include('flash::message')
+            @include('flash::message')
 
-      @foreach($errors->all() as $error)
-            <p class="alert alert-danger">{{$error}}</p>
-      @endforeach
-      
-      <!-- /.login-logo -->
-      <div class="card card-outline card-primary">
-         <div class="card-header text-center">
-            <a href="#" class="h1"><b>Artisan</b>CRM</a>
-         </div>
-         <div class="card-body">
-            <p class="login-box-msg">Registre-se para iniciar sua sessão</p>
+            @foreach($errors->all() as $error)
+               <p class="alert alert-danger">{{$error}}</p>
+            @endforeach
             
-            <form method="post" class="form-horizontal" action="{{ route('register') }}" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Favor confirmar que leu e concorda com os Termos de Uso do serviço'); return false; }">
-               @csrf
-               {{-- Company --}}
-               <div class="form-group mb-3">
-                  <input type="text" class="form-control @error('company_name') is-invalid @enderror" id="company_name" placeholder="Nome da Empresa" name="company_name" value="{{ old('company_name') }}">
+          <div class="bg-white py-8 px-5 shadow rounded-lg">
+            <form class="mb-0 space-y-5" method="post" action="{{ route('register') }}" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Favor confirmar que leu e concorda com os Termos de Uso do serviço'); return false; }">
+            @csrf
+            {{-- Company --}}  
+            <div>
+                <label for="company_name" class="block font-medium text-gray-700">Nome da Empresa</label>
+                <div class="mt-1">
+                  <input type="text" id="company_name" placeholder="Nome da Empresa" name="company_name" value="{{ old('company_name') }}" required class="@error('company_name') is-invalid @enderror w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:border-sky-500" />
                   @error('company_name')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                      </span>
-                  @enderror
+                  @enderror 
                </div>
-               <div class="form-group mb-3">
-                  <div class="row">
-                     <div class="col-md-6">
-                        <select id="segment" class="select2 form-control @error('segment') is-invalid @enderror" name="segment">
-                           <option value="">Segmento</option>
-                           <option value="Tech ou Software" @if ("Tech ou Software" == old('segment')) selected="selected" @endif>Tech ou Software</option>
-                           <option value="Imobiliário" @if ("Imobiliário" == old('segment')) selected="selected" @endif>Imobiliário</option>
-                           <option value="Educação e Ensino" @if ("Educação e Ensino" == old('segment')) selected="selected" @endif>Educação e Ensino</option>
-                           <option value="Agência Criativa (web, publicidade, vídeo)" @if ("Agência Criativa (web, publicidade, vídeo)" == old('segment')) selected="selected" @endif>Agência Criativa (web, publicidade, vídeo)</option>
-                           <option value="Serviços financeiros ou de crédito" @if ("Serviços financeiros ou de crédito" == old('segment')) selected="selected" @endif>Serviços financeiros ou de crédito</option>
-                           <option value="Notícias, imprensa e publicações" @if ("Notícias, imprensa e publicações" == old('segment')) selected="selected" @endif>Notícias, imprensa e publicações</option>
-                           <option value="Fábrica ou Industria" @if ("Fábrica ou Industria" == old('segment')) selected="selected" @endif>Fábrica ou Industria</option>
-                           <option value="Consultoria e Coaching" @if ("Consultoria e Coaching" == old('segment')) selected="selected" @endif>Consultoria e Coaching</option>
-                           <option value="Comércio (varejo, atacado)" @if ("Comércio (varejo, atacado)" == old('segment')) selected="selected" @endif>Comércio (varejo, atacado)</option>
-                           <option value="Automotivo" @if ("Automotivo" == old('segment')) selected="selected" @endif>Automotivo</option>
-                           <option value="Saúde" @if ("Saúde" == old('segment')) selected="selected" @endif>Saúde</option>
-                           <option value="Construção" @if ("Construção" == old('segment')) selected="selected" @endif>Construção</option>
-                           <option value="Outro" @if ("Outro" == old('segment')) selected="selected" @endif>Outro</option>
-                        </select>
-                        @error('segment')
-                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                           </span>
-                        @enderror   
-                     </div>
-                     <div class="col-md-6">
-                        <select id="state" class="select2 form-control @error('state') is-invalid @enderror" name="state">
-                           <option value="">Estado</option>
+            </div>
+      
+              <div class="flex w-full">
+                <div class="w-full mr-3">
+                    <label for="password" class="mb-1 block font-medium text-gray-700">Segmento</label>
+                    <select id="segment" name="segment" class="@error('segment') is-invalid @enderror w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+                        <option value="">Selecionar</option>
+                        <option value="Tech ou Software" @if ("Tech ou Software" == old('segment')) selected="selected" @endif>Tech ou Software</option>
+                        <option value="Imobiliário" @if ("Imobiliário" == old('segment')) selected="selected" @endif>Imobiliário</option>
+                        <option value="Educação e Ensino" @if ("Educação e Ensino" == old('segment')) selected="selected" @endif>Educação / Ensino</option>
+                        <option value="Agência Criativa (web, publicidade, vídeo)" @if ("Agência Criativa (web, publicidade, vídeo)" == old('segment')) selected="selected" @endif>Agência Criativa (Web, Publicidade, Vídeo)</option>
+                        <option value="Serviços financeiros ou de crédito" @if ("Serviços financeiros ou de crédito" == old('segment')) selected="selected" @endif>Serviços financeiros ou de crédito</option>
+                        <option value="Notícias, imprensa e publicações" @if ("Notícias, imprensa e publicações" == old('segment')) selected="selected" @endif>Notícias, imprensa e publicações</option>
+                        <option value="Fábrica ou Industria" @if ("Fábrica ou Industria" == old('segment')) selected="selected" @endif>Fábrica ou Industria</option>
+                        <option value="Consultoria e Coaching" @if ("Consultoria e Coaching" == old('segment')) selected="selected" @endif>Consultoria e Coaching</option>
+                        <option value="Comércio (varejo, atacado)" @if ("Comércio (varejo, atacado)" == old('segment')) selected="selected" @endif>Comércio (varejo, atacado)</option>
+                        <option value="Automotivo" @if ("Automotivo" == old('segment')) selected="selected" @endif>Automotivo</option>
+                        <option value="Saúde" @if ("Saúde" == old('segment')) selected="selected" @endif>Saúde</option>
+                        <option value="Construção" @if ("Construção" == old('segment')) selected="selected" @endif>Construção</option>
+                        <option value="Outro" @if ("Outro" == old('segment')) selected="selected" @endif>Outro</option>
+                    </select>
+                    @error('segment')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror    
+                </div>
+                <div class="w-full ml-3">
+                    <label for="state" class="mb-1 block font-medium text-gray-700">Estado</label>
+                    <select name="state" id="state" class="@error('state') is-invalid @enderror w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+                    <option value="">Estado</option>
                            <option value="AC" @if ("AC" == old('state')) selected="selected" @endif>Acre</option>
                            <option value="AL" @if ("AL" == old('state')) selected="selected" @endif>Alagoas</option>
                            <option value="AP" @if ("AP" == old('state')) selected="selected" @endif>Amapá</option>
@@ -83,90 +86,108 @@
                            <option value="SP" @if ("SP" == old('state')) selected="selected" @endif>São Paulo</option>
                            <option value="SE" @if ("SE" == old('state')) selected="selected" @endif>Sergipe</option>
                            <option value="TO" @if ("TO" == old('state')) selected="selected" @endif>Tocantins</option>
-                        </select>
-                        @error('state')
+                     </select>
+                     @error('state')
                            <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                            </span>
-                        @enderror
-                     </div>
-                  </div>
-               </div>
-               <div class="form-group mb-3">
-                  <select id="number_employees" class="select2 form-control @error('number_employees') is-invalid @enderror" name="number_employees">
-                     <option value="">Qual o tamanho da empresa?</option>
-                     <option value="1" @if ("1" == old('number_employees')) selected="selected" @endif>1 Funcionário</option>
-                     <option value="2-10" @if ("2-10" == old('number_employees')) selected="selected" @endif>2-10 Funcionários</option>
-                     <option value="11-50" @if ("11-50" == old('number_employees')) selected="selected" @endif>11-50 Funcionários</option>
-                     <option value="51-100" @if ("51-100" == old('number_employees')) selected="selected" @endif>51-100 Funcionários</option>
-                     <option value="101+" @if ("101+" == old('number_employees')) selected="selected" @endif>101+ Funcionários</option>
-                  </select>
-                  @error('number_employees')
-                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                     </span>
-                  @enderror
-               </div>
-               {{-- User --}}
-               <div class="form-group mb-3">
-                  <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Seu nome" name="name" value="{{ old('name') }}">
+                     @enderror
+                </div>
+              </div>
+
+              <div class="flex w-full">
+                <div class="w-full">
+                     <label for="number_employees" class="mb-1 block font-medium text-gray-700 ">Tamanho da Empresa</label>
+                     <select name="number_employees" id="number_employees" class="@error('number_employees') is-invalid @enderror w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+                        <option value="">Selecionar</option>
+                        <option value="1" @if ("1" == old('number_employees')) selected="selected" @endif>1 Funcionário</option>
+                        <option value="2-10" @if ("2-10" == old('number_employees')) selected="selected" @endif>2-10 Funcionários</option>
+                        <option value="11-50" @if ("11-50" == old('number_employees')) selected="selected" @endif>11-50 Funcionários</option>
+                        <option value="51-100" @if ("51-100" == old('number_employees')) selected="selected" @endif>51-100 Funcionários</option>
+                        <option value="101+" @if ("101+" == old('number_employees')) selected="selected" @endif>101+ Funcionários</option>
+                     </select>   
+                     @error('number_employees')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror 
+                </div>
+              </div>
+
+              {{-- User --}}
+              <div>
+                <label for="name" class="block font-medium text-gray-700">Seu nome</label>
+                <div class="mt-1">
+                  <input id="name" placeholder="Seu nome" name="name" value="{{ old('name') }}" type="text" required class="@error('name') is-invalid @enderror w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:border-sky-500" />
                   @error('name')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                      </span>
-                  @enderror
+                  @enderror 
                </div>
-               <div class="form-group mb-3">
-                  <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" id="email" placeholder="E-mail" name="email" value="{{ old('email') }}">
+              </div>
+
+              <div>
+                <label for="email" class="block font-medium text-gray-700">Email</label>
+                <div class="mt-1">
+                  <input type="email" placeholder="Email" id="email" placeholder="E-mail" name="email" value="{{ old('email') }}" required class="@error('email') is-invalid @enderror w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:border-sky-500" />
                   @error('email')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                      </span>
-                  @enderror
+                  @enderror 
                </div>
-               <div class="form-group mb-3">
-                  <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="current-password" id="user-password" placeholder="Informe a senha">
+              </div>
+
+              <div>
+                <label for="password" class="block font-medium text-gray-700">Senha</label>
+                <div class="mt-1">
+                  <input type="password"  name="password" autocomplete="current-password" id="user-password" placeholder="Informe a senha" required class="@error('password') is-invalid @enderror w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:border-sky-500" />
                   @error('password')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                      </span>
-                  @enderror
+                  @enderror 
                </div>
-               <div class="form-group mb-3">
-                  <input type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation"  autocomplete="new-password" id="password-confirm" placeholder="Repita a senha">
+              </div>
+
+              
+              <div>
+                <label for="password_confirmation" class="block font-medium text-gray-700">Repita sua senha</label>
+                <div class="mt-1">
+                  <input name="password_confirmation"  autocomplete="new-password" id="password-confirm" placeholder="Repita a senha" type="password" required class="@error('password') is-invalid @enderror w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:border-sky-500" />
                   @error('password_confirmation')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                      </span>
-                  @enderror
+                  @enderror 
                </div>
-               <div class="row">
-                  <div class="col-12">
-                     <div class="icheck-primary">
-                        <input type="checkbox" name="agree" id="agree" {{ old('agree') ? 'checked' : '' }}>
-                        <label for="agree">Concordo com os <a href="#" target="_blank">Termos de Uso</a></label>
-                     </div>
-                  </div>
-                  <div class="col-12">
-                     <button type="submit" class="btn btn-primary btn-block mt-3">Registre-se</button>
-                  </div>
-               </div>
+              </div>
+      
+      
+              <div class="flex items-center">
+                <input class="cursor-pointer"  type="checkbox" name="agree" id="agree" {{ old('agree') ? 'checked' : '' }}/>
+                <label for="agree" class="ml-2 block text-md font-medium text-gray-900"
+                  >Concordo com os 
+                  <a class="font-medium text-sky-600 hover:text-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer">Termos de uso</a>
+                </label>
+              </div>
+      
+              <div>
+                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">Criar conta</button>
+              </div>
             </form>
-
-            {{-- <div class="social-auth-links text-center mt-2 mb-3">
-               <a href="#" class="btn btn-block btn-primary"><i class="fab fa-facebook mr-2"></i> Registre-se usando o Facebook</a>
-               <a href="#" class="btn btn-block btn-danger"><i class="fab fa-google-plus mr-2"></i> Registre-se usando o Google+&nbsp;&nbsp;&nbsp;</a>
-            </div> --}}
-
-            <!-- /.social-auth-links -->
             @if (Route::has('password.request'))
-               <p class="mb-1 mt-3"><a href="{{ route('password.request') }}">Esqueci minha senha</a></p>
+            <p class="mt-5 text-center text-sm text-gray-600 max-w">
+                Esqueceu sua senha?
+                <a href="{{ route('password.request') }}" class="font-medium text-sky-600 hover:text-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500">Recuperar senha</a>
+            </p>
             @endif
-            <p class="mb-0">Já possui uma conta? <a href="{{route('login')}}" class="text-center">Login</a></p>
-
-         </div>
-         <!-- /.card-body -->
+            <p class="mt-1 text-center text-sm text-gray-600 max-w">
+                Já possui uma conta?
+                <a href="{{route('login')}}" class="font-medium text-sky-600 hover:text-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500">Login</a>
+              </p>
+          </div>
+        </div>
       </div>
-      <!-- /.card -->
-   </div>
 @endsection
