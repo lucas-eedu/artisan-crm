@@ -38,7 +38,7 @@
                <!-- small box -->
                <div class="small-box bg-box-new">
                   <div class="inner">
-                     <h3>{{$numberLeadsThisMonth}}</h3>
+                     <h3>{{$leadsOfMonth['numberLeadsThisMonth']}}</h3>
                      <p>Total de leads neste mês</p>
                   </div>
                   <div class="icon">
@@ -52,7 +52,7 @@
                <!-- small box -->
                <div class="small-box bg-box-negotiation">
                   <div class="inner">
-                     <h3>{{$numberNegotiationLeadsThisMonth}}</h3>
+                     <h3>{{$leadsOfMonth['numberNegotiationLeadsThisMonth']}}</h3>
                      <p>Leads em negociação neste mês</p>
                   </div>
                   <div class="icon">
@@ -66,7 +66,7 @@
                <!-- small box -->
                <div class="small-box bg-box-gain">
                   <div class="inner">
-                     <h3>{{$numberGainLeadsThisMonth}}</h3>
+                     <h3>{{$leadsOfMonth['numberGainLeadsThisMonth']}}</h3>
                      <p>Leads ganhos neste mês</p>
                   </div>
                   <div class="icon">
@@ -80,7 +80,7 @@
                <!-- small box -->
                <div class="small-box bg-box-lost">
                   <div class="inner">
-                     <h3>{{$numberLostLeadsThisMonth}}</h3>
+                     <h3>{{$leadsOfMonth['numberLostLeadsThisMonth']}}</h3>
                      <p>Leads perdidos neste mês</p>
                   </div>
                   <div class="icon">
@@ -119,7 +119,7 @@
          <!-- Charts -->
          <!-- DONUT CHART -->
          <!-- PIE CHART -->
-         <!-- <div class="row">
+         <div class="row">
             <div class="col-md-6">
                <div class="card">
                   <div class="card-header">
@@ -156,7 +156,7 @@
                   </div>
                </div>
             </div>
-         </div> -->
+         </div>
       </div>
       <!-- /.container-fluid -->
    </section>
@@ -277,50 +277,50 @@
       //- DONUT CHART -
       //-------------
       // Get context with jQuery - using jQuery's .get() method.
-      // var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-      // var donutData = {
-      //    labels: [
-      //       'Ana',
-      //       'Lucas',
-      //       'Antony',
-      //       'Jhon',
-      //       'Larissa',
-      //       'Pedro',
-      //    ],
-      //    datasets: [{
-      //       data: [700, 500, 400, 600, 300, 100],
-      //       backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-      //    }]
-      // }
-      // var donutOptions = {
-      //    maintainAspectRatio: false,
-      //    responsive: true,
-      // }
+      var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+      var donutData = {
+         labels: [
+            'Ana',
+            'Lucas',
+            'Antony',
+            'Jhon',
+            'Larissa',
+            'Pedro',
+         ],
+         datasets: [{
+            data: [700, 500, 400, 600, 300, 100],
+            backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+         }]
+      }
+      var donutOptions = {
+         maintainAspectRatio: false,
+         responsive: true,
+      }
       //Create pie or douhnut chart
       // You can switch between pie and douhnut using the method below.
-      // new Chart(donutChartCanvas, {
-      //    type: 'doughnut',
-      //    data: donutData,
-      //    options: donutOptions
-      // })
+      new Chart(donutChartCanvas, {
+         type: 'doughnut',
+         data: donutData,
+         options: donutOptions
+      })
 
       //-------------
       //- PIE CHART -
       //-------------
       // Get context with jQuery - using jQuery's .get() method.
-      // var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-      // var pieData = donutData;
-      // var pieOptions = {
-      //    maintainAspectRatio: false,
-      //    responsive: true,
-      // }
+      var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+      var pieData = donutData;
+      var pieOptions = {
+         maintainAspectRatio: false,
+         responsive: true,
+      }
       //Create pie or douhnut chart
       // You can switch between pie and douhnut using the method below.
-      // new Chart(pieChartCanvas, {
-      //    type: 'pie',
-      //    data: pieData,
-      //    options: pieOptions
-      // })
+      new Chart(pieChartCanvas, {
+         type: 'pie',
+         data: pieData,
+         options: pieOptions
+      })
 
       //-------------
       //- BAR CHART -

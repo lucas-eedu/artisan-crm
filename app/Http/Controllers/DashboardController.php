@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lead;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 
 class DashboardController extends Controller
 {    
@@ -27,23 +28,17 @@ class DashboardController extends Controller
         $currentYear = date('Y');
         $currentMonth = date('m');
 
-        $numberLeadsThisMonth = $this->queryLeads($currentYear, $currentMonth)->count();
-        $numberNegotiationLeadsThisMonth = $this->queryLeads($currentYear, $currentMonth)->where('status', 'negotiation')->count();
-        $numberGainLeadsThisMonth = $this->queryLeads($currentYear, $currentMonth)->where('status', 'gain')->count();
-        $numberLostLeadsThisMonth = $this->queryLeads($currentYear, $currentMonth)->where('status', 'lost')->count();
+        $leadsOfMonth = $this->returnsLeadsOfMonthReport($currentYear, $currentMonth);
 
         for ($i=1; $i < 13; $i++) { 
-            $numberLeadsPerMonth[$i] = $this->queryLeads($currentYear, $i)->count();
-            $numberLeadsNegotiationPerMonth[$i] = $this->queryLeads($currentYear, $i)->where('status', 'negotiation')->count();
-            $numberLeadsGainPerMonth[$i] = $this->queryLeads($currentYear, $i)->where('status', 'gain')->count();
-            $numberLeadsLostPerMonth[$i] = $this->queryLeads($currentYear, $i)->where('status', 'lost')->count();
+            $numberLeadsPerMonth[$i] = $this->queryLeadsByYearAndMonth($currentYear, $i)->count();
+            $numberLeadsNegotiationPerMonth[$i] = $this->queryLeadsByYearAndMonth($currentYear, $i)->where('status', 'negotiation')->count();
+            $numberLeadsGainPerMonth[$i] = $this->queryLeadsByYearAndMonth($currentYear, $i)->where('status', 'gain')->count();
+            $numberLeadsLostPerMonth[$i] = $this->queryLeadsByYearAndMonth($currentYear, $i)->where('status', 'lost')->count();
         }
 
         return view('pages.dashboard', compact(
-            'numberLeadsThisMonth',
-            'numberNegotiationLeadsThisMonth',
-            'numberGainLeadsThisMonth',
-            'numberLostLeadsThisMonth',
+            'leadsOfMonth',
             'numberLeadsPerMonth',
             'numberLeadsNegotiationPerMonth',
             'numberLeadsGainPerMonth',
@@ -52,13 +47,31 @@ class DashboardController extends Controller
     }
     
     /**
-     * queryLeads
+     * returns Leads Of Month Report
+     *
+     * @param  int $currentYear
+     * @param  int $currentMonth
+     * @return array
+     */
+    public function returnsLeadsOfMonthReport(int $currentYear, int $currentMonth): array
+    {
+        $data = [
+            'numberLeadsThisMonth' => $numberLeadsThisMonth = $this->queryLeadsByYearAndMonth($currentYear, $currentMonth)->count(),
+            'numberNegotiationLeadsThisMonth' => $numberNegotiationLeadsThisMonth = $this->queryLeadsByYearAndMonth($currentYear, $currentMonth)->where('status', 'negotiation')->count(),
+            'numberGainLeadsThisMonth' => $numberGainLeadsThisMonth = $this->queryLeadsByYearAndMonth($currentYear, $currentMonth)->where('status', 'gain')->count(),
+            'numberLostLeadsThisMonth' => $numberLostLeadsThisMonth = $this->queryLeadsByYearAndMonth($currentYear, $currentMonth)->where('status', 'lost')->count(),
+        ];
+        return $data;
+    }
+    
+    /**
+     * Query leads by year and by month
      *
      * @param  string $year
      * @param  string $month
      * @return mixed
      */
-    public function queryLeads(string $year, string $month)
+    public function queryLeadsByYearAndMonth(string $year, string $month): Collection
     {
         return Lead::where('company_id', auth()->user()->company_id)
             ->whereYear('created_at', $year)
