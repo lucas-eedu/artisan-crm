@@ -14,7 +14,7 @@
       <p class="alert alert-danger">{{$error}}</p>
       @endforeach
 
-      <div class="bg-white py-8 px-5 shadow rounded-lg">
+      <div class="border-t-sky-600 bg-white py-8 px-5 shadow rounded-lg" style="border-top: 5px solid #0284c7;">
          <form class="mb-0 space-y-5" method="post" action="{{ route('register') }}" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Favor confirmar que leu e concorda com os Termos de Uso do serviço'); return false; }">
             @csrf
 
@@ -33,12 +33,12 @@
             <div class="flex w-full">
                <div class="w-full mr-3">
                   <label for="password" class="mb-1 block font-medium text-gray-700">Segmento</label>
-                  <select id="segment" name="segment" class="select2 w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 @error('segment') is-invalid @enderror">
+                  <select id="select2 segment" name="segment" class="w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 @error('segment') is-invalid @enderror">
                      <option value="">Selecionar</option>
                      <option value="Tech ou Software" @if ("Tech ou Software"==old('segment')) selected="selected" @endif>Tech ou Software</option>
                      <option value="Imobiliário" @if ("Imobiliário"==old('segment')) selected="selected" @endif>Imobiliário</option>
                      <option value="Educação e Ensino" @if ("Educação e Ensino"==old('segment')) selected="selected" @endif>Educação / Ensino</option>
-                     <option value="Agência Criativa (web, publicidade, vídeo)" @if ("Agência Criativa (web, publicidade, vídeo)"==old('segment')) selected="selected" @endif>Agência Criativa (Web, Publicidade, Vídeo)</option>
+                     <option value="Agência Criativa (web, publicidade, vídeo)" @if ("Agência Criativa (web, pub  licidade, vídeo)"==old('segment')) selected="selected" @endif>Agência Criativa (Web, Publicidade, Vídeo)</option>
                      <option value="Serviços financeiros ou de crédito" @if ("Serviços financeiros ou de crédito"==old('segment')) selected="selected" @endif>Serviços financeiros ou de crédito</option>
                      <option value="Notícias, imprensa e publicações" @if ("Notícias, imprensa e publicações"==old('segment')) selected="selected" @endif>Notícias, imprensa e publicações</option>
                      <option value="Fábrica ou Industria" @if ("Fábrica ou Industria"==old('segment')) selected="selected" @endif>Fábrica ou Industria</option>
@@ -57,7 +57,7 @@
                </div>
                <div class="w-full ml-3">
                   <label for="state" class="mb-1 block font-medium text-gray-700">Estado</label>
-                  <select name="state" id="state" class="select2 w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 @error('state') is-invalid @enderror">
+                  <select name="state" id="state select2" class="w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 @error('state') is-invalid @enderror">
                      <option value="">Estado</option>
                      <option value="AC" @if ("AC"==old('state')) selected="selected" @endif>Acre</option>
                      <option value="AL" @if ("AL"==old('state')) selected="selected" @endif>Alagoas</option>
@@ -98,7 +98,7 @@
             <div class="flex w-full">
                <div class="w-full">
                   <label for="number_employees" class="mb-1 block font-medium text-gray-700 ">Tamanho da Empresa</label>
-                  <select name="number_employees" id="number_employees" class="select2 w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 @error('number_employees') is-invalid @enderror">
+                  <select name="number_employees" id="number_employees select2" class="w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 @error('number_employees') is-invalid @enderror">
                      <option value="">Selecionar</option>
                      <option value="1" @if ("1"==old('number_employees')) selected="selected" @endif>1 Funcionário</option>
                      <option value="2-10" @if ("2-10"==old('number_employees')) selected="selected" @endif>2-10 Funcionários</option>
@@ -197,7 +197,7 @@
    <script>
       $(function() {
          //Initialize Select2 Elements
-         $('.select2').select2()
+         $('#select2').select2()
       })
    </script>
 @endsection

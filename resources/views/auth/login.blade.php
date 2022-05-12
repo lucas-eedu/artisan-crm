@@ -16,7 +16,7 @@
          <p class="mt-2 text-center text-md text-gray-600 max-w">Faça login para iniciar sua sessão:</p>
       </div>
 
-      <div class="bg-white py-8 px-5 sm:px-10 sm:mx-5 shadow rounded-lg">
+      <div class="bg-white py-8 px-5 sm:px-10 sm:mx-5 shadow rounded-lg" style="border-top: 5px solid #0284c7;">
          <form class="mb-0 space-y-5" action="{{ route('login') }}" method="post">
 
             @csrf
