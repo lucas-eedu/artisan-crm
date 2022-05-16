@@ -129,7 +129,7 @@
             <div>
                <label for="email" class="block font-medium text-gray-700">Email</label>
                <div class="mt-1">
-                  <input type="email" placeholder="Email" id="email" placeholder="E-mail" name="email" value="{{ old('email') }}" class="@error('email') is-invalid @enderror w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:border-sky-500" />
+                  <input type="email" id="email" placeholder="E-mail" name="email" value="{{ old('email') }}" class="@error('email') is-invalid @enderror w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:border-sky-500" />
                   @error('email')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
