@@ -1,56 +1,69 @@
-@extends('layouts.guest')
+@extends('layouts.auth')
 
 @section('content')
-   <div class="login-box">
+<div class="min-h-screen bg-gray-100 md:flex flex-row justify-center">
+   <div class="hidden md:block sm:mx-auto sm:w-full bg-login-image bg-no-repeat bg-cover"></div>
+   <div class="px-5 sm:my-auto sm:mx-auto sm:w-full md:px-3">
 
       <!-- @include('flash::message') -->
 
       @foreach($errors->all() as $error)
-            <p class="alert alert-danger">{{$error}}</p>
+            <p class="alert alert-danger rounded-lg">{{$error}}</p>
       @endforeach
 
       @if (session('status'))
-         <p class="alert alert-success">{{ session('status') }}</p>
+         <p class="alert alert-success rounded-lg">{{ session('status') }}</p>
       @endif
       
       <!-- /.login-logo -->
-      <div class="card card-outline card-primary">
-         <div class="card-header text-center">
-            <a href="#" class="h1"><b>Artisan</b>CRM</a>
-         </div>
-         <div class="card-body">
-            <p class="login-box-msg">Informe seu e-mail abaixo</p>
-            
-            <form action="{{ route('password.email') }}" method="post">
+      
+      <div class="sm:mx-auto sm:w-full sm:max-w-md mb-5">
+         <h2 class="pt-10 md:pt-0 text-center text-3xl font-extrabold text-gray-900">Artisan<span class="font-normal">CRM</span></h2>
+         <p class="mt-2 text-center text-md text-gray-600 max-w">Informe seu e-mail abaixo:</p>
+      </div>
+         
+      <div class="bg-white py-8 px-5 sm:px-10 sm:mx-5 shadow rounded-lg" style="border-top: 5px solid #0284c7;">
+            <form action="{{ route('password.email') }}" method="post" class="mb-0 space-y-5">
                
                @csrf
-
-               <div class="input-group mb-3">
-                  <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Seu e-mail" name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
-                  <div class="input-group-append">
-                     <div class="input-group-text">
-                        <span class="fas fa-envelope"></span>
-                     </div>
+                  <div>
+                     <label for="email" class="block font-medium text-gray-700 mb-2">Email:</label>
+                     <input type="email" class="form-control @error('email') is-invalid @enderror w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:border-sky-500"" id="email" placeholder="Seu e-mail" name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
                   </div>
-                  @error('email')
+                     @error('email')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
                   </span>
                   @enderror
-               </div>
                
-               <div class="row">
-                  <div class="col-12">
-                     <button type="submit" class="btn btn-primary btn-block">Redefinir senha</button>
+                  <div>
+                     <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">Redefinir Senha</button>
                   </div>
-               </div>
-
+      </div>
             </form>
             
-            <p class="mt-3 mb-1">Gostaria de fazer o login? <a href="{{ route('login') }}">Login</a></p>
-            <p class="mb-0">Ainda não tem conta? <a href="{{route('register')}}" class="text-center">Criar conta</a></p>
+            <p class="mt-5 text-center text-sm text-gray-600 max-w">
+               Gostaria de fazer o login?
+               <a href="{{ route('login') }}" class="font-medium text-sky-600 hover:text-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500">Login</a>
+            </p>
 
-         </div>
-      </div>
-   </div>
+            <p class="mt-2 text-center text-sm text-gray-600 max-w">
+               Ainda não tem uma conta?
+               <a href="{{route('register')}}" class="font-medium text-sky-600 hover:text-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500">Criar
+               conta</a>
+            </p>
+
+       
+
+
+<!-- Personalizações -->
+<script>
+   tailwind.config = {
+      theme: {
+         backgroundImage: {
+            'login-image': "url({{ asset('artisancrmv1/assets/images/auth/bg-auth.jpg') }})",
+         }
+      }
+   }
+</script>
 @endsection
