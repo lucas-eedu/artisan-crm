@@ -1,7 +1,8 @@
-@extends('layouts.auth')
+@extends('layouts.guest')
 
 @section('content')
-   <div class="login-box">
+
+   <div class="login-box w-50">
 
       @include('flash::message')
 
@@ -10,9 +11,9 @@
       @endforeach
       
       <!-- /.login-logo -->
-      <div class="card card-outline card-primary">
+      <div class="shadow-lg p-5">
          <div class="card-header text-center">
-            <a href="#" class="h1"><b>Artisan</b>CRM</a>
+         <h2 class="h2 text-center">Artisan<span class="fw-light">CRM</span></h2>
          </div>
          <div class="card-body">
             <p class="login-box-msg">Registre-se para iniciar sua sessão</p>
@@ -144,7 +145,7 @@
                   <div class="col-12">
                      <div class="icheck-primary">
                         <input type="checkbox" name="agree" id="agree" {{ old('agree') ? 'checked' : '' }}>
-                        <label for="agree">Concordo com os <a href="#" target="_blank">Termos de Uso</a></label>
+                        <label for="agree">Concordo com os <a href="#" target="_blank" class="text-decoration-none">Termos de Uso</a></label>
                      </div>
                   </div>
                   <div class="col-12">
@@ -160,13 +161,33 @@
 
             <!-- /.social-auth-links -->
             @if (Route::has('password.request'))
-               <p class="mb-1 mt-3"><a href="{{ route('password.request') }}">Esqueci minha senha</a></p>
+               <p class="mb-1 mt-3"><a href="{{ route('password.request') }}" class="text-decoration-none">Esqueci minha senha</a></p>
             @endif
-            <p class="mb-0">Já possui uma conta? <a href="{{route('login')}}" class="text-center">Login</a></p>
+            <p class="mb-0">Já possui uma conta? <a href="{{route('login')}}" class="text-center text-decoration-none">Login</a></p>
 
          </div>
          <!-- /.card-body -->
       </div>
       <!-- /.card -->
    </div>
+
+   <style>
+      .login-page {
+         background-color: #fff;
+      }
+   </style>
+@endsection
+
+@section('scripts')
+   <!-- jQuery -->
+   <script src="{{ asset('artisancrmv1/assets/plugins/jquery/jquery.min.js') }}"></script>
+   <!-- Select2 -->
+   <script src="{{ asset('artisancrmv1/assets/plugins/select2/js/select2.full.min.js') }}"></script>
+   <!-- Initialize select2.js -->
+   <script>
+      $(function() {
+         //Initialize Select2 Elements
+         $('.select2').select2()
+      })
+   </script>
 @endsection

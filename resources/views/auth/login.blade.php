@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
    <div class="row align-items-center" style="height: 100vh;">
-      <div class="col-md-6"></div>
+      <div class="col-md-6" style="background: url('{{ asset('artisancrmv1/assets/images/auth/bg-auth.jpg') }}'); height: 100vh"></div>
       <div class="col-md-6 px-5">
 
       @include('flash::message')
@@ -33,7 +33,7 @@
                <div class="d-flex justify-content-between mt-3">
                   <label for="password" class="form-label fs-6">Senha</label>
                   @if (Route::has('password.request'))
-                  <a href="{{ route('password.request') }}" class="font-medium text-sm text-sky-600 hover:text-sky-500">Esqueceu sua
+                  <a href="{{ route('password.request') }}" class="text-decoration-none font-medium text-sm text-sky-600 hover:text-sky-500">Esqueceu sua
                      senha?</a>
                   @endif
                </div>
@@ -55,7 +55,7 @@
          </form>
          <p class="mt-3 text-center">
             Ainda não tem uma conta?
-            <a href="{{route('register')}}" class="">Criar
+            <a href="{{route('register')}}" class="text-decoration-none">Criar
                conta</a>
          </p>
       </div>
