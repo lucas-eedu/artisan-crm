@@ -15,9 +15,7 @@
       
       <!-- /.login-logo -->
       <div class="card card-outline card-primary">
-         <div class="card-header text-center">
-            <a href="#" class="h1"><b>Artisan</b>CRM</a>
-         </div>
+      <h2 class="h2 pt-3 text-center">Artisan<span class="fw-light">CRM</span></h2>
          <div class="card-body">
             <p class="login-box-msg">Informe seu e-mail abaixo</p>
             
@@ -26,12 +24,9 @@
                @csrf
 
                <div class="input-group mb-3">
+                  
                   <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Seu e-mail" name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
-                  <div class="input-group-append">
-                     <div class="input-group-text">
-                        <span class="fas fa-envelope"></span>
-                     </div>
-                  </div>
+
                   @error('email')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
@@ -47,8 +42,8 @@
 
             </form>
             
-            <p class="mt-3 mb-1">Gostaria de fazer o login? <a href="{{ route('login') }}">Login</a></p>
-            <p class="mb-0">Ainda não tem conta? <a href="{{route('register')}}" class="text-center">Criar conta</a></p>
+            <p class="text-center mt-3 mb-1">Gostaria de fazer o login? <a href="{{ route('login') }}" class="text-decoration-none">Login</a></p>
+            <p class="text-center mb-0">Ainda não tem conta? <a href="{{route('register')}}" class="text-center text-decoration-none">Criar conta</a></p>
 
          </div>
       </div>

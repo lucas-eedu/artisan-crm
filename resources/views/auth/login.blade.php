@@ -17,13 +17,13 @@
          <p class="text-center text-muted">Faça login para iniciar sua sessão:</p>
       </div>
 
-      <div class="bg-white py-5 px-5 shadow-lg">
+      <div class="bg-white pb-3 pt-5 px-5 shadow-lg">
          <form class="" action="{{ route('login') }}" method="post">
 
             @csrf
 
             <div>
-               <label for="email" class="form-label fs-6">Email:</label>
+               
                <div class="">
                   <input id="email" name="email" type="email" autocomplete="email" placeholder="Email" required class="form-control" />
                </div>
@@ -31,11 +31,8 @@
             
             <div>
                <div class="d-flex justify-content-between mt-3">
-                  <label for="password" class="form-label fs-6">Senha</label>
-                  @if (Route::has('password.request'))
-                  <a href="{{ route('password.request') }}" class="text-decoration-none font-medium text-sm text-sky-600 hover:text-sky-500">Esqueceu sua
-                     senha?</a>
-                  @endif
+                  
+
                </div>
                <div class="">
                   <input id="password" name="password" type="password" placeholder="********" autocomplete="current-password" required class="form-control" />
@@ -43,7 +40,7 @@
             </div>
 
 
-            <div class="mt-3 mb-3">
+            <div class="icheck-primary mt-3 mb-3">
                <input name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} type="checkbox" class="" />
                <label for="remember" class="">Lembre-se de mim
                </label>
@@ -57,6 +54,11 @@
             Ainda não tem uma conta?
             <a href="{{route('register')}}" class="text-decoration-none">Criar
                conta</a>
+         </p>
+         <p class="text-center">
+            @if (Route::has('password.request'))
+               <a href="{{ route('password.request') }}" class="text-decoration-none text-center">Esqueceu sua senha?</a>
+            @endif
          </p>
       </div>
    </div>
