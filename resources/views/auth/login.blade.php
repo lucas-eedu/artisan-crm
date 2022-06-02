@@ -12,12 +12,11 @@
          <p class="alert alert-danger">{{$error}}</p>
       @endforeach
 
+      <div class="bg-white pb-3 pt-5 px-5 shadow-lg rounded border-top border-primary">
       <div class="mb-5">
          <h2 class="h2 text-center">Artisan<span class="fw-light">CRM</span></h2>
          <p class="text-center text-muted">Faça login para iniciar sua sessão:</p>
       </div>
-
-      <div class="bg-white pb-3 pt-5 px-5 shadow-lg">
          <form class="" action="{{ route('login') }}" method="post">
 
             @csrf
@@ -35,7 +34,7 @@
 
                </div>
                <div class="">
-                  <input id="password" name="password" type="password" placeholder="********" autocomplete="current-password" required class="form-control" />
+                  <input id="password" name="password" type="password" placeholder="Senha" autocomplete="current-password" required class="form-control" />
                </div>
             </div>
 
@@ -50,16 +49,16 @@
             <button type="submit" class="btn btn-primary btn-md btn-block" style="width: -moz-available; width: -webkit-fill-available">Entrar</button>
             
          </form>
-         <p class="mt-3 text-center">
-            Ainda não tem uma conta?
-            <a href="{{route('register')}}" class="text-decoration-none">Criar
-               conta</a>
-         </p>
-         <p class="text-center">
+         <div class="text-center pb-4">
+            <p class="mt-3 my-0">
+               Ainda não tem uma conta?
+               <a href="{{route('register')}}" class="text-decoration-none">Criar conta</a>
+            </p>
+         
             @if (Route::has('password.request'))
                <a href="{{ route('password.request') }}" class="text-decoration-none text-center">Esqueceu sua senha?</a>
             @endif
-         </p>
+         </div>
       </div>
    </div>
    </div>

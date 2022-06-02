@@ -11,7 +11,7 @@
       @endforeach
       
       <!-- /.login-logo -->
-      <div class="shadow-lg p-5">
+      <div class="shadow-lg p-5 bg-white rounded border-top border-primary">
          <div class="card-header text-center">
          <h2 class="h2 text-center">Artisan<span class="fw-light">CRM</span></h2>
          </div>
@@ -158,13 +158,13 @@
                <a href="#" class="btn btn-block btn-primary"><i class="fab fa-facebook mr-2"></i> Registre-se usando o Facebook</a>
                <a href="#" class="btn btn-block btn-danger"><i class="fab fa-google-plus mr-2"></i> Registre-se usando o Google+&nbsp;&nbsp;&nbsp;</a>
             </div> --}}
-
+            <div class="">
             <!-- /.social-auth-links -->
             @if (Route::has('password.request'))
                <p class="mb-1 mt-3"><a href="{{ route('password.request') }}" class="text-decoration-none">Esqueci minha senha</a></p>
             @endif
             <p class="mb-0">Já possui uma conta? <a href="{{route('login')}}" class="text-center text-decoration-none">Login</a></p>
-
+            </div>
          </div>
          <!-- /.card-body -->
       </div>
@@ -173,7 +173,7 @@
 
    <style>
       .login-page {
-         background-color: #fff;
+         
       }
    </style>
 @endsection

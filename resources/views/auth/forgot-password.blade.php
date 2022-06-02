@@ -14,7 +14,7 @@
       @endif
       
       <!-- /.login-logo -->
-      <div class="card card-outline card-primary">
+      <div class="shadow px-5 py-4 bg-light rounded border-top border-primary">
       <h2 class="h2 pt-3 text-center">Artisan<span class="fw-light">CRM</span></h2>
          <div class="card-body">
             <p class="login-box-msg">Informe seu e-mail abaixo</p>
