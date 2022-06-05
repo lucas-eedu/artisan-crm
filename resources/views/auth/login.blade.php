@@ -12,7 +12,7 @@
          <p class="alert alert-danger">{{$error}}</p>
       @endforeach
 
-      <div class="bg-white pb-3 pt-5 px-5 shadow-lg rounded border-top border-primary">
+      <div class="bg-white pb-3 pt-5 px-5 shadow-lg rounded border-top border-primary border-3">
       <div class="mb-5">
          <h2 class="h2 text-center">Artisan<span class="fw-light">CRM</span></h2>
          <p class="text-center text-muted">Faça login para iniciar sua sessão:</p>
