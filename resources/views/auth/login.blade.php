@@ -3,8 +3,8 @@
 @section('content')
 <div class="container-fluid">
    <div class="row align-items-center" style="height: 100vh;">
-      <div class="col-md-6" style="background: url('{{ asset('artisancrmv1/assets/images/auth/bg-auth.jpg') }}'); height: 100vh"></div>
-      <div class="col-md-6 px-5">
+      <div class="col-md-6 d-none d-lg-block" style="background: url('{{ asset('artisancrmv1/assets/images/auth/bg-auth.jpg') }}'); height: 100vh"></div>
+      <div class="col-sm-12 col-md-12 col-lg-6 px-5">
 
       @include('flash::message')
 
