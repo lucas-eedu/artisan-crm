@@ -2,7 +2,7 @@
 
 @section('content')
 
-   <div class="login-box w-50">
+   <div class="login-box w-75 pt-5">
 
       @include('flash::message')
 
@@ -11,7 +11,7 @@
       @endforeach
       
       <!-- /.login-logo -->
-      <div class="shadow-lg p-5 bg-white rounded border-top border-primary border-3">
+      <div class="shadow-lg px-3 py-5 bg-white rounded border-top border-primary border-3">
          <div class="card-header text-center">
          <h2 class="h2 text-center">Artisan<span class="fw-light">CRM</span></h2>
          </div>
@@ -29,7 +29,7 @@
                      </span>
                   @enderror
                </div>
-               <div class="form-group mb-3">
+               <div class="form-group">
                   <div class="row">
                      <div class="col-md-6">
                         <select id="segment" class="select2 form-control @error('segment') is-invalid @enderror" name="segment">
@@ -54,7 +54,7 @@
                            </span>
                         @enderror   
                      </div>
-                     <div class="col-md-6">
+                     <div class="col-md-6 mt-3 mt-md-0">
                         <select id="state" class="select2 form-control @error('state') is-invalid @enderror" name="state">
                            <option value="">Estado</option>
                            <option value="AC" @if ("AC" == old('state')) selected="selected" @endif>Acre</option>
